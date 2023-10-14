@@ -240,6 +240,7 @@ public:
             {
                 NotifyPlayers();
                 TryRewardPlayers();
+                CleanupCreatures();
             }
         }
 
