@@ -69,7 +69,7 @@ public:
 
                 waveCreatures.push_back(summon);
 
-                if(currentSubGroup != 1)
+                if(currentSubGroup == 1)
                     summon->SetFaction(FACTION_FRIENDLY);
 
                 MakeEntrance(summon);
