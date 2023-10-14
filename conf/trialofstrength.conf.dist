@@ -5,13 +5,13 @@
 [worldserver]
 
 ########################################
-# My module configuration
+# Trial of Strength configuration
 ########################################
 #
-#    MyModule.Enable
-#        Description: Enable my module and print "Hello World" message at server start
+#    TrialOfStrength.Enable
+#        Description: Enable/disable the module.
 #        Default:     0 - Disabled
 #                     1 - Enabled
 #
 
-MyModule.Enable = 1
+TrialOfStrength.Enable = 0
