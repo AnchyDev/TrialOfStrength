@@ -121,6 +121,10 @@ public:
             case TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE:
                 CheckWaveCompletion();
                 break;
+
+            case TOS_DATA_ENCOUNTER_START_NEXT_WAVE:
+                SpawnNextWave();
+                break;
             }
         }
 
@@ -146,7 +150,7 @@ public:
 
             currentSubGroup = 1;
 
-            SpawnNextWave(waveTemplate);
+            events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
         }
 
         void CheckWaveCompletion()
@@ -164,7 +168,7 @@ public:
                 LOG_INFO("module", "Spawning next subgroup..");
                 currentSubGroup++;
 
-                SpawnNextWave();
+                events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
             }
             else
             {
