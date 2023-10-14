@@ -25,7 +25,6 @@ public:
             return true;
         }
 
-
         if (InstanceScript* pInstance = creature->GetInstanceScript())
         {
             auto encounterInProgress = pInstance->IsEncounterInProgress() ? "|cff00FF00true|r" : "|cffFF0000false|r";
