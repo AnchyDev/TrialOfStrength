@@ -1,19 +1,19 @@
-#ifndef MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_H
-#define MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_H
+#ifndef MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_BOSS_H
+#define MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_BOSS_H
 
 #include "ScriptMgr.h"
 
-class ToSEnemyCombatantScript : public CreatureScript
+class ToSEnemyCombatantBossScript : public CreatureScript
 {
 public:
-    ToSEnemyCombatantScript() : CreatureScript("ToSEnemyCombatantScript") { }
+    ToSEnemyCombatantBossScript() : CreatureScript("ToSEnemyCombatantBossScript") { }
 
     virtual CreatureAI* GetAI(Creature* creature) const
     {
-        return new ToSEnemyCombatantAI(creature);
+        return new ToSEnemyCombatantBossAI(creature);
     }
 
-    struct ToSEnemyCombatantAI : public CombatAI
+    struct ToSEnemyCombatantBossAI : public CombatAI
     {
         enum CombatantEvents
         {
@@ -27,7 +27,7 @@ public:
         bool isPunching;
         bool isAngry;
 
-        ToSEnemyCombatantAI(Creature* creature) : CombatAI(creature)
+        ToSEnemyCombatantBossAI(Creature* creature) : CombatAI(creature)
         {
             events.Reset();
 
@@ -85,23 +85,23 @@ public:
 
             isAngry = true;
 
-            auto rand = urand(0, 8);
+            auto rand = urand(0, 3);
             switch (rand)
             {
+            case 0:
+                me->Yell("I will show you real strength!", LANG_UNIVERSAL);
+                break;
+
             case 1:
-                me->Yell("Not bad, I'm all fired up now!", LANG_UNIVERSAL);
+                me->Yell("I was just warming up!", LANG_UNIVERSAL);
                 break;
 
             case 2:
-                me->Yell("Now you're getting me angry..", LANG_UNIVERSAL);
+                me->Yell("I am going to pound you into the dirt.", LANG_UNIVERSAL);
                 break;
 
             case 3:
-                me->Yell("It's going to be like that is it?", LANG_UNIVERSAL);
-                break;
-
-            case 4:
-                me->Yell("Now I'm going to get serious!", LANG_UNIVERSAL);
+                me->Yell("Am I a joke to you?", LANG_UNIVERSAL);
                 break;
 
             default:
@@ -122,25 +122,25 @@ public:
 
         void JustEngagedWith(Unit* who) override
         {
-            auto rand = urand(0, 6);
+            auto rand = urand(0, 3);
             std::string message;
 
             switch (rand)
             {
             case 0:
-                message = "In the arena of champions, only the strong survive. Let's see if you have what it takes to be a legend!";
+                message = "You may have bested my constituents, but you havent fought me yet.";
                 break;
 
             case 1:
-                message = "I will test your mettle in the crucible of combat. Show me your strength!";
+                message = "You will pay for your bloodshed.";
                 break;
 
             case 2:
-                message = "Your feeble attempts amuse me. Do you truly believe you can best me in combat?";
+                message = "Now the real challenge begins.";
                 break;
 
             case 3:
-                message = "You dare challenge me, mortal? Prepare to face the might of a true warrior!";
+                message = "What time is it? Pounding time.";
                 break;
 
             default:
@@ -152,25 +152,25 @@ public:
 
         void JustDied(Unit* killer) override
         {
-            auto rand = urand(0, 6);
+            auto rand = urand(0, 3);
             std::string message;
 
             switch (rand)
             {
             case 0:
-                message = "It's not fair..";
+                message = "You are stronger.. than you appear..";
                 break;
 
             case 1:
-                message = "I will see you in the next life..";
+                message = "This isn't how it was supposed to go..";
                 break;
 
             case 2:
-                message = "Ughh.. agh...";
+                message = "Who are you?..";
                 break;
 
             case 3:
-                message = "I don't understand.. I thought..";
+                message = "Ugh..";
                 break;
 
             default:
@@ -182,4 +182,4 @@ public:
     };
 };
 
-#endif // MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_H
+#endif // MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_BOSS_H

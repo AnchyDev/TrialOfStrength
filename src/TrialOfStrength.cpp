@@ -3,6 +3,8 @@
 #include "ToSHelpers.h"
 
 #include "scripts/ToSEnemyCombatantScript.h"
+#include "scripts/ToSEnemyCombatantBossScript.h"
+
 #include "scripts/ToSArenaMasterScript.h"
 #include "scripts/ToSInstanceScript.h"
 
@@ -181,6 +183,9 @@ void SC_AddTrialOfStrengthScripts()
 {
     new ToSWorldScript();
     new ToSArenaMasterScript();
+
     new ToSEnemyCombatantScript();
+    new ToSEnemyCombatantBossScript();
+
     new instance_trial_of_strength();
 }
