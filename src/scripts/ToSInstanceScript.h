@@ -11,14 +11,21 @@ public:
         EventMap events;
 
         bool encounterInProgress;
+
         uint32 currentWave;
+        uint32 currentSubGroup;
+        uint32 totalSubGroups;
 
         std::vector<Creature*> waveCreatures;
 
         trial_of_strength_InstanceScript(Map* map) : InstanceScript(map)
         {
             encounterInProgress = false;
+
             currentWave = 0;
+            currentSubGroup = 0;
+
+            totalSubGroups = 0;
 
             events.Reset();
         }
@@ -33,23 +40,27 @@ public:
             return GetWaveTemplateForWave(currentWave + 1) ? true : false;
         }
 
-        void SpawnNextWave()
+        void SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
         {
-            auto waveTemplate = GetWaveTemplateForWave(currentWave);
+            if (!waveTemplate)
+            {
+                waveTemplate = GetWaveTemplateForWave(currentWave);
+            }
+
             if (!waveTemplate)
             {
                 LOG_WARN("module", "Wave template is nullptr.");
                 return;
             }
 
-            auto enemies = GetEnemiesFromGroup(waveTemplate->enemyGroup);
+            auto enemies = GetEnemiesFromGroup(waveTemplate->enemyGroup, currentSubGroup);
             if (enemies.empty())
             {
                 LOG_WARN("module", "No enemies found in wave template.");
                 return;
             }
 
-            waveCreatures.clear();
+            CleanupCreatures();
 
             for (auto it = enemies.begin(); it != enemies.end(); ++it)
             {
@@ -58,13 +69,14 @@ public:
 
                 waveCreatures.push_back(summon);
 
-                summon->SetFaction(FACTION_FRIENDLY);
+                if(currentSubGroup != 1)
+                    summon->SetFaction(FACTION_FRIENDLY);
 
                 MakeEntrance(summon);
             }
 
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_COMBATANTS_HOSTILE, 5s);
-            events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_COMPLETE, 10s);
+            events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE, 10s);
         }
 
         void MakeEntrance(Creature* creature)
@@ -98,30 +110,66 @@ public:
 
             switch (events.ExecuteEvent())
             {
-            case TOS_DATA_ENCOUNTER_IN_PROGRESS:
-                SpawnNextWave();
+            case TOS_DATA_ENCOUNTER_START:
+                SetupEncounter();
                 break;
 
             case TOS_DATA_ENCOUNTER_COMBATANTS_HOSTILE:
                 SetCombatantsHostile();
                 break;
 
-            case TOS_DATA_ENCOUNTER_CHECK_COMPLETE:
-                CheckCompletion();
+            case TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE:
+                CheckWaveCompletion();
                 break;
             }
         }
 
-        void CheckCompletion()
+        void SetupEncounter()
         {
-            if (IsWaveCleared())
+            currentWave = 1;
+
+            auto waveTemplate = GetWaveTemplateForWave(currentWave);
+            if (!waveTemplate)
             {
-                NotifyPlayers();
-                TryRewardPlayers();
+                LOG_WARN("module", "Wave template is nullptr.");
+                return;
+            }
+
+            auto subGroups = GetSubGroups(waveTemplate->enemyGroup);
+            totalSubGroups = subGroups.size();
+
+            if (totalSubGroups < 1)
+            {
+                LOG_WARN("module", "There were no subgroups found for wave {}.", currentWave);
+                return;
+            }
+
+            currentSubGroup = 1;
+
+            SpawnNextWave(waveTemplate);
+        }
+
+        void CheckWaveCompletion()
+        {
+            if (!IsWaveCleared())
+            {
+                events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE, 2s);
+                return;
+            }
+
+            LOG_INFO("module", "Sub group {} complete.", currentSubGroup);
+
+            if (currentSubGroup < totalSubGroups)
+            {
+                LOG_INFO("module", "Spawning next subgroup..");
+                currentSubGroup++;
+
+                SpawnNextWave();
             }
             else
             {
-                events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_COMPLETE, 2s);
+                NotifyPlayers();
+                TryRewardPlayers();
             }
         }
 
@@ -189,9 +237,9 @@ public:
         {
             switch (dataId)
             {
-            case TOS_DATA_ENCOUNTER_IN_PROGRESS:
-                encounterInProgress = value > 0 ? true : false;
-                events.ScheduleEvent(TOS_DATA_ENCOUNTER_IN_PROGRESS, 0s);
+            case TOS_DATA_ENCOUNTER_START:
+                encounterInProgress = true;
+                events.ScheduleEvent(TOS_DATA_ENCOUNTER_START, 0s);
                 break;
 
             case TOS_DATA_ENCOUNTER_CURRENT_WAVE:
@@ -208,7 +256,7 @@ public:
         {
             switch (dataId)
             {
-            case TOS_DATA_ENCOUNTER_IN_PROGRESS:
+            case TOS_DATA_ENCOUNTER_START:
                 return encounterInProgress;
 
             case TOS_DATA_ENCOUNTER_CURRENT_WAVE:
@@ -260,11 +308,8 @@ public:
             return count;
         }
 
-        void ResetEncounter()
+        void CleanupCreatures()
         {
-            encounterInProgress = false;
-            currentWave = 0;
-
             for (auto it = waveCreatures.begin(); it != waveCreatures.end(); ++it)
             {
                 auto creature = *it;
@@ -278,6 +323,14 @@ public:
             }
 
             waveCreatures.clear();
+        }
+
+        void ResetEncounter()
+        {
+            encounterInProgress = false;
+            currentWave = 0;
+
+            CleanupCreatures();
         }
     };
 

@@ -36,7 +36,7 @@ public:
 
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Encounter In Progress:{}|nCurrent Wave: |cff0000FF{}|r|nWave Cleared: {}|nAlive: |cffFF0000{}|r|nMore Waves?: {}", encounterInProgress, currentWave, waveCleared, remainingAlive, moreWaves), GOSSIP_SENDER_MAIN, 0);
 
-            if (!pInstance->GetData(TOS_DATA_ENCOUNTER_IN_PROGRESS))
+            if (!pInstance->GetData(TOS_DATA_ENCOUNTER_START))
             {
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to start the trial.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_START);
                 AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I changed my mind, I would like to leave.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_TELEPORT_FROM);
@@ -89,9 +89,7 @@ public:
 
             if (InstanceScript* pInstance = creature->GetInstanceScript())
             {
-                pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE, 1);
-                pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED, 0);
-                pInstance->SetData(TOS_DATA_ENCOUNTER_IN_PROGRESS, 1);
+                pInstance->SetData(TOS_DATA_ENCOUNTER_START, 1);
             }
         }
 
@@ -113,7 +111,7 @@ public:
             {
                 pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED, 0);
                 pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE, pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE) + 1);
-                pInstance->SetData(TOS_DATA_ENCOUNTER_IN_PROGRESS, 1);
+                pInstance->SetData(TOS_DATA_ENCOUNTER_START, 1);
             }
         }
 

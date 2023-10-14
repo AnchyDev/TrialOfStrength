@@ -113,19 +113,43 @@ ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave)
     return &it->second;
 }
 
-std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId)
+std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId, uint32 subGroup)
 {
     std::vector<ToSEnemyGroup*> groups;
 
     for (auto it = enemyGroups.begin(); it != enemyGroups.end(); ++it)
     {
-        if (it->second.group == groupId)
+        if (it->second.group == groupId &&
+            it->second.subGroup == subGroup)
         {
             groups.push_back(&it->second);
         }
     }
 
     return groups;
+}
+
+std::vector<uint32> GetSubGroups(uint32 groupId)
+{
+    std::vector<uint32> subgroups;
+
+    for (auto it = enemyGroups.begin(); it != enemyGroups.end(); ++it)
+    {
+        if (it->second.group == groupId)
+        {
+            uint32 subgroup = it->second.subGroup;
+
+            auto it = std::find(subgroups.begin(), subgroups.end(), subgroup);
+            if (it != subgroups.end())
+            {
+                continue;
+            }
+
+            subgroups.push_back(subgroup);
+        }
+    }
+
+    return subgroups;
 }
 
 ToSRewardTemplate* GetRewardTemplate(uint32 rewardId)
