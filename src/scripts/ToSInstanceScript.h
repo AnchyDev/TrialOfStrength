@@ -32,7 +32,7 @@ public:
 
         bool IsWaveCleared() const
         {
-            return GetRemainingAlive() == 0;
+            return encounterInProgress && GetRemainingAlive() == 0;
         }
 
         bool HasMoreWaves() const
@@ -77,6 +77,7 @@ public:
 
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_COMBATANTS_HOSTILE, 5s);
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE, 10s);
+            events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_FAILURE, 5s);
         }
 
         void MakeEntrance(Creature* creature)
@@ -125,6 +126,71 @@ public:
             case TOS_DATA_ENCOUNTER_START_NEXT_WAVE:
                 SpawnNextWave();
                 break;
+
+            case TOS_DATA_ENCOUNTER_CHECK_FAILURE:
+                if (!CheckFailure())
+                {
+                    events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_FAILURE, 3s);
+                }
+                break;
+            }
+        }
+
+        bool AnyPlayerAlive()
+        {
+            Map::PlayerList const& players = instance->GetPlayers();
+
+            for (const auto& it : players)
+            {
+                Player* player = it.GetSource();
+
+                if (!player)
+                    continue;
+
+                if (!player->isDead())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        bool CheckFailure()
+        {
+            // Check if all players are dead.
+            if (AnyPlayerAlive())
+            {
+                return false;
+            }
+
+            NotifyFailure();
+            ResetEncounter();
+
+            return true;
+        }
+
+        void NotifyFailure()
+        {
+            std::string message = Acore::StringFormatFmt("|cffFF9900Wave failed!|r", currentWave);
+            Map::PlayerList const& players = instance->GetPlayers();
+
+            for (const auto& it : players)
+            {
+                Player* player = it.GetSource();
+
+                if (!player)
+                    continue;
+
+                player->SendSystemMessage(message);
+                player->PlayDirectSound(847 /* Quest Failed Sound */);
+
+                {
+                    WorldPacket data(SMSG_NOTIFICATION, (message.size() + 1));
+                    data << message;
+
+                    player->SendDirectMessage(&data);
+                }
             }
         }
 
@@ -332,7 +398,12 @@ public:
         void ResetEncounter()
         {
             encounterInProgress = false;
+
             currentWave = 0;
+            currentSubGroup = 0;
+            totalSubGroups = 0;
+
+            events.Reset();
 
             CleanupCreatures();
         }
