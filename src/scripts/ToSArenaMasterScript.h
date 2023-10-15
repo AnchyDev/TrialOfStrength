@@ -6,6 +6,20 @@ class ToSArenaMasterScript : public CreatureScript
 public:
     ToSArenaMasterScript() : CreatureScript("ToSArenaMasterScript") { }
 
+    enum ArenaMasterConstants {
+        TOS_ARENA_MASTER_TEXT_GREETING = 441250,
+        TOS_ARENA_MASTER_TEXT_PRE_TRIAL = 441251,
+        TOS_ARENA_MASTER_TEXT_WAVE_NOT_FINISHED = 441252,
+        TOS_ARENA_MASTER_TEXT_WAVE_NEXT = 441253,
+        TOS_ARENA_MASTER_TEXT_CONGRATULATE = 441254,
+
+        TOS_GOSSIP_TELEPORT_TO = 1,
+        TOS_GOSSIP_TELEPORT_FROM = 2,
+        TOS_GOSSIP_ENCOUNTER_START = 3,
+        TOS_GOSSIP_ENCOUNTER_NEXT_WAVE = 4,
+        TOS_GOSSIP_ENCOUNTER_RESET = 5,
+    };
+
     virtual bool OnGossipHello(Player* player, Creature* creature) override
     {
         if (!sConfigMgr->GetOption<bool>("TrialOfStrength.Enable", false))
@@ -19,43 +33,69 @@ public:
         if (map && map->GetId() != TOS_MAP_ID)
         {
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Yes, I would like to attempt the trials.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_TELEPORT_TO);
-
-            SendGossipMenuFor(player, 1, creature);
+            SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_GREETING, creature);
 
             return true;
         }
 
-        if (InstanceScript* pInstance = creature->GetInstanceScript())
+        auto iScript = creature->GetInstanceScript();
+        if (!iScript)
         {
-            auto encounterInProgress = pInstance->IsEncounterInProgress() ? "|cff00FF00true|r" : "|cffFF0000false|r";
-            auto currentWave = pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE);
-            auto waveCleared = pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED) > 0 ? "|cff00FF00true|r" : "|cffFF0000false|r";
-            auto moreWaves = pInstance->GetData(TOS_DATA_ENCOUNTER_HAS_MORE_WAVES) > 0 ? "|cff00FF00yes|r" : "|cffFF0000no|r";
-            auto remainingAlive = pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_REMAINING);
+            CloseGossipMenuFor(player);
 
-            AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Encounter In Progress:{}|nCurrent Wave: |cff0000FF{}|r|nWave Cleared: {}|nAlive: |cffFF0000{}|r|nMore Waves?: {}", encounterInProgress, currentWave, waveCleared, remainingAlive, moreWaves), GOSSIP_SENDER_MAIN, 0);
-
-            if (!pInstance->GetData(TOS_DATA_ENCOUNTER_START))
-            {
-                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to start the trial.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_START);
-                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I changed my mind, I would like to leave.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_TELEPORT_FROM);
-            }
-            else
-            {
-                if (pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED) &&
-                    pInstance->GetData(TOS_DATA_ENCOUNTER_HAS_MORE_WAVES))
-                {
-                    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("I would like to move to the next wave ({}).", (pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE) + 1)), GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_NEXT_WAVE);
-                    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to stop.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_TELEPORT_FROM);
-                }
-            }
-
-            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Reset encounter", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET);
+            return false;
         }
 
-        SendGossipMenuFor(player, 1, creature);
+        auto currentWave = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE);
+        auto currentSubWave = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_SUBWAVE);
+        auto totalSubWave = iScript->GetData(TOS_DATA_ENCOUNTER_TOTAL_SUBWAVE);
+        auto waveCleared = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED) > 0;
+        auto hasMoreWaves = iScript->GetData(TOS_DATA_ENCOUNTER_HAS_MORE_WAVES) > 0;
+        auto remainingAlive = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_REMAINING);
+        auto trialCompleted = iScript->GetData(TOS_DATA_ENCOUNTER_TRIAL_COMPLETED) > 0;
 
-        return true;
+        if (!iScript->IsEncounterInProgress() && !waveCleared)
+        {
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Yes, I am ready to start the Trial of Strength.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_START);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I changed my mind, I would like to leave.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_TELEPORT_FROM);
+
+            SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_PRE_TRIAL, creature);
+
+            return true;
+        }
+
+        if (iScript->IsEncounterInProgress() && !waveCleared)
+        {
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Encounter In Progress: {}|nCurrent Wave: |cff0000FF{}|r|nCurrent Sub-Wave: {}/{}|nWave Cleared: {}|nAlive: |cffFF0000{}|r|nMore Waves?: {}", iScript->IsEncounterInProgress() ? "true" : "false", currentWave, currentSubWave, totalSubWave, waveCleared ? "true" : "false", remainingAlive, hasMoreWaves ? "true" : "false"), GOSSIP_SENDER_MAIN, 0);
+
+            SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_WAVE_NOT_FINISHED, creature);
+
+            return true;
+        }
+
+        if (!iScript->IsEncounterInProgress() && waveCleared && hasMoreWaves)
+        {
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Yes, I would like to proceed to the next wave. ({})", currentWave + 1), GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_NEXT_WAVE);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to stop here.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET);
+
+            SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_WAVE_NEXT, creature);
+
+            return true;
+        }
+
+        if (trialCompleted)
+        {
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to attempt the trial again.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I want to leave this place.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_TELEPORT_FROM);
+
+            SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_CONGRATULATE, creature);
+
+            return true;
+        }
+
+        CloseGossipMenuFor(player);
+
+        return false;
     }
 
     virtual bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
@@ -108,7 +148,6 @@ public:
 
             if (InstanceScript* pInstance = creature->GetInstanceScript())
             {
-                pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED, 0);
                 pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE, pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE) + 1);
                 pInstance->SetData(TOS_DATA_ENCOUNTER_START, 1);
             }

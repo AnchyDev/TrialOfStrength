@@ -13,31 +13,33 @@ public:
         bool encounterInProgress;
 
         uint32 currentWave;
+        uint32 totalWaves;
         uint32 currentSubGroup;
         uint32 totalSubGroups;
+
+        bool waveCleared;
+        bool trialCompleted;
 
         std::vector<Creature*> waveCreatures;
 
         trial_of_strength_InstanceScript(Map* map) : InstanceScript(map)
         {
-            encounterInProgress = false;
-
-            currentWave = 0;
-            currentSubGroup = 0;
-
-            totalSubGroups = 0;
-
-            events.Reset();
+            ResetEncounter();
         }
 
-        bool IsWaveCleared() const
+        bool IsSubWaveCleared() const
         {
             return encounterInProgress && GetRemainingAlive() == 0;
         }
 
+        bool IsWaveCleared() const
+        {
+            return waveCleared;
+        }
+
         bool HasMoreWaves() const
         {
-            return GetWaveTemplateForWave(currentWave + 1) ? true : false;
+            return currentWave < totalWaves ? true : false;
         }
 
         void SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
@@ -60,6 +62,7 @@ public:
                 return;
             }
 
+            waveCleared = false;
             CleanupCreatures();
 
             for (auto it = enemies.begin(); it != enemies.end(); ++it)
@@ -196,7 +199,8 @@ public:
 
         void SetupEncounter()
         {
-            currentWave = 1;
+            encounterInProgress = true;
+            waveCleared = false;
 
             auto waveTemplate = GetWaveTemplateForWave(currentWave);
             if (!waveTemplate)
@@ -205,6 +209,9 @@ public:
                 return;
             }
 
+            totalWaves = GetTotalWaves();
+
+            currentSubGroup = 1;
             auto subGroups = GetSubGroups(waveTemplate->enemyGroup);
             totalSubGroups = subGroups.size();
 
@@ -214,14 +221,12 @@ public:
                 return;
             }
 
-            currentSubGroup = 1;
-
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
         }
 
         void CheckWaveCompletion()
         {
-            if (!IsWaveCleared())
+            if (!IsSubWaveCleared())
             {
                 events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE, 2s);
                 return;
@@ -241,6 +246,14 @@ public:
                 NotifyPlayers();
                 TryRewardPlayers();
                 CleanupCreatures();
+
+                encounterInProgress = false;
+                waveCleared = true;
+
+                if (currentWave == totalWaves)
+                {
+                    trialCompleted = true;
+                }
             }
         }
 
@@ -309,7 +322,6 @@ public:
             switch (dataId)
             {
             case TOS_DATA_ENCOUNTER_START:
-                encounterInProgress = true;
                 events.ScheduleEvent(TOS_DATA_ENCOUNTER_START, 0s);
                 break;
 
@@ -341,6 +353,15 @@ public:
 
             case TOS_DATA_ENCOUNTER_CURRENT_WAVE_REMAINING:
                 return GetRemainingAlive();
+
+            case TOS_DATA_ENCOUNTER_CURRENT_SUBWAVE:
+                return currentSubGroup;
+
+            case TOS_DATA_ENCOUNTER_TOTAL_SUBWAVE:
+                return totalSubGroups;
+
+            case TOS_DATA_ENCOUNTER_TRIAL_COMPLETED:
+                return trialCompleted;
             }
 
             return 0;
@@ -381,6 +402,11 @@ public:
 
         void CleanupCreatures()
         {
+            if (waveCreatures.empty())
+            {
+                return;
+            }
+
             for (auto it = waveCreatures.begin(); it != waveCreatures.end(); ++it)
             {
                 auto creature = *it;
@@ -400,9 +426,13 @@ public:
         {
             encounterInProgress = false;
 
-            currentWave = 0;
-            currentSubGroup = 0;
+            currentWave = 1;
+            totalWaves = 0;
+            currentSubGroup = 1;
             totalSubGroups = 0;
+
+            waveCleared = false;
+            trialCompleted = false;
 
             events.Reset();
 

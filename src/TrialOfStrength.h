@@ -14,12 +14,6 @@ enum ToSConstants {
     TOS_MAP_ID = 44,
     TOS_NPC_HANDLER = 441250,
 
-    TOS_GOSSIP_TELEPORT_TO = 1,
-    TOS_GOSSIP_TELEPORT_FROM = 2,
-    TOS_GOSSIP_ENCOUNTER_START = 3,
-    TOS_GOSSIP_ENCOUNTER_NEXT_WAVE = 4,
-    TOS_GOSSIP_ENCOUNTER_RESET = 5,
-
     TOS_DATA_ENCOUNTER_START = 1,
     TOS_DATA_ENCOUNTER_CURRENT_WAVE = 2,
     TOS_DATA_ENCOUNTER_CURRENT_WAVE_CLEARED = 3,
@@ -30,6 +24,9 @@ enum ToSConstants {
     TOS_DATA_ENCOUNTER_CHECK_WAVE_COMPLETE = 8,
     TOS_DATA_ENCOUNTER_START_NEXT_WAVE = 9,
     TOS_DATA_ENCOUNTER_CHECK_FAILURE = 10,
+    TOS_DATA_ENCOUNTER_CURRENT_SUBWAVE = 11,
+    TOS_DATA_ENCOUNTER_TOTAL_SUBWAVE = 12,
+    TOS_DATA_ENCOUNTER_TRIAL_COMPLETED = 13,
 };
 
 struct ToSWaveTemplate {
@@ -58,6 +55,7 @@ std::unordered_map<uint32, ToSEnemyGroup> enemyGroups;
 std::unordered_map<uint32, ToSRewardTemplate> rewardTemplates;
 
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
+uint32 GetTotalWaves();
 std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId, uint32 subGroup);
 ToSRewardTemplate* GetRewardTemplate(uint32 rewardId);
 std::vector<uint32> GetSubGroups(uint32 groupId);

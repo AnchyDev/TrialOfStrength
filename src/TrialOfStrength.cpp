@@ -115,6 +115,11 @@ ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave)
     return &it->second;
 }
 
+uint32 GetTotalWaves()
+{
+    return waveTemplates.size();
+}
+
 std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId, uint32 subGroup)
 {
     std::vector<ToSEnemyGroup*> groups;
