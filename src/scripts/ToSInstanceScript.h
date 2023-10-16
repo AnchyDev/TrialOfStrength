@@ -22,9 +22,25 @@ public:
 
         std::vector<Creature*> waveCreatures;
 
+        Creature* arenaMaster;
+        bool arenaMasterLeft;
+
         trial_of_strength_InstanceScript(Map* map) : InstanceScript(map)
         {
+            arenaMaster = nullptr;
+            arenaMasterLeft = false;
+
             ResetEncounter();
+        }
+
+        void OnCreatureCreate(Creature* creature) override
+        {
+            if (creature &&
+                creature->GetEntry() == TOS_NPC_ARENA_MASTER)
+            {
+                arenaMaster = creature;
+                events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
+            }
         }
 
         bool IsSubWaveCleared() const
@@ -136,6 +152,51 @@ public:
                     events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_FAILURE, 3s);
                 }
                 break;
+            case TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE:
+                CheckArenaMasterRelocate();
+                events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
+                break;
+            }
+        }
+
+        void CheckArenaMasterRelocate()
+        {
+            if (!arenaMaster)
+            {
+                return;
+            }
+
+            if (IsEncounterInProgress() && !arenaMasterLeft)
+            {
+                RelocateArenaMaster(false);
+                arenaMasterLeft = true;
+                return;
+            }
+
+            if (IsWaveCleared() && arenaMasterLeft)
+            {
+                RelocateArenaMaster(true);
+                arenaMasterLeft = false;
+                return;
+            }
+        }
+
+        void RelocateArenaMaster(bool returning)
+        {
+            if (!arenaMaster || !arenaMaster->IsInWorld())
+            {
+                return;
+            }
+
+            arenaMaster->CastSpell(arenaMaster, 64446);
+
+            if (returning)
+            {
+                arenaMaster->NearTeleportTo(244.114, -99.9485, 23.7741, 3.16135);
+            }
+            else
+            {
+                arenaMaster->NearTeleportTo(211.368, -91.809, 18.677, 4.730);
             }
         }
 
@@ -435,8 +496,15 @@ public:
             trialCompleted = false;
 
             events.Reset();
+            events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
 
             CleanupCreatures();
+
+            if (arenaMasterLeft)
+            {
+                RelocateArenaMaster(true);
+                arenaMasterLeft = false;
+            }
         }
     };
 
