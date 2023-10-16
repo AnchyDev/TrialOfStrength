@@ -104,6 +104,40 @@ void LoadRewardTemplates()
     LOG_INFO("module", "Loaded '{}' trial of strength reward templates.", count);
 }
 
+void LoadCurseTemplates()
+{
+    auto qResult = WorldDatabase.Query("SELECT * FROM tos_curse_template");
+
+    if (!qResult)
+    {
+        return;
+    }
+
+    LOG_INFO("module", "Loading trial of strength curse templates from 'tos_curse_template'..");
+
+    int count = 0;
+
+    do
+    {
+        auto fields = qResult->Fetch();
+
+        ToSCurseTemplate curseTemplate;
+
+        auto curseId = fields[0].Get<uint32>();
+        curseTemplate.type = fields[1].Get<uint32>();
+        curseTemplate.difficulty = fields[2].Get<uint32>();
+        curseTemplate.aura = fields[3].Get<uint32>();
+        curseTemplate.name = fields[4].Get<std::string>();
+        curseTemplate.description = fields[5].Get<std::string>();
+
+        curseTemplates.emplace(curseId, curseTemplate);
+
+        count++;
+    } while (qResult->NextRow());
+
+    LOG_INFO("module", "Loaded '{}' trial of strength curse templates.", count);
+}
+
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave)
 {
     auto it = waveTemplates.find(wave);
@@ -177,11 +211,13 @@ void ToSWorldScript::OnAfterConfigLoad(bool reload)
         waveTemplates.clear();
         enemyGroups.clear();
         rewardTemplates.clear();
+        curseTemplates.clear();
     }
 
     LoadWaveTemplates();
     LoadEnemyGroups();
     LoadRewardTemplates();
+    LoadCurseTemplates();
 }
 
 void SC_AddTrialOfStrengthScripts()

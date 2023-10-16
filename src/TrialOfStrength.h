@@ -50,9 +50,19 @@ struct ToSRewardTemplate {
     uint32 chance;
 };
 
+struct ToSCurseTemplate {
+    uint32 type;
+    uint32 difficulty;
+    uint32 aura;
+
+    std::string name;
+    std::string description;
+};
+
 std::unordered_map<uint32, ToSWaveTemplate> waveTemplates;
 std::unordered_map<uint32, ToSEnemyGroup> enemyGroups;
 std::unordered_map<uint32, ToSRewardTemplate> rewardTemplates;
+std::unordered_map<uint32, ToSCurseTemplate> curseTemplates;
 
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
 uint32 GetTotalWaves();

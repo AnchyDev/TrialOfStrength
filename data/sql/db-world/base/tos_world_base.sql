@@ -57,3 +57,12 @@ CREATE TABLE IF NOT EXISTS `tos_wave_template` (
   `has_reward` tinyint DEFAULT NULL,
   `reward_template` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `tos_curse_template` (
+  `id` int DEFAULT NULL,
+  `type` int DEFAULT NULL,
+  `difficulty` int DEFAULT NULL,
+  `aura` int DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
