@@ -39,7 +39,6 @@ public:
                 creature->GetEntry() == TOS_NPC_ARENA_MASTER)
             {
                 arenaMaster = creature;
-                events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
             }
         }
 
