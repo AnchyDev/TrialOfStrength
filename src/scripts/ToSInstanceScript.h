@@ -544,6 +544,9 @@ public:
 
             case TOS_DATA_ENCOUNTER_TRIAL_COMPLETED:
                 return trialCompleted;
+
+            case TOS_DATA_ENCOUNTER_WAVE_IN_PROGRESS:
+                return waveInProgress;
             }
 
             return 0;

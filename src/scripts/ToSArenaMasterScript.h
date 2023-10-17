@@ -148,8 +148,11 @@ public:
 
             if (InstanceScript* pInstance = creature->GetInstanceScript())
             {
-                pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE, pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE) + 1);
-                pInstance->SetData(TOS_DATA_ENCOUNTER_START, 1);
+                if (!pInstance->GetData(TOS_DATA_ENCOUNTER_WAVE_IN_PROGRESS))
+                {
+                    pInstance->SetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE, pInstance->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE) + 1);
+                    pInstance->SetData(TOS_DATA_ENCOUNTER_START, 1);
+                }
             }
         }
 
