@@ -26,10 +26,16 @@ public:
         Creature* arenaMaster;
         bool arenaMasterLeft;
 
+        Position* combatantPosStart;
+        Position* combatantPosEnd;
+
         trial_of_strength_InstanceScript(Map* map) : InstanceScript(map)
         {
             arenaMaster = nullptr;
             arenaMasterLeft = false;
+
+            combatantPosStart = new Position(228.324, -99.921, 18.007, 6.282);
+            combatantPosEnd = new Position(265.175, -100.163, 18.677, 3.121);
 
             ResetEncounter();
         }
@@ -89,7 +95,7 @@ public:
             for (auto it = enemies.begin(); it != enemies.end(); ++it)
             {
                 auto enemy = (*it);
-                auto summon = SpawnNPC(instance, enemy->creatureEntry);
+                auto summon = SpawnNPC(enemy->creatureEntry, instance, combatantPosStart);
 
                 waveCreatures.push_back(summon);
 
@@ -106,10 +112,8 @@ public:
 
         void MakeEntrance(Creature* creature)
         {
-            auto newPos = new Position(271.582, -99.979 + frand(-3, 3), 28.869);
-
-            creature->GetMotionMaster()->MovePoint(0, *newPos);
-            creature->SetHomePosition(*newPos);
+            creature->GetMotionMaster()->MovePoint(0, *combatantPosEnd);
+            creature->SetHomePosition(*combatantPosEnd);
         }
 
         void SetCombatantsHostile()

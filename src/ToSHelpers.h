@@ -1,17 +1,19 @@
 #ifndef MODULE_TRIAL_OF_STRENGTH_HELPER_H
 #define MODULE_TRIAL_OF_STRENGTH_HELPER_H
 
-Creature* SpawnNPC(Map* map, uint32 entry)
+Creature* SpawnNPC(uint32 entry, Map* map, Position* position)
 {
-    if (!map)
+    if (!map || !position)
     {
         return nullptr;
     }
 
-    Position* pos = new Position(301.269, -99.976, 30.823, 3.146);
-    auto creature = map->SummonCreature(entry, *pos);
+    if (!sObjectMgr->GetCreatureTemplate(entry))
+    {
+        return nullptr;
+    }
 
-    return creature;
+    return map->SummonCreature(entry, *position);
 }
 
 #endif // MODULE_TRIAL_OF_STRENGTH_HELPER_H
