@@ -11,6 +11,7 @@ public:
         EventMap events;
 
         bool encounterInProgress;
+        bool waveInProgress;
 
         uint32 currentWave;
         uint32 totalWaves;
@@ -44,7 +45,7 @@ public:
 
         bool IsSubWaveCleared() const
         {
-            return encounterInProgress && GetRemainingAlive() == 0;
+            return waveInProgress && GetRemainingAlive() == 0;
         }
 
         bool IsWaveCleared() const
@@ -55,6 +56,11 @@ public:
         bool HasMoreWaves() const
         {
             return currentWave < totalWaves ? true : false;
+        }
+
+        bool IsWaveInProgress() const
+        {
+            return waveInProgress;
         }
 
         void SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
@@ -165,14 +171,19 @@ public:
                 return;
             }
 
-            if (IsEncounterInProgress() && !arenaMasterLeft)
+            if (!IsEncounterInProgress())
+            {
+                return;
+            }
+
+            if (IsWaveInProgress() && !arenaMasterLeft)
             {
                 RelocateArenaMaster(false);
                 arenaMasterLeft = true;
                 return;
             }
 
-            if (IsWaveCleared() && arenaMasterLeft)
+            if (!IsWaveInProgress() && arenaMasterLeft)
             {
                 RelocateArenaMaster(true);
                 arenaMasterLeft = false;
@@ -260,6 +271,7 @@ public:
         void SetupEncounter()
         {
             encounterInProgress = true;
+            waveInProgress = true;
             waveCleared = false;
 
             auto waveTemplate = GetWaveTemplateForWave(currentWave);
@@ -307,7 +319,7 @@ public:
                 TryRewardPlayers();
                 CleanupCreatures();
 
-                encounterInProgress = false;
+                waveInProgress = false;
                 waveCleared = true;
 
                 if (currentWave == totalWaves)
@@ -485,6 +497,7 @@ public:
         void ResetEncounter()
         {
             encounterInProgress = false;
+            waveInProgress = false;
 
             currentWave = 1;
             totalWaves = 0;

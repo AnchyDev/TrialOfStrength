@@ -73,7 +73,7 @@ public:
             return true;
         }
 
-        if (!iScript->IsEncounterInProgress() && waveCleared && hasMoreWaves)
+        if (iScript->IsEncounterInProgress() && waveCleared && hasMoreWaves)
         {
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Yes, I would like to proceed to the next wave. ({})", currentWave + 1), GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_NEXT_WAVE);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to stop here.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET);
