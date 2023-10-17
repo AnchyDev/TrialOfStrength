@@ -138,6 +138,17 @@ void LoadCurseTemplates()
     LOG_INFO("module", "Loaded '{}' trial of strength curse templates.", count);
 }
 
+ToSCurseTemplate* GetCurseById(uint32 curseId)
+{
+    auto it = curseTemplates.find(curseId);
+    if (it == curseTemplates.end())
+    {
+        return nullptr;
+    }
+
+    return &it->second;
+}
+
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave)
 {
     auto it = waveTemplates.find(wave);

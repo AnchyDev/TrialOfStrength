@@ -28,6 +28,9 @@ enum ToSConstants {
     TOS_DATA_ENCOUNTER_TOTAL_SUBWAVE = 12,
     TOS_DATA_ENCOUNTER_TRIAL_COMPLETED = 13,
     TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE = 14,
+
+    TOS_CURSE_TYPE_ENEMY = 0,
+    TOS_CURSE_TYPE_PLAYER = 1,
 };
 
 struct ToSWaveTemplate {
@@ -65,6 +68,7 @@ std::unordered_map<uint32, ToSEnemyGroup> enemyGroups;
 std::unordered_map<uint32, ToSRewardTemplate> rewardTemplates;
 std::unordered_map<uint32, ToSCurseTemplate> curseTemplates;
 
+ToSCurseTemplate* GetCurseById(uint32 curseId);
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
 uint32 GetTotalWaves();
 std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId, uint32 subGroup);

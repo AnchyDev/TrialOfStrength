@@ -22,6 +22,7 @@ public:
         bool trialCompleted;
 
         std::vector<Creature*> waveCreatures;
+        std::vector<ToSCurseTemplate*> curses;
 
         Creature* arenaMaster;
         bool arenaMasterLeft;
@@ -38,6 +39,24 @@ public:
             combatantPosEnd = new Position(265.175, -100.163, 18.677, 3.121);
 
             ResetEncounter();
+        }
+
+        void AddCurse(uint32 curseId)
+        {
+            auto it = curseTemplates.find(curseId);
+            if (it == curseTemplates.end())
+            {
+                LOG_WARN("module", "Tried to add curse {} to creature curses but it does not exist.", curseId);
+                return;
+            }
+
+            auto curse = GetCurseById(curseId);
+            if (!curse)
+            {
+                return;
+            }
+
+            curses.push_back(curse);
         }
 
         void OnCreatureCreate(Creature* creature) override
@@ -91,11 +110,14 @@ public:
 
             waveCleared = false;
             CleanupCreatures();
+            ApplyCursesToPlayers();
 
             for (auto it = enemies.begin(); it != enemies.end(); ++it)
             {
                 auto enemy = (*it);
                 auto summon = SpawnNPC(enemy->creatureEntry, instance, combatantPosStart);
+
+                ApplyCurses(summon);
 
                 waveCreatures.push_back(summon);
 
@@ -114,6 +136,87 @@ public:
         {
             creature->GetMotionMaster()->MovePoint(0, *combatantPosEnd);
             creature->SetHomePosition(*combatantPosEnd);
+        }
+
+        void ApplyCurses(Unit* unit)
+        {
+            if (!unit ||
+                curses.empty())
+            {
+                return;
+            }
+
+            for (auto const& curse : curses)
+            {
+                if (unit->ToPlayer() &&
+                    curse->type == TOS_CURSE_TYPE_PLAYER &&
+                    !unit->HasAura(curse->aura))
+                {
+                    unit->AddAura(curse->aura, unit);
+                    continue;
+                }
+
+                if(!unit->ToPlayer() &&
+                    curse->type == TOS_CURSE_TYPE_ENEMY &&
+                    !unit->HasAura(curse->aura))
+                {
+                    unit->AddAura(curse->aura, unit);
+                    continue;
+                }
+            }
+        }
+
+        void ApplyCursesToPlayers()
+        {
+            Map::PlayerList const& players = instance->GetPlayers();
+
+            for (const auto& it : players)
+            {
+                Player* player = it.GetSource();
+
+                if (!player)
+                    continue;
+
+                ApplyCurses(player);
+            }
+        }
+
+        void ClearCurses(Unit* unit)
+        {
+            if (!unit)
+            {
+                return;
+            }
+
+            for (auto const& curse : curses)
+            {
+                if (!curse)
+                {
+                    continue;
+                }
+
+                if (unit->HasAura(curse->aura))
+                {
+                    unit->RemoveAura(curse->aura);
+                }
+            }
+        }
+
+        void ClearCursesFromPlayers()
+        {
+            Map::PlayerList const& players = instance->GetPlayers();
+
+            for (const auto& it : players)
+            {
+                Player* player = it.GetSource();
+
+                if (!player)
+                {
+                    continue;
+                }
+
+                ClearCurses(player);
+            }
         }
 
         void SetCombatantsHostile()
@@ -296,6 +399,9 @@ public:
                 LOG_WARN("module", "There were no subgroups found for wave {}.", currentWave);
                 return;
             }
+
+            curses.push_back(GetCurseById(4)); // Armored Skin
+            curses.push_back(GetCurseById(3)); // Curse of the Violet Tower
 
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
         }
@@ -515,6 +621,8 @@ public:
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
 
             CleanupCreatures();
+            ClearCursesFromPlayers();
+            curses.clear();
 
             if (arenaMasterLeft)
             {
