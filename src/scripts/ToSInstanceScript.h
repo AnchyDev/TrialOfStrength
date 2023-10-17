@@ -637,7 +637,7 @@ public:
             bool hasCurses = curses.size() > 0;
 
             std::stringstream ss;
-            ss << "|TInterface\\PVPFrame\\Icons\\PVP-Banner-Emblem-10:16|t |cffFFFFFFCongratulations to player(s) ";
+            ss << "|TInterface\\WorldMap\\Skull_64Red:16|t |cffFFFFFFCongratulations to player(s) ";
 
             Map::PlayerList const& players = instance->GetPlayers();
             auto playerCount = players.getSize();
