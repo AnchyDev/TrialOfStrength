@@ -400,9 +400,6 @@ public:
                 return;
             }
 
-            curses.push_back(GetCurseById(4)); // Armored Skin
-            curses.push_back(GetCurseById(3)); // Curse of the Violet Tower
-
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
         }
 
@@ -435,6 +432,7 @@ public:
                 if (currentWave == totalWaves)
                 {
                     trialCompleted = true;
+                    AnnounceCompletion();
                 }
             }
         }
@@ -632,6 +630,50 @@ public:
                 RelocateArenaMaster(true);
                 arenaMasterLeft = false;
             }
+        }
+
+        void AnnounceCompletion()
+        {
+            bool hasCurses = curses.size() > 0;
+
+            std::stringstream ss;
+            ss << "|TInterface\\PVPFrame\\Icons\\PVP-Banner-Emblem-10:16|t |cffFFFFFFCongratulations to player(s) ";
+
+            Map::PlayerList const& players = instance->GetPlayers();
+            auto playerCount = players.getSize();
+
+            uint32 i = 0;
+            for (const auto& it : players)
+            {
+                i++;
+
+                Player* player = it.GetSource();
+
+                if (!player)
+                {
+                    continue;
+                }
+
+                ss << Acore::StringFormatFmt("{}{}", GetHexColorFromClass(player->getClass()), player->GetName());
+
+                if (i != playerCount)
+                {
+                    ss << "|cffFFFFFF, ";
+                }
+            }
+
+            ss << Acore::StringFormatFmt(" |cffFFFFFFfor defeating all waves ({}) in the |cffFF2651Trial of Strength", GetTotalWaves());
+
+            if (hasCurses)
+            {
+                ss << Acore::StringFormatFmt(" with |cffC436C1{}|cffFFFFFF curses!|r", curses.size());
+            }
+            else
+            {
+                ss << "!|r";
+            }
+
+            sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str());
         }
     };
 

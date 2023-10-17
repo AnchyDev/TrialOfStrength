@@ -138,6 +138,35 @@ void LoadCurseTemplates()
     LOG_INFO("module", "Loaded '{}' trial of strength curse templates.", count);
 }
 
+std::string GetHexColorFromClass(uint8 classId)
+{
+    switch (classId)
+    {
+    case CLASS_DEATH_KNIGHT:
+        return "|cffFC2A43";
+    case CLASS_HUNTER:
+        return "|cffAAD174";
+    case CLASS_PALADIN:
+        return "|cffF28CBC";
+    case CLASS_ROGUE:
+        return "|cffFEF262";
+    case CLASS_WARLOCK:
+        return "|cff9A81C2";
+    case CLASS_DRUID:
+        return "|cffF67404";
+    case CLASS_MAGE:
+        return "|cff70C9F1";
+    case CLASS_PRIEST:
+        return "|cffF5F3F6";
+    case CLASS_SHAMAN:
+        return "|cff05D7BA";
+    case CLASS_WARRIOR:
+        return "|cffC9A074";
+    }
+
+    return "|cffFFFFFF";
+}
+
 ToSCurseTemplate* GetCurseById(uint32 curseId)
 {
     auto it = curseTemplates.find(curseId);

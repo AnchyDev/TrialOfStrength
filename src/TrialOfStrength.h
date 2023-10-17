@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <sstream>
 
 enum ToSConstants {
     TOS_MAP_ID = 44,
@@ -69,6 +70,7 @@ std::unordered_map<uint32, ToSEnemyGroup> enemyGroups;
 std::unordered_map<uint32, ToSRewardTemplate> rewardTemplates;
 std::unordered_map<uint32, ToSCurseTemplate> curseTemplates;
 
+std::string GetHexColorFromClass(uint8 classId);
 ToSCurseTemplate* GetCurseById(uint32 curseId);
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
 uint32 GetTotalWaves();
