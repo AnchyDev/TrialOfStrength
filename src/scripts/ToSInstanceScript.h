@@ -30,10 +30,16 @@ public:
         Position* combatantPosStart;
         Position* combatantPosEnd;
 
+        GameObject* rewardChest;
+        GameObject* rewardBeam;
+
         trial_of_strength_InstanceScript(Map* map) : InstanceScript(map)
         {
             arenaMaster = nullptr;
             arenaMasterLeft = false;
+
+            rewardChest = nullptr;
+            rewardBeam = nullptr;
 
             combatantPosStart = new Position(228.324, -99.921, 18.007, 6.282);
             combatantPosEnd = new Position(265.175, -100.163, 18.677, 3.121);
@@ -423,7 +429,7 @@ public:
             else
             {
                 NotifyPlayers();
-                TryRewardPlayers();
+                PopulateRewardChest();
                 CleanupCreatures();
 
                 waveInProgress = false;
@@ -462,7 +468,7 @@ public:
             }
         }
 
-        void TryRewardPlayers()
+        void PopulateRewardChest()
         {
             auto waveTemplate = GetWaveTemplateForWave(currentWave);
             if (!waveTemplate)
@@ -482,19 +488,43 @@ public:
                 return;
             }
 
-            auto rewardTemplate = GetRewardTemplate(rewardId);
-
-            Map::PlayerList const& players = instance->GetPlayers();
-
-            for (const auto& it : players)
+            Position* tempPos = new Position(269.173, -100.046, 18.679, 3.180);
+            rewardChest = instance->SummonGameObject(441250, *tempPos);
+            if (!rewardChest)
             {
-                Player* player = it.GetSource();
-
-                if (!player)
-                    continue;
-
-                player->AddItem(rewardTemplate->itemEntry, urand(rewardTemplate->countMin, rewardTemplate->countMax));
+                rewardChest->DespawnOrUnsummon();
+                return;
             }
+
+            rewardBeam = instance->SummonGameObject(177705, *tempPos);
+            if (!rewardBeam)
+            {
+                rewardBeam->DespawnOrUnsummon();
+            }
+
+            rewardChest->loot.clear();
+            rewardChest->SetLootRecipient(instance);
+
+            rewardChest->loot.items.reserve(MAX_NR_LOOT_ITEMS);
+
+            auto rewardTemplates = GetRewardTemplates(rewardId);
+
+            for (auto rewardTemplate = rewardTemplates->begin(); rewardTemplate != rewardTemplates->end(); ++rewardTemplate)
+            {
+                LootStoreItem* lootStoreItem = new LootStoreItem(rewardTemplate->itemEntry, 0, 0, false, 1, 0, 1, 1);
+
+                LootItem lootItem(*lootStoreItem);
+                lootItem.itemIndex = rewardChest->loot.items.size();
+                lootItem.itemid = rewardTemplate->itemEntry;
+                lootItem.count = urand(rewardTemplate->countMin, rewardTemplate->countMax);
+
+                rewardChest->loot.items.push_back(lootItem);
+            }
+
+            rewardChest->loot.generateMoneyLoot(500, 5000);
+
+            rewardChest->SetLootGenerationTime();
+            rewardChest->SetLootState(GO_ACTIVATED);
         }
 
         void SetData(uint32 dataId, uint32 value) override
@@ -605,6 +635,19 @@ public:
             waveCreatures.clear();
         }
 
+        void CleanupGameObjects()
+        {
+            if (rewardBeam && rewardBeam->IsInWorld())
+            {
+                rewardBeam->DespawnOrUnsummon();
+            }
+
+            if (rewardChest && rewardChest->IsInWorld())
+            {
+                rewardChest->DespawnOrUnsummon();
+            }
+        }
+
         void ResetEncounter()
         {
             encounterInProgress = false;
@@ -622,6 +665,7 @@ public:
             events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
 
             CleanupCreatures();
+            CleanupGameObjects();
             ClearCursesFromPlayers();
             curses.clear();
 

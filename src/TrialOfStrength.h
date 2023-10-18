@@ -67,7 +67,7 @@ struct ToSCurseTemplate {
 
 std::unordered_map<uint32, ToSWaveTemplate> waveTemplates;
 std::unordered_map<uint32, ToSEnemyGroup> enemyGroups;
-std::unordered_map<uint32, ToSRewardTemplate> rewardTemplates;
+std::unordered_map<uint32, std::vector<ToSRewardTemplate>> rewardTemplates;
 std::unordered_map<uint32, ToSCurseTemplate> curseTemplates;
 
 std::string GetHexColorFromClass(uint8 classId);
@@ -75,7 +75,7 @@ ToSCurseTemplate* GetCurseById(uint32 curseId);
 ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
 uint32 GetTotalWaves();
 std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId, uint32 subGroup);
-ToSRewardTemplate* GetRewardTemplate(uint32 rewardId);
+std::vector<ToSRewardTemplate>* GetRewardTemplates(uint32 rewardId);
 std::vector<uint32> GetSubGroups(uint32 groupId);
 
 class ToSWorldScript : public WorldScript

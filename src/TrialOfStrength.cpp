@@ -96,7 +96,17 @@ void LoadRewardTemplates()
         rewardTemplate.countMax = fields[3].Get<uint32>();
         rewardTemplate.chance = fields[4].Get<uint32>();
 
-        rewardTemplates.emplace(rewardId, rewardTemplate);
+        auto templates = GetRewardTemplates(rewardId);
+        if (!templates)
+        {
+            std::vector<ToSRewardTemplate> newTemplates;
+            newTemplates.push_back(rewardTemplate);
+            auto it = rewardTemplates.emplace(rewardId, newTemplates);
+        }
+        else
+        {
+            templates->push_back(rewardTemplate);
+        }
 
         count++;
     } while (qResult->NextRow());
@@ -233,7 +243,7 @@ std::vector<uint32> GetSubGroups(uint32 groupId)
     return subgroups;
 }
 
-ToSRewardTemplate* GetRewardTemplate(uint32 rewardId)
+std::vector<ToSRewardTemplate>* GetRewardTemplates(uint32 rewardId)
 {
     auto it = rewardTemplates.find(rewardId);
     if (it == rewardTemplates.end())
