@@ -83,6 +83,7 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
         if (currentSubGroup == 1)
             summon->SetFaction(FACTION_FRIENDLY);
 
+        summon->CastSpell(summon, TOS_SPELL_TELEPORT_VISUAL);
         MakeEntrance(summon);
     }
 
@@ -264,7 +265,7 @@ void ToSInstanceScript::RelocateArenaMaster(bool returning)
         return;
     }
 
-    arenaMaster->CastSpell(arenaMaster, 64446);
+    arenaMaster->CastSpell(arenaMaster, TOS_SPELL_TELEPORT_VISUAL);
 
     if (returning)
     {
@@ -449,7 +450,7 @@ void ToSInstanceScript::PopulateRewardChest()
         return;
     }
 
-    rewardBeam = instance->SummonGameObject(177705, *tempPos);
+    rewardBeam = instance->SummonGameObject(441251, *tempPos);
     if (!rewardBeam)
     {
         rewardBeam->DespawnOrUnsummon();
