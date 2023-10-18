@@ -5,6 +5,7 @@
 #include "scripts/ToSEnemyCombatantBossScript.h"
 
 #include "scripts/ToSArenaMasterScript.h"
+#include "scripts/ToSArenaSpectatorScript.h"
 
 #include "scripts/ToSInstanceScript.h"
 #include "scripts/ToSInstanceMapScript.h"
@@ -168,7 +169,9 @@ void ToSWorldScript::OnAfterConfigLoad(bool reload)
 void SC_AddTrialOfStrengthScripts()
 {
     new ToSWorldScript();
+
     new ToSArenaMasterScript();
+    new ToSArenaSpectatorScript();
 
     new ToSEnemyCombatantScript();
     new ToSEnemyCombatantBossScript();

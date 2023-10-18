@@ -228,6 +228,20 @@ void ToSInstanceScript::Update(uint32 diff)
         CheckArenaMasterRelocate();
         events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
         break;
+
+    case TOS_DATA_ENCOUNTER_CROWD:
+        PlayCrowd();
+        events.RescheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
+        break;
+    }
+}
+
+void ToSInstanceScript::PlayCrowd()
+{
+    if (IsEncounterInProgress() && IsWaveCleared() && !cheerPlayed)
+    {
+        instance->PlayDirectSoundToMap(13904);
+        cheerPlayed = true;
     }
 }
 
@@ -361,6 +375,7 @@ void ToSInstanceScript::SetupEncounter()
     }
 
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
+    events.ScheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
 }
 
 void ToSInstanceScript::CheckWaveCompletion()
@@ -388,6 +403,7 @@ void ToSInstanceScript::CheckWaveCompletion()
 
         waveInProgress = false;
         waveCleared = true;
+        cheerPlayed = false;
 
         if (currentWave == totalWaves)
         {
@@ -606,6 +622,7 @@ void ToSInstanceScript::ResetEncounter()
 {
     encounterInProgress = false;
     waveInProgress = false;
+    cheerPlayed = false;
 
     currentWave = 1;
     totalWaves = 0;

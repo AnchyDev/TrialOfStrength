@@ -59,6 +59,8 @@ public:
     void PopulateRewardChest();
     void AnnounceCompletion();
 
+    void PlayCrowd();
+
     void SetData(uint32 dataId, uint32 value) override;
     uint32 GetData(uint32 dataId) const override;
 
@@ -81,6 +83,7 @@ private:
 
     bool waveCleared;
     bool trialCompleted;
+    bool cheerPlayed;
 
     std::vector<Creature*> waveCreatures;
     std::vector<ToSCurseTemplate*> curses;
