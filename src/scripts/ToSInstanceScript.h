@@ -8,6 +8,12 @@
 
 class ToSInstanceScript : public InstanceScript
 {
+private:
+    enum ToSInstanceConstants
+    {
+        TOS_SOUND_HORN = 6140,
+        TOS_SOUND_CHEER = 13904
+    };
 public:
     ToSInstanceScript(Map* map) : InstanceScript(map)
     {

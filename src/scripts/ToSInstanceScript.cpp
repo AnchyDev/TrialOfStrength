@@ -240,7 +240,7 @@ void ToSInstanceScript::PlayCrowd()
 {
     if (IsEncounterInProgress() && IsWaveCleared() && !cheerPlayed)
     {
-        instance->PlayDirectSoundToMap(13904);
+        instance->PlayDirectSoundToMap(TOS_SOUND_CHEER);
         cheerPlayed = true;
     }
 }
@@ -374,6 +374,8 @@ void ToSInstanceScript::SetupEncounter()
         return;
     }
 
+    instance->PlayDirectSoundToMap(TOS_SOUND_HORN);
+
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
 }
@@ -393,6 +395,7 @@ void ToSInstanceScript::CheckWaveCompletion()
         LOG_INFO("module", "Spawning next subgroup..");
         currentSubGroup++;
 
+        instance->PlayDirectSoundToMap(TOS_SOUND_HORN);
         events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
     }
     else
@@ -607,14 +610,16 @@ void ToSInstanceScript::CleanupCreatures()
 
 void ToSInstanceScript::CleanupGameObjects()
 {
-    if (rewardBeam && rewardBeam->IsInWorld())
+    if (rewardBeam &&
+        rewardBeam->IsInWorld())
     {
-        rewardBeam->DespawnOrUnsummon();
+        rewardBeam->Delete();
     }
 
-    if (rewardChest && rewardChest->IsInWorld())
+    if (rewardChest &&
+        rewardChest->IsInWorld())
     {
-        rewardChest->DespawnOrUnsummon();
+        rewardChest->Delete();
     }
 }
 
