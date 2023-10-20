@@ -462,14 +462,14 @@ void ToSInstanceScript::PopulateRewardChest()
     }
 
     Position* tempPos = new Position(269.173, -100.046, 18.679, 3.180);
-    rewardChest = instance->SummonGameObject(441250, *tempPos);
+    rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos);
     if (!rewardChest)
     {
         rewardChest->DespawnOrUnsummon();
         return;
     }
 
-    rewardBeam = instance->SummonGameObject(441251, *tempPos);
+    rewardBeam = instance->SummonGameObject(TOS_GOB_REWARD_BEAM, *tempPos);
     if (!rewardBeam)
     {
         rewardBeam->DespawnOrUnsummon();

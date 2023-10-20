@@ -12,7 +12,10 @@ private:
     enum ToSInstanceConstants
     {
         TOS_SOUND_HORN = 6140,
-        TOS_SOUND_CHEER = 13904
+        TOS_SOUND_CHEER = 13904,
+
+        TOS_GOB_REWARD_CHEST = 441250,
+        TOS_GOB_REWARD_BEAM = 441251
     };
 public:
     ToSInstanceScript(Map* map) : InstanceScript(map)
