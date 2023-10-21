@@ -32,7 +32,7 @@ public:
         curseCrystal3 = nullptr;
 
         combatantPosStart = new Position(228.324, -99.921, 18.007, 6.282);
-        combatantPosEnd = new Position(265.175, -100.163, 18.677, 3.121);
+        combatantPosEnd = new Position(249.918, -100.063, 18.679, 0.030);
 
         ResetEncounter();
     }

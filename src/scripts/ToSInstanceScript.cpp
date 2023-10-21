@@ -392,11 +392,11 @@ void ToSInstanceScript::RelocateArenaMaster(bool returning)
 
     if (returning)
     {
-        arenaMaster->NearTeleportTo(244.114, -99.9485, 23.7741, 3.16135);
+        arenaMaster->NearTeleportTo(249.918, -100.063, 18.679, 0.030);
     }
     else
     {
-        arenaMaster->NearTeleportTo(211.368, -91.809, 18.677, 4.730);
+        arenaMaster->NearTeleportTo(272.296, -100.024, 28.869, 3.169);
     }
 }
 
@@ -577,7 +577,7 @@ void ToSInstanceScript::PopulateRewardChest()
         return;
     }
 
-    Position* tempPos = new Position(269.173, -100.046, 18.679, 3.180);
+    Position* tempPos = new Position(255.194, -99.974, 18.677, 6.270);
     if (rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos))
     {
         rewardChest->loot.clear();
