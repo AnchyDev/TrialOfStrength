@@ -79,7 +79,6 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
 
         auto diff = sToSMapMgr->LinearDistribution(-4, 4, enemies.size(), i);
 
-        LOG_INFO("module", "Spawning at {}:{}", diff, combatantPosStart->GetPositionY() + diff);
         Position tempPos(combatantPosStart->GetPositionX(), combatantPosStart->GetPositionY() + diff, combatantPosStart->GetPositionZ(), combatantPosStart->GetOrientation());
 
         auto summon = sToSMapMgr->SpawnNPC(enemy->creatureEntry, instance, &tempPos);
