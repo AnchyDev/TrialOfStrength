@@ -449,10 +449,41 @@ bool ToSInstanceScript::AnyPlayerAlive()
     return false;
 }
 
+bool ToSInstanceScript::AnyPlayerInArena(bool checkAlive)
+{
+    Position arenaCenter(255.124, -99.910, 18.679, 0.0);
+
+    Map::PlayerList const& players = instance->GetPlayers();
+
+    for (const auto& it : players)
+    {
+        Player* player = it.GetSource();
+
+        if (!player)
+            continue;
+
+        auto distance = player->GetPosition().GetExactDist(arenaCenter);
+        if (distance < 30.0)
+        {
+            if (checkAlive)
+            {
+                if (!player->IsAlive())
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool ToSInstanceScript::CheckFailure()
 {
-    // Check if all players are dead.
-    if (AnyPlayerAlive())
+    // Check if any alive in the arena.
+    if (AnyPlayerInArena(true))
     {
         return false;
     }
