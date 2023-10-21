@@ -57,6 +57,8 @@ public:
     void SpawnCurseCrystals();
     void DespawnCurseCrystals();
     uint32 GetCurseForGUID(ObjectGuid guid);
+    void ReloadCurses();
+    uint32 GetRandomCurseId();
 
     void Update(uint32 diff) override;
 
@@ -104,6 +106,7 @@ private:
 
     std::vector<Creature*> waveCreatures;
     std::vector<ToSCurseTemplate*> curses;
+    std::vector<uint32> availableCurseIds;
 
     Creature* arenaMaster;
     bool arenaMasterLeft;

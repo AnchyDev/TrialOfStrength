@@ -80,3 +80,32 @@ CREATE TABLE IF NOT EXISTS `tos_curse_template` (
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DELETE FROM `tos_curse_template` WHERE `id`=1 AND `type`=0 AND `difficulty`=2 AND `aura`=68335 AND `name`='Enrage' AND `description`='Combatants are enraged, increasing their damage by 50%.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (1, 0, 2, 68335, 'Enrage', 'Combatants are enraged, increasing their damage by 50%.');
+DELETE FROM `tos_curse_template` WHERE `id`=5 AND `type`=0 AND `difficulty`=1 AND `aura`=45673 AND `name`='Bigger!' AND `description`='Combatants are 15-25 percent larger!';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (5, 0, 1, 45673, 'Bigger!', 'Combatants are 15-25 percent larger!');
+DELETE FROM `tos_curse_template` WHERE `id`=6 AND `type`=0 AND `difficulty`=3 AND `aura`=45444 AND `name`='Hot Hands' AND `description`='Combatants have bonfire\'s blessing, infusing their attacks with flame.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (6, 0, 3, 45444, 'Hot Hands', 'Combatants have bonfire\'s blessing, infusing their attacks with flame.');
+DELETE FROM `tos_curse_template` WHERE `id`=7 AND `type`=1 AND `difficulty`=3 AND `aura`=69127 AND `name`='Chill of the Throne' AND `description`='Players have a 20% reduced chance to dodge.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (7, 1, 3, 69127, 'Chill of the Throne', 'Players have a 20% reduced chance to dodge.');
+DELETE FROM `tos_curse_template` WHERE `id`=8 AND `type`=1 AND `difficulty`=3 AND `aura`=41631 AND `name`='Cold Feet' AND `description`='Players have a 20% reduced movement speed.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (8, 1, 3, 41631, 'Cold Feet', 'Players have a 20% reduced movement speed.');
+DELETE FROM `tos_curse_template` WHERE `id`=9 AND `type`=0 AND `difficulty`=3 AND `aura`=41630 AND `name`='Hot Feet' AND `description`='Combatants have a 30% increased movement speed.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (9, 0, 3, 41630, 'Hot Feet', 'Combatants have a 30% increased movement speed.');
+DELETE FROM `tos_curse_template` WHERE `id`=10 AND `type`=0 AND `difficulty`=6 AND `aura`=64193 AND `name`='Heart Broken' AND `description`='Combatants have 15% increased damage and 60% increased health.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (10, 0, 6, 64193, 'Heart Broken', 'Combatants have 15% increased damage and 60% increased health.');
+DELETE FROM `tos_curse_template` WHERE `id`=11 AND `type`=1 AND `difficulty`=3 AND `aura`=45672 AND `name`='Shorter!' AND `description`='Players are 45-75 percent smaller!';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (11, 1, 3, 45672, 'Shorter!', 'Players are 45-75 percent smaller!');
+DELETE FROM `tos_curse_template` WHERE `id`=12 AND `type`=0 AND `difficulty`=4 AND `aura`=33795 AND `name`='Strength of Halaa' AND `description`='Combatants have 5% increased damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (12, 0, 4, 33795, 'Strength of Halaa', 'Combatants have 5% increased damage.');
+DELETE FROM `tos_curse_template` WHERE `id`=13 AND `type`=0 AND `difficulty`=50 AND `aura`=58361 AND `name`='Might of Mograine' AND `description`='Combatants have 500% increased damage, 15000% increased health and 25% of health is regenerated every 2 seconds.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (13, 0, 50, 58361, 'Might of Mograine', 'Combatants have 500% increased damage, 15000% increased health and 25% of health is regenerated every 2 seconds.');
+DELETE FROM `tos_curse_template` WHERE `id`=14 AND `type`=0 AND `difficulty`=4 AND `aura`=33779 AND `name`='Twin Spire Blessing' AND `description`='Combatants have 5% increased damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (14, 0, 4, 33779, 'Twin Spire Blessing', 'Combatants have 5% increased damage.');
+DELETE FROM `tos_curse_template` WHERE `id`=2 AND `type`=0 AND `difficulty`=10 AND `aura`=29476 AND `name`='Astral Armor' AND `description`='Combatants are protected, decreasing the damage they receive by 90%.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (2, 0, 10, 29476, 'Astral Armor', 'Combatants are protected, decreasing the damage they receive by 90%.');
+DELETE FROM `tos_curse_template` WHERE `id`=3 AND `type`=1 AND `difficulty`=5 AND `aura`=34102 AND `name`='Curse of the Violet Tower' AND `description`='Players are weakened, dealing 50% less damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (3, 1, 5, 34102, 'Curse of the Violet Tower', 'Players are weakened, dealing 50% less damage.');
+DELETE FROM `tos_curse_template` WHERE `id`=4 AND `type`=0 AND `difficulty`=4 AND `aura`=34337 AND `name`='Armored Skin' AND `description`='Combatants skin have been strengthened, taking 75% less physical damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (4, 0, 4, 34337, 'Armored Skin', 'Combatants skin have been strengthened, taking 75% less physical damage.');

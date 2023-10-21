@@ -195,7 +195,7 @@ void ToSInstanceScript::SpawnCurseCrystals()
         Position* tempPos = new Position(255.072, -95.140, 18.679, 0);
         if (curseCrystal1 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
         {
-            curseId1 = 1;
+            curseId1 = GetRandomCurseId();
         }
     }
 
@@ -204,7 +204,7 @@ void ToSInstanceScript::SpawnCurseCrystals()
         Position* tempPos = new Position(259.940, -100.025, 18.679, 0);
         if (curseCrystal2 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
         {
-            curseId2 = 2;
+            curseId2 = GetRandomCurseId();
         }
     }
 
@@ -213,7 +213,7 @@ void ToSInstanceScript::SpawnCurseCrystals()
         Position* tempPos = new Position(255.067, -104.689, 18.679, 0);
         if (curseCrystal3 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
         {
-            curseId3 = 3;
+            curseId3 = GetRandomCurseId();
         }
     }
 }
@@ -260,6 +260,32 @@ uint32 ToSInstanceScript::GetCurseForGUID(ObjectGuid guid)
     }
 
     return 0;
+}
+
+void ToSInstanceScript::ReloadCurses()
+{
+    availableCurseIds.clear();
+
+    for (auto const& curseTemplate : sToSMapMgr->CurseTemplates)
+    {
+        const ToSCurseTemplate* curse = &curseTemplate.second;
+        availableCurseIds.push_back(curse->id);
+    }
+}
+
+uint32 ToSInstanceScript::GetRandomCurseId()
+{
+    auto index = urand(0, availableCurseIds.size() - 1);
+    auto curseId = availableCurseIds.at(index);
+
+    if (!curseId)
+    {
+        return 0;
+    }
+
+    availableCurseIds.erase(availableCurseIds.begin() + index);
+
+    return curseId;
 }
 
 void ToSInstanceScript::SetCombatantsHostile()
@@ -729,7 +755,9 @@ void ToSInstanceScript::ResetEncounter()
     DespawnCurseCrystals();
 
     ClearCursesFromPlayers();
+
     curses.clear();
+    ReloadCurses();
 
     if (arenaMasterLeft)
     {
