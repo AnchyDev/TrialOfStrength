@@ -179,6 +179,80 @@ void ToSInstanceScript::ClearCursesFromPlayers()
     }
 }
 
+void ToSInstanceScript::SpawnCurseCrystals()
+{
+    // Crystal 1
+    {
+        Position* tempPos = new Position(255.072, -95.140, 18.679, 0);
+        if (curseCrystal1 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
+        {
+            curseId1 = 1;
+        }
+    }
+
+    // Crystal 2
+    {
+        Position* tempPos = new Position(259.940, -100.025, 18.679, 0);
+        if (curseCrystal2 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
+        {
+            curseId2 = 2;
+        }
+    }
+
+    // Crystal 3
+    {
+        Position* tempPos = new Position(255.067, -104.689, 18.679, 0);
+        if (curseCrystal3 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
+        {
+            curseId3 = 3;
+        }
+    }
+}
+
+void ToSInstanceScript::DespawnCurseCrystals()
+{
+    if (curseCrystal1)
+    {
+        curseCrystal1->DespawnOrUnsummon(1s);
+        curseCrystal1 = nullptr;
+    }
+
+    if (curseCrystal2)
+    {
+        curseCrystal2->DespawnOrUnsummon(1s);
+        curseCrystal2 = nullptr;
+    }
+
+    if (curseCrystal3)
+    {
+        curseCrystal3->DespawnOrUnsummon(1s);
+        curseCrystal3 = nullptr;
+    }
+}
+
+uint32 ToSInstanceScript::GetCurseForGUID(ObjectGuid guid)
+{
+    if (curseCrystal1 &&
+        guid == curseCrystal1->GetGUID())
+    {
+        return curseId1;
+    }
+
+    if (curseCrystal2 &&
+        guid == curseCrystal2->GetGUID())
+    {
+        return curseId2;
+    }
+
+    if (curseCrystal3 &&
+        guid == curseCrystal3->GetGUID())
+    {
+        return curseId3;
+    }
+
+    return 0;
+}
+
 void ToSInstanceScript::SetCombatantsHostile()
 {
     for (auto it = waveCreatures.begin(); it != waveCreatures.end(); ++it)
@@ -376,6 +450,8 @@ void ToSInstanceScript::SetupEncounter()
 
     instance->PlayDirectSoundToMap(TOS_SOUND_HORN);
 
+    DespawnCurseCrystals();
+
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
 }
@@ -412,6 +488,10 @@ void ToSInstanceScript::CheckWaveCompletion()
         {
             trialCompleted = true;
             AnnounceCompletion();
+        }
+        else
+        {
+            SpawnCurseCrystals();
         }
     }
 }
@@ -462,42 +542,34 @@ void ToSInstanceScript::PopulateRewardChest()
     }
 
     Position* tempPos = new Position(269.173, -100.046, 18.679, 3.180);
-    rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos);
-    if (!rewardChest)
+    if (rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos))
     {
-        rewardChest->DespawnOrUnsummon();
-        return;
+        rewardChest->loot.clear();
+        rewardChest->SetLootRecipient(instance);
+
+        rewardChest->loot.items.reserve(MAX_NR_LOOT_ITEMS);
+
+        auto rewardTemplates = sToSMapMgr->GetRewardTemplates(rewardId);
+
+        for (auto rewardTemplate = rewardTemplates->begin(); rewardTemplate != rewardTemplates->end(); ++rewardTemplate)
+        {
+            LootStoreItem* lootStoreItem = new LootStoreItem(rewardTemplate->itemEntry, 0, 0, false, 1, 0, 1, 1);
+
+            LootItem lootItem(*lootStoreItem);
+            lootItem.itemIndex = rewardChest->loot.items.size();
+            lootItem.itemid = rewardTemplate->itemEntry;
+            lootItem.count = urand(rewardTemplate->countMin, rewardTemplate->countMax);
+
+            rewardChest->loot.items.push_back(lootItem);
+        }
+
+        rewardChest->loot.generateMoneyLoot(500, 5000);
+
+        rewardChest->SetLootGenerationTime();
+        rewardChest->SetLootState(GO_ACTIVATED);
     }
 
     rewardBeam = instance->SummonGameObject(TOS_GOB_REWARD_BEAM, *tempPos);
-    if (!rewardBeam)
-    {
-        rewardBeam->DespawnOrUnsummon();
-    }
-
-    rewardChest->loot.clear();
-    rewardChest->SetLootRecipient(instance);
-
-    rewardChest->loot.items.reserve(MAX_NR_LOOT_ITEMS);
-
-    auto rewardTemplates = sToSMapMgr->GetRewardTemplates(rewardId);
-
-    for (auto rewardTemplate = rewardTemplates->begin(); rewardTemplate != rewardTemplates->end(); ++rewardTemplate)
-    {
-        LootStoreItem* lootStoreItem = new LootStoreItem(rewardTemplate->itemEntry, 0, 0, false, 1, 0, 1, 1);
-
-        LootItem lootItem(*lootStoreItem);
-        lootItem.itemIndex = rewardChest->loot.items.size();
-        lootItem.itemid = rewardTemplate->itemEntry;
-        lootItem.count = urand(rewardTemplate->countMin, rewardTemplate->countMax);
-
-        rewardChest->loot.items.push_back(lootItem);
-    }
-
-    rewardChest->loot.generateMoneyLoot(500, 5000);
-
-    rewardChest->SetLootGenerationTime();
-    rewardChest->SetLootState(GO_ACTIVATED);
 }
 
 void ToSInstanceScript::SetData(uint32 dataId, uint32 value)
@@ -613,13 +685,15 @@ void ToSInstanceScript::CleanupGameObjects()
     if (rewardBeam &&
         rewardBeam->IsInWorld())
     {
-        rewardBeam->Delete();
+        rewardBeam->DespawnOrUnsummon();
+        rewardBeam = nullptr;
     }
 
     if (rewardChest &&
         rewardChest->IsInWorld())
     {
-        rewardChest->Delete();
+        rewardChest->DespawnOrUnsummon();
+        rewardChest = nullptr;
     }
 }
 
@@ -643,6 +717,7 @@ void ToSInstanceScript::ResetEncounter()
     CleanupCreatures();
     CleanupGameObjects();
     ClearCursesFromPlayers();
+    DespawnCurseCrystals();
     curses.clear();
 
     if (arenaMasterLeft)

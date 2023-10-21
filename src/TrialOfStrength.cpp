@@ -10,6 +10,9 @@
 #include "scripts/ToSInstanceScript.h"
 #include "scripts/ToSInstanceMapScript.h"
 
+#include "scripts/ToSPlayerScript.h"
+#include "scripts/ToSCurseCrystalScript.h"
+
 void LoadWaveTemplates()
 {
     auto qResult = WorldDatabase.Query("SELECT * FROM tos_wave_template");
@@ -136,6 +139,7 @@ void LoadCurseTemplates()
         ToSCurseTemplate curseTemplate;
 
         auto curseId = fields[0].Get<uint32>();
+        curseTemplate.id = curseId;
         curseTemplate.type = fields[1].Get<uint32>();
         curseTemplate.difficulty = fields[2].Get<uint32>();
         curseTemplate.aura = fields[3].Get<uint32>();
@@ -177,4 +181,7 @@ void SC_AddTrialOfStrengthScripts()
     new ToSEnemyCombatantBossScript();
 
     new ToSInstanceMapScript();
+
+    new ToSPlayerScript();
+    new ToSCurseCrystalScript();
 }

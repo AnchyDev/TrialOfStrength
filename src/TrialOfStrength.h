@@ -35,6 +35,16 @@ enum ToSConstants {
 
     TOS_CURSE_TYPE_ENEMY = 0,
     TOS_CURSE_TYPE_PLAYER = 1,
+
+    TOS_DATA_UINT32_BASE = 4411,
+    TOS_DATA_UINT32_CURSE_ID = 0,
+};
+
+struct ToSCurseInformation : public DataMap::Base
+{
+    uint32 curseId;
+
+    ~ToSCurseInformation() { }
 };
 
 struct ToSWaveTemplate {
@@ -59,6 +69,7 @@ struct ToSRewardTemplate {
 };
 
 struct ToSCurseTemplate {
+    uint32 id;
     uint32 type;
     uint32 difficulty;
     uint32 aura;

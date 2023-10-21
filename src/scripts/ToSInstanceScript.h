@@ -15,7 +15,8 @@ private:
         TOS_SOUND_CHEER = 13904,
 
         TOS_GOB_REWARD_CHEST = 441250,
-        TOS_GOB_REWARD_BEAM = 441251
+        TOS_GOB_REWARD_BEAM = 441251,
+        TOS_GOB_CURSE = 441252
     };
 public:
     ToSInstanceScript(Map* map) : InstanceScript(map)
@@ -25,6 +26,10 @@ public:
 
         rewardChest = nullptr;
         rewardBeam = nullptr;
+
+        curseCrystal1 = nullptr;
+        curseCrystal2 = nullptr;
+        curseCrystal3 = nullptr;
 
         combatantPosStart = new Position(228.324, -99.921, 18.007, 6.282);
         combatantPosEnd = new Position(265.175, -100.163, 18.677, 3.121);
@@ -49,6 +54,9 @@ public:
     void ApplyCursesToPlayers();
     void ClearCurses(Unit* unit);
     void ClearCursesFromPlayers();
+    void SpawnCurseCrystals();
+    void DespawnCurseCrystals();
+    uint32 GetCurseForGUID(ObjectGuid guid);
 
     void Update(uint32 diff) override;
 
@@ -105,6 +113,13 @@ private:
 
     GameObject* rewardChest;
     GameObject* rewardBeam;
+
+    GameObject* curseCrystal1;
+    uint32 curseId1;
+    GameObject* curseCrystal2;
+    uint32 curseId2;
+    GameObject* curseCrystal3;
+    uint32 curseId3;
 };
 
 #endif // MODULE_TRIAL_OF_STRENGTH_INSTANCE_SCRIPT_H
