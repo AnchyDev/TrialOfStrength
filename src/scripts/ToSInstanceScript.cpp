@@ -1,5 +1,7 @@
 #include "ToSInstanceScript.h"
 
+#include <random>
+
 void ToSInstanceScript::AddCurse(uint32 curseId)
 {
     auto it = sToSMapMgr->CurseTemplates.find(curseId);
@@ -190,30 +192,35 @@ void ToSInstanceScript::ClearCursesFromPlayers()
 
 void ToSInstanceScript::SpawnCurseCrystals()
 {
+    auto randomCurses = GetRandomAvailableCurses(3);
+
     // Crystal 1
+    if(auto curse1 = randomCurses.at(0))
     {
         Position* tempPos = new Position(255.072, -95.140, 18.679, 0);
         if (curseCrystal1 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
         {
-            curseId1 = GetRandomCurseId();
+            curseId1 = curse1;
         }
     }
 
     // Crystal 2
+    if (auto curse2 = randomCurses.at(1))
     {
         Position* tempPos = new Position(259.940, -100.025, 18.679, 0);
         if (curseCrystal2 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
         {
-            curseId2 = GetRandomCurseId();
+            curseId2 = curse2;
         }
     }
 
     // Crystal 3
+    if (auto curse3 = randomCurses.at(2))
     {
         Position* tempPos = new Position(255.067, -104.689, 18.679, 0);
         if (curseCrystal3 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos))
         {
-            curseId3 = GetRandomCurseId();
+            curseId3 = curse3;
         }
     }
 }
@@ -273,8 +280,13 @@ void ToSInstanceScript::ReloadCurses()
     }
 }
 
-uint32 ToSInstanceScript::GetRandomCurseId()
+uint32 ToSInstanceScript::GetRandomAvailableCurse()
 {
+    if (availableCurseIds.size() < 1)
+    {
+        return 0;
+    }
+
     auto index = urand(0, availableCurseIds.size() - 1);
     auto curseId = availableCurseIds.at(index);
 
@@ -283,9 +295,47 @@ uint32 ToSInstanceScript::GetRandomCurseId()
         return 0;
     }
 
-    availableCurseIds.erase(availableCurseIds.begin() + index);
-
     return curseId;
+}
+
+std::vector<uint32> ToSInstanceScript::GetRandomAvailableCurses(uint32 count)
+{
+    std::vector<uint32> randomCurses;
+
+    if (availableCurseIds.size() < 1)
+    {
+        return randomCurses;
+    }
+
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(availableCurseIds.begin(), availableCurseIds.end(), g);
+
+    for (uint32 i = 0; i < count; i++)
+    {
+        if (availableCurseIds.size() < count)
+        {
+            break;
+        }
+
+        randomCurses.push_back(availableCurseIds.at(i));
+    }
+
+    return randomCurses;
+}
+
+void ToSInstanceScript::RemoveAvailableCurse(uint32 curseId)
+{
+    uint32 i = 0;
+    for (const auto& curse : availableCurseIds)
+    {
+        if (curse == curseId)
+        {
+            availableCurseIds.erase(availableCurseIds.begin() + i);
+        }
+
+        i++;
+    }
 }
 
 void ToSInstanceScript::SetCombatantsHostile()

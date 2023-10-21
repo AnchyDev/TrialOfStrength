@@ -83,6 +83,7 @@ bool ToSCurseCrystalScript::OnGossipSelect(Player* player, GameObject* go, uint3
     }
 
     iScript->AddCurse(action);
+    iScript->RemoveAvailableCurse(action);
     iScript->DespawnCurseCrystals();
 
     CloseGossipMenuFor(player);

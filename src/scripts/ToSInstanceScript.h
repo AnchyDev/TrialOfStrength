@@ -58,7 +58,9 @@ public:
     void DespawnCurseCrystals();
     uint32 GetCurseForGUID(ObjectGuid guid);
     void ReloadCurses();
-    uint32 GetRandomCurseId();
+    uint32 GetRandomAvailableCurse();
+    std::vector<uint32> GetRandomAvailableCurses(uint32 count);
+    void RemoveAvailableCurse(uint32 curseId);
 
     void Update(uint32 diff) override;
 
