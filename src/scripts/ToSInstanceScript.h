@@ -52,7 +52,6 @@ public:
     void AddCurse(uint32 curseId);
     void ApplyCurses(Unit* unit);
     void ApplyCursesToPlayers();
-    void ClearCurses(Unit* unit);
     void ClearCursesFromPlayers();
     void SpawnCurseCrystals();
     void DespawnCurseCrystals();

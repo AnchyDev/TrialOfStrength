@@ -152,27 +152,6 @@ void ToSInstanceScript::ApplyCursesToPlayers()
     }
 }
 
-void ToSInstanceScript::ClearCurses(Unit* unit)
-{
-    if (!unit)
-    {
-        return;
-    }
-
-    for (auto const& curse : curses)
-    {
-        if (!curse)
-        {
-            continue;
-        }
-
-        if (unit->HasAura(curse->aura))
-        {
-            unit->RemoveAura(curse->aura);
-        }
-    }
-}
-
 void ToSInstanceScript::ClearCursesFromPlayers()
 {
     Map::PlayerList const& players = instance->GetPlayers();
@@ -186,7 +165,7 @@ void ToSInstanceScript::ClearCursesFromPlayers()
             continue;
         }
 
-        ClearCurses(player);
+        sToSMapMgr->ClearCurses(player);
     }
 }
 

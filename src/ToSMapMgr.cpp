@@ -29,6 +29,34 @@ std::string ToSMapManager::GetHexColorFromClass(uint8 classId)
     return "|cffFFFFFF";
 }
 
+std::vector<ToSCurseTemplate> ToSMapManager::GetCurses()
+{
+    std::vector<ToSCurseTemplate> curses;
+
+    for (auto curse : CurseTemplates)
+    {
+        curses.push_back(curse.second);
+    }
+
+    return curses;
+}
+
+void ToSMapManager::ClearCurses(Unit* unit)
+{
+    if (!unit)
+    {
+        return;
+    }
+
+    for (auto const& curse : sToSMapMgr->GetCurses())
+    {
+        if (unit->HasAura(curse.aura))
+        {
+            unit->RemoveAura(curse.aura);
+        }
+    }
+}
+
 ToSCurseTemplate* ToSMapManager::GetCurseById(uint32 curseId)
 {
     auto it = CurseTemplates.find(curseId);

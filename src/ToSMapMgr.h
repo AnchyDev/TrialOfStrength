@@ -21,6 +21,8 @@ public:
     }
 
     std::string GetHexColorFromClass(uint8 classId);
+    std::vector<ToSCurseTemplate> GetCurses();
+    void ClearCurses(Unit* unit);
     ToSCurseTemplate* GetCurseById(uint32 curseId);
     ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
     uint32 GetTotalWaves();
