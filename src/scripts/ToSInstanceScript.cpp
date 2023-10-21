@@ -450,6 +450,8 @@ void ToSInstanceScript::SetupEncounter()
 
     instance->PlayDirectSoundToMap(TOS_SOUND_HORN);
 
+    CleanupCreatures();
+    CleanupGameObjects();
     DespawnCurseCrystals();
 
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
@@ -478,7 +480,6 @@ void ToSInstanceScript::CheckWaveCompletion()
     {
         NotifyPlayers();
         PopulateRewardChest();
-        CleanupCreatures();
 
         waveInProgress = false;
         waveCleared = true;
@@ -716,8 +717,9 @@ void ToSInstanceScript::ResetEncounter()
 
     CleanupCreatures();
     CleanupGameObjects();
-    ClearCursesFromPlayers();
     DespawnCurseCrystals();
+
+    ClearCursesFromPlayers();
     curses.clear();
 
     if (arenaMasterLeft)
