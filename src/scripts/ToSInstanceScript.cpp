@@ -476,7 +476,7 @@ void ToSInstanceScript::NotifyFailure()
             continue;
 
         player->SendSystemMessage(message);
-        player->PlayDirectSound(847 /* Quest Failed Sound */);
+        player->PlayDirectSound(TOS_SOUND_FAIL);
 
         {
             WorldPacket data(SMSG_NOTIFICATION, (message.size() + 1));
