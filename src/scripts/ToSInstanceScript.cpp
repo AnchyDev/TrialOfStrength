@@ -465,7 +465,7 @@ bool ToSInstanceScript::CheckFailure()
 
 void ToSInstanceScript::NotifyFailure()
 {
-    std::string message = Acore::StringFormatFmt("|cffFF9900Wave failed!|r", currentWave);
+    std::string message = Acore::StringFormatFmt("|cffFF9900Trial of Strength Failed!|r", currentWave);
     Map::PlayerList const& players = instance->GetPlayers();
 
     for (const auto& it : players)
