@@ -71,20 +71,14 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
     CleanupCreatures();
     ApplyCursesToPlayers();
 
-    double min = -4;
-    double max = 4;
-    double total = abs(min) + abs(max);
-
-    double count = enemies.size();
-    double amount = total / count;
-
     uint32 i = 0;
 
     for (auto it = enemies.begin(); it != enemies.end(); ++it)
     {
         auto enemy = (*it);
 
-        auto diff = (min + (amount * i) + (amount / 2.0));
+        auto diff = sToSMapMgr->LinearDistribution(-4, 4, enemies.size(), i);
+
         LOG_INFO("module", "Spawning at {}:{}", diff, combatantPosStart->GetPositionY() + diff);
         Position tempPos(combatantPosStart->GetPositionX(), combatantPosStart->GetPositionY() + diff, combatantPosStart->GetPositionZ(), combatantPosStart->GetOrientation());
 

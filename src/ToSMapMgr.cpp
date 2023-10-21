@@ -120,3 +120,14 @@ Creature* ToSMapManager::SpawnNPC(uint32 entry, Map* map, Position* position)
 
     return map->SummonCreature(entry, *position);
 }
+
+double ToSMapManager::LinearDistribution(double min, double max, double count, double index)
+{
+    double min = -4;
+    double max = 4;
+    double total = abs(min) + abs(max);
+
+    double amount = total / count;
+
+    return (min + (amount * index) + (amount / 2.0));
+}
