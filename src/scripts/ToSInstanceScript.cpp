@@ -71,10 +71,24 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
     CleanupCreatures();
     ApplyCursesToPlayers();
 
+    double min = -4;
+    double max = 4;
+    double total = abs(min) + abs(max);
+
+    double count = enemies.size();
+    double amount = total / count;
+
+    uint32 i = 0;
+
     for (auto it = enemies.begin(); it != enemies.end(); ++it)
     {
         auto enemy = (*it);
-        auto summon = sToSMapMgr->SpawnNPC(enemy->creatureEntry, instance, combatantPosStart);
+
+        auto diff = (min + (amount * i) + (amount / 2.0));
+        LOG_INFO("module", "Spawning at {}:{}", diff, combatantPosStart->GetPositionY() + diff);
+        Position tempPos(combatantPosStart->GetPositionX(), combatantPosStart->GetPositionY() + diff, combatantPosStart->GetPositionZ(), combatantPosStart->GetOrientation());
+
+        auto summon = sToSMapMgr->SpawnNPC(enemy->creatureEntry, instance, &tempPos);
 
         ApplyCurses(summon);
 
@@ -85,6 +99,8 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
 
         summon->CastSpell(summon, TOS_SPELL_TELEPORT_VISUAL);
         MakeEntrance(summon);
+
+        i++;
     }
 
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_COMBATANTS_HOSTILE, 5s);
