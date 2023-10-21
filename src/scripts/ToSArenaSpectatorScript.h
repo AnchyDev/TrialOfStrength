@@ -1,6 +1,8 @@
 #ifndef MODULE_TRIAL_OF_STRENGTH_ARENA_SPECTATOR_H
 #define MODULE_TRIAL_OF_STRENGTH_ARENA_SPECTATOR_H
 
+#include "ToSInstanceScript.h"
+
 #include "ScriptedCreature.h"
 
 class ToSArenaSpectatorScript : public CreatureScript
@@ -44,7 +46,7 @@ public:
 
         void DoEmote()
         {
-            auto iScript = me->GetInstanceScript();
+            auto iScript = (ToSInstanceScript*)me->GetInstanceScript();
             if (!iScript)
             {
                 events.Reset();
@@ -52,7 +54,8 @@ public:
                 return;
             }
 
-            if (!iScript->IsEncounterInProgress())
+            if (!iScript->IsEncounterInProgress() ||
+                !iScript->IsWaveInProgress())
             {
                 return;
             }
