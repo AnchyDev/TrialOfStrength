@@ -29,6 +29,19 @@ std::string ToSMapManager::GetHexColorFromClass(uint8 classId)
     return "|cffFFFFFF";
 }
 
+std::string ToSMapManager::GetDifficultyString(uint32 difficulty)
+{
+    std::stringstream ss;
+
+    ss << ((difficulty >= 0) ? TOS_ICON_CROWN : TOS_ICON_CROWN_BW);
+    ss << ((difficulty >= 20) ? TOS_ICON_CROWN : TOS_ICON_CROWN_BW);
+    ss << ((difficulty >= 40) ? TOS_ICON_CROWN : TOS_ICON_CROWN_BW);
+    ss << ((difficulty >= 60) ? TOS_ICON_CROWN : TOS_ICON_CROWN_BW);
+    ss << ((difficulty >= 80) ? TOS_ICON_CROWN : TOS_ICON_CROWN_BW);
+
+    return ss.str();
+}
+
 std::vector<ToSCurseTemplate> ToSMapManager::GetCurses()
 {
     std::vector<ToSCurseTemplate> curses;

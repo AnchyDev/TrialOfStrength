@@ -21,6 +21,7 @@ public:
     }
 
     std::string GetHexColorFromClass(uint8 classId);
+    std::string GetDifficultyString(uint32 difficulty);
     std::vector<ToSCurseTemplate> GetCurses();
     void ClearCurses(Unit* unit);
     ToSCurseTemplate* GetCurseById(uint32 curseId);
@@ -36,6 +37,9 @@ public:
     std::unordered_map<uint32, ToSEnemyGroup> EnemyGroups;
     std::unordered_map<uint32, std::vector<ToSRewardTemplate>> RewardTemplates;
     std::unordered_map<uint32, ToSCurseTemplate> CurseTemplates;
+
+    const std::string TOS_ICON_CROWN = "|TInterface\\LFGFrame\\LFGROLE:16:16:::64:16:0:16:0:16|t";
+    const std::string TOS_ICON_CROWN_BW = "|TInterface\\LFGFrame\\LFGROLE_BW:16:16:::64:16:0:16:0:16|t";
 private:
     inline static ToSMapManager* instance;
 };

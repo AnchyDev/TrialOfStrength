@@ -46,7 +46,7 @@ bool ToSCurseCrystalScript::OnGossipHello(Player* player, GameObject* go)
         return false;
     }
 
-    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("|cff000000{}|n|cff212121{}|r", curseInfo->name, curseInfo->description), GOSSIP_SENDER_MAIN, curseInfo->id);
+    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("|cff000000{}|n|cff212121{}|r|n{}", curseInfo->name, curseInfo->description, sToSMapMgr->GetDifficultyString(curseInfo->difficulty)), GOSSIP_SENDER_MAIN, curseInfo->id);
     SendGossipMenuFor(player, 1, go->GetGUID());
 
     return true;
