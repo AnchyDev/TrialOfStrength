@@ -498,7 +498,7 @@ bool ToSInstanceScript::AnyPlayerInArena(bool checkAlive)
             continue;
 
         auto distance = player->GetPosition().GetExactDist(arenaCenter);
-        if (distance < 30.0)
+        if (distance < 35.0)
         {
             if (checkAlive)
             {
