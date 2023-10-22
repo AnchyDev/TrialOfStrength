@@ -371,6 +371,11 @@ void ToSInstanceScript::Update(uint32 diff)
         PlayCrowd();
         events.RescheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
         break;
+
+    case TOS_DATA_PORTAL_TRY_TELEPORT:
+        TryTeleportPlayers();
+        events.RescheduleEvent(TOS_DATA_PORTAL_TRY_TELEPORT, 1s);
+        break;
     }
 }
 
@@ -426,6 +431,36 @@ void ToSInstanceScript::RelocateArenaMaster(bool returning)
     else
     {
         arenaMaster->NearTeleportTo(272.296, -100.024, 28.869, 3.169);
+    }
+}
+
+void ToSInstanceScript::TryTeleportPlayers()
+{
+    Position portalCenter(187.469, -135.381, 18.529, 0.0);
+
+    Map::PlayerList const& players = instance->GetPlayers();
+
+    for (const auto& it : players)
+    {
+        Player* player = it.GetSource();
+
+        if (!player)
+            continue;
+
+        auto distance = player->GetPosition().GetExactDist(portalCenter);
+        if (distance > 1.0 ||
+            !player->IsAlive())
+        {
+            continue;
+        }
+
+        if (IsEncounterInProgress() && IsWaveInProgress())
+        {
+            player->SendSystemMessage("You cannot enter while an encounter is in progress.");
+            continue;
+        }
+
+        player->TeleportTo(TOS_MAP_ID, 262.502, -100.013, 18.679, 3.137);
     }
 }
 
@@ -809,6 +844,7 @@ void ToSInstanceScript::ResetEncounter()
 
     events.Reset();
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
+    events.ScheduleEvent(TOS_DATA_PORTAL_TRY_TELEPORT, 1s);
 
     CleanupCreatures();
     CleanupGameObjects();

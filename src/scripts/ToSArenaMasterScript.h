@@ -113,7 +113,7 @@ public:
         if (action == TOS_GOSSIP_TELEPORT_TO)
         {
             CloseGossipMenuFor(player);
-            player->TeleportTo(TOS_MAP_ID, 176.726, -126.015, 18.022, 4.739); // 262.502, -100.013, 18.679, 3.137 - For new NPC
+            player->TeleportTo(TOS_MAP_ID, 176.726, -126.015, 18.022, 4.739);
         }
 
         if (action == TOS_GOSSIP_TELEPORT_FROM)

@@ -66,6 +66,7 @@ public:
 
     void CheckArenaMasterRelocate();
     void RelocateArenaMaster(bool returning);
+    void TryTeleportPlayers();
 
     bool AnyPlayerAlive();
     bool AnyPlayerInArena(bool checkAlive = false);
