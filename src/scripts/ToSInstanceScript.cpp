@@ -208,19 +208,19 @@ void ToSInstanceScript::DespawnCurseCrystals()
 {
     if (curseCrystal1)
     {
-        curseCrystal1->DespawnOrUnsummon(1s);
+        curseCrystal1->Delete();
         curseCrystal1 = nullptr;
     }
 
     if (curseCrystal2)
     {
-        curseCrystal2->DespawnOrUnsummon(1s);
+        curseCrystal2->Delete();
         curseCrystal2 = nullptr;
     }
 
     if (curseCrystal3)
     {
-        curseCrystal3->DespawnOrUnsummon(1s);
+        curseCrystal3->Delete();
         curseCrystal3 = nullptr;
     }
 }
@@ -816,7 +816,7 @@ void ToSInstanceScript::CleanupGameObjects()
     if (rewardBeam &&
         rewardBeam->IsInWorld())
     {
-        rewardBeam->DespawnOrUnsummon();
+        rewardBeam->Delete();
         rewardBeam = nullptr;
     }
 
