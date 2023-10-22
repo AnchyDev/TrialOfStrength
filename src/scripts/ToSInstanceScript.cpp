@@ -896,7 +896,7 @@ void ToSInstanceScript::AnnounceCompletion()
 
     if (hasCurses)
     {
-        ss << Acore::StringFormatFmt(" with |cffC436C1{}|cffFFFFFF curses!|r", curses.size());
+        ss << Acore::StringFormatFmt(" |cffFFFFFFwith |cffC436C1{}|cffFFFFFF curses!|r", curses.size());
     }
     else
     {
