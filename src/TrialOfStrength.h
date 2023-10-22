@@ -41,13 +41,6 @@ enum ToSConstants {
     TOS_DATA_UINT32_CURSE_ID = 0,
 };
 
-struct ToSCurseInformation : public DataMap::Base
-{
-    uint32 curseId;
-
-    ~ToSCurseInformation() { }
-};
-
 struct ToSWaveTemplate {
     uint32 wave;
     uint32 enemyGroup;
