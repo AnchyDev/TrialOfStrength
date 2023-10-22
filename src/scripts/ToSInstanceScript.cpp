@@ -359,12 +359,12 @@ void ToSInstanceScript::Update(uint32 diff)
     case TOS_DATA_ENCOUNTER_CHECK_FAILURE:
         if (!CheckFailure())
         {
-            events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_FAILURE, 3s);
+            events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_FAILURE, 2s);
         }
         break;
     case TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE:
         CheckArenaMasterRelocate();
-        events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
+        events.RescheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 2s);
         break;
 
     case TOS_DATA_ENCOUNTER_CROWD:
@@ -584,7 +584,7 @@ void ToSInstanceScript::SetupEncounter()
     CleanupGameObjects();
     DespawnCurseCrystals();
 
-    events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
+    events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 3s);
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
 }
 
@@ -604,7 +604,7 @@ void ToSInstanceScript::CheckWaveCompletion()
         currentSubGroup++;
 
         instance->PlayDirectSoundToMap(TOS_SOUND_HORN);
-        events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 5s);
+        events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 3s);
     }
     else
     {
@@ -843,7 +843,7 @@ void ToSInstanceScript::ResetEncounter()
     trialCompleted = false;
 
     events.Reset();
-    events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 3s);
+    events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_ARENA_MASTER_RELOCATE, 2s);
     events.ScheduleEvent(TOS_DATA_PORTAL_TRY_TELEPORT, 1s);
 
     CleanupCreatures();
