@@ -52,7 +52,7 @@ bool ToSCurseCrystalScript::OnGossipHello(Player* player, GameObject* go)
     return true;
 }
 
-bool ToSCurseCrystalScript::OnGossipSelect(Player* player, GameObject* go, uint32 sender, uint32 action)
+bool ToSCurseCrystalScript::OnGossipSelect(Player* player, GameObject* go, uint32 /*sender*/, uint32 action)
 {
     if (!action)
     {

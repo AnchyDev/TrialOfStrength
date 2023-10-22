@@ -177,7 +177,7 @@ void ToSInstanceScript::SpawnCurseCrystals()
     if(auto curse1 = randomCurses.at(0))
     {
         Position* tempPos = new Position(255.072, -95.140, 18.679, 0);
-        if (curseCrystal1 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true))
+        if ((curseCrystal1 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true)))
         {
             curseId1 = curse1;
         }
@@ -187,7 +187,7 @@ void ToSInstanceScript::SpawnCurseCrystals()
     if (auto curse2 = randomCurses.at(1))
     {
         Position* tempPos = new Position(259.940, -100.025, 18.679, 0);
-        if (curseCrystal2 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true))
+        if ((curseCrystal2 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true)))
         {
             curseId2 = curse2;
         }
@@ -197,7 +197,7 @@ void ToSInstanceScript::SpawnCurseCrystals()
     if (auto curse3 = randomCurses.at(2))
     {
         Position* tempPos = new Position(255.067, -104.689, 18.679, 0);
-        if (curseCrystal3 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true))
+        if ((curseCrystal3 = instance->SummonGameObject(TOS_GOB_CURSE, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true)))
         {
             curseId3 = curse3;
         }
@@ -673,7 +673,7 @@ void ToSInstanceScript::PopulateRewardChest()
     }
 
     Position* tempPos = new Position(255.194, -99.974, 18.677, 6.270);
-    if (rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos))
+    if ((rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos)))
     {
         rewardChest->loot.clear();
         rewardChest->SetLootRecipient(instance);

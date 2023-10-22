@@ -106,7 +106,7 @@ void LoadRewardTemplates()
         {
             std::vector<ToSRewardTemplate> newTemplates;
             newTemplates.push_back(rewardTemplate);
-            auto it = sToSMapMgr->RewardTemplates.emplace(rewardId, newTemplates);
+            sToSMapMgr->RewardTemplates.emplace(rewardId, newTemplates);
         }
         else
         {

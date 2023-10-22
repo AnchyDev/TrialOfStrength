@@ -120,7 +120,7 @@ public:
             me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_PUNCH);
         }
 
-        void JustEngagedWith(Unit* who) override
+        void JustEngagedWith(Unit* /*who*/) override
         {
             auto rand = urand(0, 3);
             std::string message;
@@ -150,7 +150,7 @@ public:
             me->Yell(message, LANG_UNIVERSAL);
         }
 
-        void JustDied(Unit* killer) override
+        void JustDied(Unit* /*killer*/) override
         {
             auto rand = urand(0, 3);
             std::string message;

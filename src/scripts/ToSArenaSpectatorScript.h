@@ -27,8 +27,6 @@ public:
         {
             events.Reset();
             events.ScheduleEvent(TOS_ARENA_SPEC_DO_EMOTE, randtime(3s, 10s));
-
-            crowdCheerAlternate = false;
         }
 
         void UpdateAI(uint32 diff) override
@@ -78,7 +76,6 @@ public:
 
     private:
         EventMap events;
-        bool crowdCheerAlternate;
     };
 
 private:

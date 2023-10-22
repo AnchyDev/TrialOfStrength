@@ -98,7 +98,7 @@ public:
         return false;
     }
 
-    virtual bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
+    virtual bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
     {
         if (!sConfigMgr->GetOption<bool>("TrialOfStrength.Enable", false))
         {

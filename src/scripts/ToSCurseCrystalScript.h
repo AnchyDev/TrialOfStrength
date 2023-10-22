@@ -6,10 +6,6 @@
 
 class ToSCurseCrystalScript : public GameObjectScript
 {
-private:
-    enum ToSCurseCrystalConstants {
-        TOS_CURSE_GOSSIP_BASE = 4000
-    };
 public:
     ToSCurseCrystalScript() : GameObjectScript("ToSCurseCrystalScript") { }
 
