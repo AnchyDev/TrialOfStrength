@@ -706,6 +706,12 @@ void ToSInstanceScript::PopulateRewardChest()
 
         for (auto rewardTemplate = rewardTemplates->begin(); rewardTemplate != rewardTemplates->end(); ++rewardTemplate)
         {
+            uint32 chance = urand(0, 100);
+            if (chance > rewardTemplate->chance)
+            {
+                continue;
+            }
+
             LootStoreItem* lootStoreItem = new LootStoreItem(rewardTemplate->itemEntry, 0, 0, false, 1, 0, 1, 1);
 
             LootItem lootItem(*lootStoreItem);
