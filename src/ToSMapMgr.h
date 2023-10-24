@@ -32,6 +32,7 @@ public:
     std::vector<uint32> GetSubGroups(uint32 groupId);
     Creature* SpawnNPC(uint32 entry, Map* map, Position* position);
     double LinearDistribution(double min, double max, double count, double index);
+    void ResetCooldowns(Player* player);
 public:
     std::unordered_map<uint32, ToSWaveTemplate> WaveTemplates;
     std::unordered_map<uint32, ToSEnemyGroup> EnemyGroups;

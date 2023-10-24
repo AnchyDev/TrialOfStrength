@@ -170,3 +170,13 @@ double ToSMapManager::LinearDistribution(double min, double max, double count, d
 
     return (min + (amount * index) + (amount / 2.0));
 }
+
+void ToSMapManager::ResetCooldowns(Player* player)
+{
+    if (!player)
+    {
+        return;
+    }
+
+    player->RemoveAllSpellCooldown();
+}

@@ -15,3 +15,12 @@
 #
 
 TrialOfStrength.Enable = 0
+
+#
+#    TrialOfStrength.ResetCooldowns
+#        Description: Enable/disable resetting of player cooldowns after completion of a wave.
+#                     0 - Disabled
+#        Default:     1 - Enabled
+#
+
+TrialOfStrength.ResetCooldowns = 1

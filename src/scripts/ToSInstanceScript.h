@@ -17,7 +17,9 @@ private:
 
         TOS_GOB_REWARD_CHEST = 441250,
         TOS_GOB_REWARD_BEAM = 441251,
-        TOS_GOB_CURSE = 441252
+        TOS_GOB_CURSE = 441252,
+
+        TOS_SPELL_EXHAUSTION = 57723
     };
 public:
     ToSInstanceScript(Map* map) : InstanceScript(map)
@@ -74,6 +76,7 @@ public:
     bool CheckFailure();
 
     void NotifyFailure();
+    void ResetPlayerCooldowns();
     void NotifyPlayers();
 
     void SetupEncounter();

@@ -611,6 +611,11 @@ void ToSInstanceScript::CheckWaveCompletion()
         NotifyPlayers();
         PopulateRewardChest();
 
+        if (sConfigMgr->GetOption<bool>("TrialOfStrength.ResetCooldowns", true))
+        {
+            ResetPlayerCooldowns();
+        }
+
         waveInProgress = false;
         waveCleared = true;
         cheerPlayed = false;
@@ -624,6 +629,26 @@ void ToSInstanceScript::CheckWaveCompletion()
         {
             SpawnCurseCrystals();
         }
+    }
+}
+
+void ToSInstanceScript::ResetPlayerCooldowns()
+{
+    Map::PlayerList const& players = instance->GetPlayers();
+
+    for (const auto& it : players)
+    {
+        Player* player = it.GetSource();
+
+        if (!player)
+            continue;
+
+        if (player->HasAura(TOS_SPELL_EXHAUSTION))
+        {
+            player->RemoveAura(TOS_SPELL_EXHAUSTION);
+        }
+
+        sToSMapMgr->ResetCooldowns(player);
     }
 }
 
