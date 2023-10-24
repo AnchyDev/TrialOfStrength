@@ -24,3 +24,19 @@ TrialOfStrength.Enable = 0
 #
 
 TrialOfStrength.ResetCooldowns = 1
+
+#
+#    TrialOfStrength.MinRewardMoney
+#        Description: The minimum amount in copper that will be in the reward chest after completion of a wave.
+#        Default:     5000
+#
+
+TrialOfStrength.MinRewardMoney = 5000
+
+#
+#    TrialOfStrength.MaxRewardMoney
+#        Description: The maximum amount in copper that will be in the reward chest after completion of a wave.
+#        Default:     10000
+#
+
+TrialOfStrength.MaxRewardMoney = 10000

@@ -722,7 +722,10 @@ void ToSInstanceScript::PopulateRewardChest()
             rewardChest->loot.items.push_back(lootItem);
         }
 
-        rewardChest->loot.generateMoneyLoot(500, 5000);
+        uint32 minMoney = sConfigMgr->GetOption<uint32>("TrialOfStrength.MinRewardMoney", 5000);
+        uint32 maxMoney = sConfigMgr->GetOption<uint32>("TrialOfStrength.MaxRewardMoney", 10000);
+
+        rewardChest->loot.generateMoneyLoot(minMoney, maxMoney);
 
         rewardChest->SetLootGenerationTime();
         rewardChest->SetLootState(GO_ACTIVATED);
