@@ -248,6 +248,18 @@ uint32 ToSInstanceScript::GetCurseForGUID(ObjectGuid guid)
     return 0;
 }
 
+uint32 ToSInstanceScript::GetCurseScaling()
+{
+    uint32 total = 0;
+
+    for (const auto& curse : curses)
+    {
+        total += curse->difficulty;
+    }
+
+    return total;
+}
+
 void ToSInstanceScript::ReloadCurses()
 {
     availableCurseIds.clear();
@@ -724,6 +736,15 @@ void ToSInstanceScript::PopulateRewardChest()
 
         uint32 minMoney = sConfigMgr->GetOption<uint32>("TrialOfStrength.MinRewardMoney", 5000);
         uint32 maxMoney = sConfigMgr->GetOption<uint32>("TrialOfStrength.MaxRewardMoney", 10000);
+
+        if (sConfigMgr->GetOption<bool>("TrialOfStrength.Scaling.RewardMoney", true))
+        {
+            uint32 scalar = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.RewardMoneyScalar", 50);
+            uint32 curseScaling = 1 + (GetCurseScaling() / scalar);
+
+            minMoney = minMoney * curseScaling;
+            maxMoney = maxMoney * curseScaling;
+        }
 
         rewardChest->loot.generateMoneyLoot(minMoney, maxMoney);
 

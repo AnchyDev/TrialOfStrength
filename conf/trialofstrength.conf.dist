@@ -40,3 +40,22 @@ TrialOfStrength.MinRewardMoney = 5000
 #
 
 TrialOfStrength.MaxRewardMoney = 10000
+
+#
+#    TrialOfStrength.Scaling.RewardMoneyScalar
+#        Description: Enable/disable scaling reward money with curse difficulty.
+#        Note: The formula for scaling is (1 + (sum of every enabled curse difficulty / scalar))
+#        Default:     50
+#
+
+TrialOfStrength.Scaling.RewardMoneyScalar = 50
+
+#
+#    TrialOfStrength.Scaling.RewardMoney
+#        Description: Enable/disable scaling reward money with curse difficulty.
+#        Note: The formula for scaling is (1 + (sum of every enabled curse difficulty / scalar))
+#                     0 - Disabled
+#        Default:     1 - Enabled
+#
+
+TrialOfStrength.Scaling.RewardMoney = 1

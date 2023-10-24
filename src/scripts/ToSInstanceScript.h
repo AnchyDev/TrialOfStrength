@@ -59,6 +59,7 @@ public:
     void SpawnCurseCrystals();
     void DespawnCurseCrystals();
     uint32 GetCurseForGUID(ObjectGuid guid);
+    uint32 GetCurseScaling();
     void ReloadCurses();
     uint32 GetRandomAvailableCurse();
     std::vector<uint32> GetRandomAvailableCurses(uint32 count);
