@@ -707,7 +707,7 @@ void ToSInstanceScript::PopulateRewardChest()
     }
 
     Position* tempPos = new Position(255.194, -99.974, 18.677, 6.270);
-    if ((rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos)))
+    if ((rewardChest = instance->SummonGameObject(TOS_GOB_REWARD_CHEST, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true)))
     {
         rewardChest->loot.clear();
         rewardChest->SetLootRecipient(instance);
@@ -730,6 +730,8 @@ void ToSInstanceScript::PopulateRewardChest()
             lootItem.itemIndex = rewardChest->loot.items.size();
             lootItem.itemid = rewardTemplate->itemEntry;
             lootItem.count = urand(rewardTemplate->countMin, rewardTemplate->countMax);
+
+            rewardChest->loot.unlootedCount += 1;
 
             rewardChest->loot.items.push_back(lootItem);
         }
@@ -875,7 +877,7 @@ void ToSInstanceScript::CleanupGameObjects()
     if (rewardChest &&
         rewardChest->IsInWorld())
     {
-        rewardChest->DespawnOrUnsummon();
+        rewardChest->Delete();
         rewardChest = nullptr;
     }
 }
