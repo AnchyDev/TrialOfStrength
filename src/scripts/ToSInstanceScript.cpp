@@ -596,11 +596,8 @@ void ToSInstanceScript::CheckWaveCompletion()
         return;
     }
 
-    LOG_INFO("module", "Sub group {} complete.", currentSubGroup);
-
     if (currentSubGroup < totalSubGroups)
     {
-        LOG_INFO("module", "Spawning next subgroup..");
         currentSubGroup++;
 
         instance->PlayDirectSoundToMap(TOS_SOUND_HORN);
