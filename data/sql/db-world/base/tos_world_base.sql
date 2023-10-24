@@ -137,8 +137,6 @@ CREATE TABLE IF NOT EXISTS `tos_curse_template` (
 
 DELETE FROM `tos_curse_template` WHERE `id`=1 AND `type`=0 AND `difficulty`=50 AND `aura`=68335 AND `name`='Enrage' AND `description`='Combatants are enraged, increasing their damage by 50%.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (1, 0, 50, 68335, 'Enrage', 'Combatants are enraged, increasing their damage by 50%.');
-DELETE FROM `tos_curse_template` WHERE `id`=15 AND `type`=0 AND `difficulty`=60 AND `aura`=71110 AND `name`='Aura of Darkness' AND `description`='Combatants are consumed by darkness, radiating shadow damage every 2 seconds.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (15, 0, 60, 71110, 'Aura of Darkness', 'Combatants are consumed by darkness, radiating shadow damage every 2 seconds.');
 DELETE FROM `tos_curse_template` WHERE `id`=16 AND `type`=0 AND `difficulty`=50 AND `aura`=25820 AND `name`='Fearful' AND `description`='Combatants have a 10% chance when taking damage to fear players.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (16, 0, 50, 25820, 'Fearful', 'Combatants have a 10% chance when taking damage to fear players.');
 DELETE FROM `tos_curse_template` WHERE `id`=5 AND `type`=0 AND `difficulty`=0 AND `aura`=45673 AND `name`='Bigger!' AND `description`='Combatants are 15-25 percent larger!';
