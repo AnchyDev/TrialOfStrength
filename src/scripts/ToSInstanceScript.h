@@ -48,7 +48,7 @@ public:
 
     void SpawnNextWave(ToSWaveTemplate* /*waveTemplate = nullptr*/);
 
-    void MakeEntrance(Creature* creature);
+    void MakeEntrance(Creature* creature, float diff);
     void SetCombatantsHostile();
     uint32 GetRemainingAlive() const;
 

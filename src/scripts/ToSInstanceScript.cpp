@@ -93,7 +93,7 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
             summon->SetFaction(FACTION_FRIENDLY);
 
         summon->CastSpell(summon, TOS_SPELL_TELEPORT_VISUAL);
-        MakeEntrance(summon);
+        MakeEntrance(summon, diff);
 
         i++;
     }
@@ -103,9 +103,10 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_CHECK_FAILURE, 5s);
 }
 
-void ToSInstanceScript::MakeEntrance(Creature* creature)
+void ToSInstanceScript::MakeEntrance(Creature* creature, float diff)
 {
-    creature->GetMotionMaster()->MovePoint(0, *combatantPosEnd);
+    Position tempPos(combatantPosEnd->GetPositionX(), combatantPosEnd->GetPositionY() + diff, combatantPosEnd->GetPositionZ(), combatantPosEnd->GetOrientation());
+    creature->GetMotionMaster()->MovePoint(0, tempPos);
     creature->SetHomePosition(*combatantPosEnd);
 }
 
