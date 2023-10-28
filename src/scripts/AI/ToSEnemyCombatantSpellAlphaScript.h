@@ -17,35 +17,37 @@ public:
     {
         enum CombatantEvents
         {
-            TOS_EVENT_COMBATANT_START_PUNCHING = 1,
-            TOS_EVENT_COMBATANT_AURA_ANGRY = 68335, /* Enrage */
-            TOS_EVENT_COMBATANT_SPELL_PUNCH = 29581,
+            TOS_EVENT_COMBATANT_SPELL_ID_FROST = 42842,
+            TOS_EVENT_COMBATANT_SPELL_ID_FROST_SHIELD = 7301,
+            TOS_EVENT_COMBATANT_SPELL_ID_FIRE = 42833,
+            TOS_EVENT_COMBATANT_SPELL_ID_FIRE_SHIELD = 43046,
+            TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING = 49238,
+            TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING_SHIELD = 49281,
+            TOS_EVENT_COMBATANT_SPELL_ID_EARTH = 48461,
+            TOS_EVENT_COMBATANT_SPELL_ID_EARTH_SHIELD = 49284,
+
+            TOS_EVENT_COMBATANT_SPELL_ID_MANA_REGEN = 29166,
+
+            TOS_EVENT_COMBATANT_SPELL_CYCLE_ELEMENTS = 2
         };
 
         EventMap events;
 
-        bool isPunching;
-        bool isAngry;
+        uint32 currentSpell;
 
         ToSEnemyCombatantSpellAlphaAI(Creature* creature) : CombatAI(creature)
         {
-            events.Reset();
-
-            isPunching = false;
-            isAngry = false;
+            Reset();
         }
 
         void Reset() override
         {
-            if (me->HasAura(TOS_EVENT_COMBATANT_AURA_ANGRY))
-            {
-                me->RemoveAura(TOS_EVENT_COMBATANT_AURA_ANGRY);
-            }
-
-            isPunching = false;
-            isAngry = false;
-
             events.Reset();
+
+            currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_FROST;
+            me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_FROST_SHIELD, me);
+
+            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_CYCLE_ELEMENTS, 5s);
         }
 
         void UpdateAI(uint32 diff) override
@@ -57,127 +59,55 @@ public:
 
             switch (events.ExecuteEvent())
             {
-            case TOS_EVENT_COMBATANT_START_PUNCHING:
-                TryPunching();
-
-                events.RescheduleEvent(TOS_EVENT_COMBATANT_START_PUNCHING, 3s);
+            case TOS_EVENT_COMBATANT_SPELL_CYCLE_ELEMENTS:
+                CycleElements();
                 break;
             }
 
-            if (me->GetHealthPct() < 66 && !isPunching)
-            {
-                isPunching = true;
-
-                events.ScheduleEvent(TOS_EVENT_COMBATANT_START_PUNCHING, 1s);
-            }
-
-            if (me->GetHealthPct() < 50 && !isAngry)
-            {
-                GetAngry();
-            }
-
-            DoMeleeAttackIfReady();
+            DoSpellAttackIfReady(currentSpell);
         }
 
-        void GetAngry()
+        void CycleElements()
         {
-            me->AddAura(TOS_EVENT_COMBATANT_AURA_ANGRY, me);
-
-            isAngry = true;
-
-            auto rand = urand(0, 8);
-            switch (rand)
+            if (me->HasUnitState(UNIT_STATE_CASTING))
             {
-            case 1:
-                me->Yell("Not bad, I'm all fired up now!", LANG_UNIVERSAL);
-                break;
-
-            case 2:
-                me->Yell("Now you're getting me angry..", LANG_UNIVERSAL);
-                break;
-
-            case 3:
-                me->Yell("It's going to be like that is it?", LANG_UNIVERSAL);
-                break;
-
-            case 4:
-                me->Yell("Now I'm going to get serious!", LANG_UNIVERSAL);
-                break;
-
-            default:
-                return;
-            }
-        }
-
-        void TryPunching()
-        {
-            auto creature = me->GetVictim();
-            if (!creature)
-            {
+                events.RescheduleEvent(TOS_EVENT_COMBATANT_SPELL_CYCLE_ELEMENTS, 1s);
                 return;
             }
 
-            me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_PUNCH);
-        }
-
-        void JustEngagedWith(Unit* /*who*/) override
-        {
-            auto rand = urand(0, 6);
-            std::string message;
-
-            switch (rand)
+            switch (currentSpell)
             {
-            case 0:
-                message = "In the arena of champions, only the strong survive. Let's see if you have what it takes to be a legend!";
+            case TOS_EVENT_COMBATANT_SPELL_ID_FROST:
+                currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_FIRE;
+                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_FIRE_SHIELD, me);
+
+                me->Yell("Fire!", LANG_UNIVERSAL);
                 break;
 
-            case 1:
-                message = "I will test your mettle in the crucible of combat. Show me your strength!";
+            case TOS_EVENT_COMBATANT_SPELL_ID_FIRE:
+                currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING;
+                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING_SHIELD, me);
+                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_MANA_REGEN, me); // Allows the caster to complete a cycle.
+
+                me->Yell("Storm!", LANG_UNIVERSAL);
                 break;
 
-            case 2:
-                message = "Your feeble attempts amuse me. Do you truly believe you can best me in combat?";
+            case TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING:
+                currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_EARTH;
+                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_EARTH_SHIELD, me);
+
+                me->Yell("Earth!", LANG_UNIVERSAL);
                 break;
 
-            case 3:
-                message = "You dare challenge me, mortal? Prepare to face the might of a true warrior!";
-                break;
+            case TOS_EVENT_COMBATANT_SPELL_ID_EARTH:
+                currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_FROST;
+                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_FROST_SHIELD, me);
 
-            default:
-                return;
+                me->Yell("Frost!", LANG_UNIVERSAL);
+                break;
             }
 
-            me->Yell(message, LANG_UNIVERSAL);
-        }
-
-        void JustDied(Unit* /*killer*/) override
-        {
-            auto rand = urand(0, 6);
-            std::string message;
-
-            switch (rand)
-            {
-            case 0:
-                message = "It's not fair..";
-                break;
-
-            case 1:
-                message = "I will see you in the next life..";
-                break;
-
-            case 2:
-                message = "Ughh.. agh...";
-                break;
-
-            case 3:
-                message = "I don't understand.. I thought..";
-                break;
-
-            default:
-                return;
-            }
-
-            me->Yell(message, LANG_UNIVERSAL);
+            events.RescheduleEvent(TOS_EVENT_COMBATANT_SPELL_CYCLE_ELEMENTS, 5s);
         }
     };
 };
