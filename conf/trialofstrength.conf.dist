@@ -28,6 +28,7 @@ TrialOfStrength.ResetCooldowns = 1
 #
 #    TrialOfStrength.MinRewardMoney
 #        Description: The minimum amount in copper that will be in the reward chest after completion of a wave.
+#        Note:        This value should be lower than MaxRewardMoney.
 #        Default:     5000
 #
 
@@ -36,10 +37,19 @@ TrialOfStrength.MinRewardMoney = 5000
 #
 #    TrialOfStrength.MaxRewardMoney
 #        Description: The maximum amount in copper that will be in the reward chest after completion of a wave.
+#        Note:        This value should be higher than MinRewardMoney.
 #        Default:     10000
 #
 
 TrialOfStrength.MaxRewardMoney = 10000
+
+#
+#    TrialOfStrength.CapRewardMoney
+#        Description: The maximum amount in copper that will be in the reward chest after curse difficulty scaling.
+#        Default:     1000000
+#
+
+TrialOfStrength.CapRewardMoney = 1000000
 
 #
 #    TrialOfStrength.Scaling.RewardMoneyScalar

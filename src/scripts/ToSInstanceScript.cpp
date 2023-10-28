@@ -766,6 +766,11 @@ void ToSInstanceScript::PopulateRewardChest()
             maxMoney = maxMoney * curseScaling;
         }
 
+        uint32 capMoney = sConfigMgr->GetOption<uint32>("TrialOfStrength.CapRewardMoney", 1000000);
+
+        minMoney = minMoney > capMoney ? capMoney : minMoney;
+        maxMoney = maxMoney > capMoney ? capMoney : maxMoney;
+
         rewardChest->loot.generateMoneyLoot(minMoney, maxMoney);
 
         rewardChest->SetLootGenerationTime();
