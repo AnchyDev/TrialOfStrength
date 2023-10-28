@@ -1,11 +1,13 @@
 #include "TrialOfStrength.h"
 #include "ToSMapMgr.h"
 
-#include "scripts/ai/ToSEnemyCombatantScript.h"
-#include "scripts/ai/ToSEnemyCombatantBossScript.h"
+#include "scripts/AI/ToSEnemyCombatantMeleeAlphaScript.h"
+#include "scripts/AI/ToSEnemyCombatantSpellAlphaScript.h"
+
+#include "scripts/AI/ToSEnemyCombatantBossScript.h"
 
 #include "scripts/ToSArenaMasterScript.h"
-#include "scripts/ai/ToSArenaSpectatorScript.h"
+#include "scripts/AI/ToSArenaSpectatorScript.h"
 
 #include "scripts/ToSInstanceScript.h"
 #include "scripts/ToSInstanceMapScript.h"
@@ -179,7 +181,9 @@ void SC_AddTrialOfStrengthScripts()
     new ToSArenaMasterScript();
     new ToSArenaSpectatorScript();
 
-    new ToSEnemyCombatantScript();
+    new ToSEnemyCombatantMeleeAlphaScript();
+    new ToSEnemyCombatantSpellAlphaScript();
+
     new ToSEnemyCombatantBossScript();
 
     new ToSInstanceMapScript();

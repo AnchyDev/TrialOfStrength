@@ -1,19 +1,19 @@
-#ifndef MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_H
-#define MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_H
+#ifndef MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_MELEE_ALPHA_H
+#define MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_MELEE_ALPHA_H
 
 #include "ScriptMgr.h"
 
-class ToSEnemyCombatantScript : public CreatureScript
+class ToSEnemyCombatantMeleeAlphaScript : public CreatureScript
 {
 public:
-    ToSEnemyCombatantScript() : CreatureScript("ToSEnemyCombatantScript") { }
+    ToSEnemyCombatantMeleeAlphaScript() : CreatureScript("ToSEnemyCombatantMeleeAlphaScript") { }
 
     virtual CreatureAI* GetAI(Creature* creature) const
     {
-        return new ToSEnemyCombatantAI(creature);
+        return new ToSEnemyCombatantMeleeAlphaAI(creature);
     }
 
-    struct ToSEnemyCombatantAI : public CombatAI
+    struct ToSEnemyCombatantMeleeAlphaAI : public CombatAI
     {
         enum CombatantEvents
         {
@@ -27,7 +27,7 @@ public:
         bool isPunching;
         bool isAngry;
 
-        ToSEnemyCombatantAI(Creature* creature) : CombatAI(creature)
+        ToSEnemyCombatantMeleeAlphaAI(Creature* creature) : CombatAI(creature)
         {
             events.Reset();
 
@@ -182,4 +182,4 @@ public:
     };
 };
 
-#endif // MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_H
+#endif // MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_MELEE_ALPHA_H
