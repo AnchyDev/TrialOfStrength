@@ -716,6 +716,11 @@ void ToSInstanceScript::PopulateRewardChest()
         rewardChest->loot.items.reserve(MAX_NR_LOOT_ITEMS);
 
         auto rewardTemplates = sToSMapMgr->GetRewardTemplates(rewardId);
+        if (!rewardTemplates || rewardTemplates->empty())
+        {
+            LOG_ERROR("module", "Failed to find trial of strength reward templates!");
+            return;
+        }
 
         for (auto rewardTemplate = rewardTemplates->begin(); rewardTemplate != rewardTemplates->end(); ++rewardTemplate)
         {
@@ -730,7 +735,15 @@ void ToSInstanceScript::PopulateRewardChest()
             LootItem lootItem(*lootStoreItem);
             lootItem.itemIndex = rewardChest->loot.items.size();
             lootItem.itemid = rewardTemplate->itemEntry;
-            lootItem.count = urand(rewardTemplate->countMin, rewardTemplate->countMax);
+
+            uint32 itemCount = urand(rewardTemplate->countMin, rewardTemplate->countMax);
+            if (rewardTemplate->curseScalar)
+            {
+                itemCount = itemCount + ((GetCurseScaling() / 100) * rewardTemplate->curseScalar);
+            }
+
+            // hard cap the item count.
+            lootItem.count = itemCount > rewardTemplate->countCap ? rewardTemplate->countCap : itemCount;
 
             rewardChest->loot.unlootedCount += 1;
 

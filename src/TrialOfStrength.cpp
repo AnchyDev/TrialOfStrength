@@ -99,7 +99,9 @@ void LoadRewardTemplates()
         rewardTemplate.itemEntry = fields[1].Get<uint32>();
         rewardTemplate.countMin = fields[2].Get<uint32>();
         rewardTemplate.countMax = fields[3].Get<uint32>();
-        rewardTemplate.chance = fields[4].Get<uint32>();
+        rewardTemplate.countCap = fields[4].Get<uint32>();
+        rewardTemplate.chance = fields[5].Get<uint32>();
+        rewardTemplate.curseScalar = fields[6].Get<float>();
 
         auto templates = sToSMapMgr->GetRewardTemplates(rewardId);
         if (!templates)

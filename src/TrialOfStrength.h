@@ -59,7 +59,9 @@ struct ToSRewardTemplate {
     uint32 itemEntry;
     uint32 countMin;
     uint32 countMax;
+    uint32 countCap;
     uint32 chance;
+    float curseScalar;
 };
 
 struct ToSCurseTemplate {

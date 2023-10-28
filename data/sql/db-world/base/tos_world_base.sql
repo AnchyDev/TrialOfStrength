@@ -59,17 +59,20 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconNa
 
 CREATE TABLE IF NOT EXISTS `tos_reward_template` (
   `id` int DEFAULT NULL,
-  `item_entry` int DEFAULT NULL,
-  `count_min` int DEFAULT NULL,
-  `count_max` int DEFAULT NULL,
-  `chance` float DEFAULT NULL,
-  `note` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `item_entry` int DEFAULT '0',
+  `count_min` int DEFAULT '1',
+  `count_max` int DEFAULT '1',
+  `count_cap` int DEFAULT NULL,
+  `chance` float DEFAULT '100',
+  `curse_scalar` float DEFAULT '0',
+  `note` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DELETE FROM `tos_reward_template` WHERE `id`=1 AND `item_entry`=37711 AND `count_min`=250 AND `count_max`=300 AND `chance`=100 AND `note`='Test Currency 1';
-INSERT INTO `tos_reward_template` (`id`, `item_entry`, `count_min`, `count_max`, `chance`, `note`) VALUES (1, 37711, 250, 300, 100, 'Test Currency 1');
-DELETE FROM `tos_reward_template` WHERE `id`=1 AND `item_entry`=16073 AND `count_min`=1 AND `count_max`=3 AND `chance`=100 AND `note`='Book of Knowledge';
-INSERT INTO `tos_reward_template` (`id`, `item_entry`, `count_min`, `count_max`, `chance`, `note`) VALUES (1, 16073, 1, 3, 100, 'Book of Knowledge');
+
+DELETE FROM `tos_reward_template` WHERE `id`=1 AND `item_entry`=21215 AND `count_min`=5 AND `count_max`=10 AND `count_cap`=20 AND `chance`=50 AND `curse_scalar`=0 AND `note`='Graccu\'s Fruitcake';
+INSERT INTO `tos_reward_template` (`id`, `item_entry`, `count_min`, `count_max`, `count_cap`, `chance`, `curse_scalar`, `note`) VALUES (1, 21215, 5, 10, 20, 50, 0, 'Graccu\'s Fruitcake');
+DELETE FROM `tos_reward_template` WHERE `id`=1 AND `item_entry`=37711 AND `count_min`=250 AND `count_max`=300 AND `count_cap`=500 AND `chance`=100 AND `curse_scalar`=0 AND `note`='Test Currency 1';
+INSERT INTO `tos_reward_template` (`id`, `item_entry`, `count_min`, `count_max`, `count_cap`, `chance`, `curse_scalar`, `note`) VALUES (1, 37711, 250, 300, 500, 100, 0, 'Test Currency 1');
 
 
 CREATE TABLE IF NOT EXISTS `tos_wave_groups` (
