@@ -171,6 +171,8 @@ DELETE FROM `tos_curse_template` WHERE `id`=3 AND `type`=1 AND `difficulty`=60 A
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (3, 1, 60, 34102, 'Curse of the Violet Tower', 'Players are weakened, dealing 50% less damage.');
 DELETE FROM `tos_curse_template` WHERE `id`=4 AND `type`=0 AND `difficulty`=75 AND `aura`=34337 AND `name`='Armored Skin' AND `description`='Combatants skin have been strengthened, taking 75% less physical damage.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (4, 0, 75, 34337, 'Armored Skin', 'Combatants skin have been strengthened, taking 75% less physical damage.');
+DELETE FROM `tos_curse_template` WHERE `id`=15 AND `type`=0 AND `difficulty`=100 AND `aura`=69491 AND `name`='Aura of Darkness' AND `description`='Combatants are consumed by darkness, radiating very high shadow damage every 2 seconds.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (15, 0, 100, 69491, 'Aura of Darkness', 'Combatants are consumed by darkness, radiating very high shadow damage every 2 seconds.');
 
 
 DELETE FROM `gameobject` WHERE map = 44;
