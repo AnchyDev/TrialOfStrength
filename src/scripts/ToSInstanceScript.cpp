@@ -515,13 +515,15 @@ bool ToSInstanceScript::AnyPlayerInArena(bool checkAlive)
         {
             if (checkAlive)
             {
-                if (!player->IsAlive())
+                if (player->IsAlive())
                 {
-                    return false;
+                    return true;
                 }
             }
-
-            return true;
+            else
+            {
+                return true;
+            }
         }
     }
 
