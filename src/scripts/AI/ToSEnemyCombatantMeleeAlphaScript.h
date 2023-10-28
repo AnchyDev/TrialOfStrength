@@ -117,6 +117,12 @@ public:
                 return;
             }
 
+            // Outside 5yd range.
+            if (creature->GetPosition().GetExactDist(me->GetPosition()) > 5.0f)
+            {
+                return;
+            }
+
             me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_PUNCH);
         }
 
