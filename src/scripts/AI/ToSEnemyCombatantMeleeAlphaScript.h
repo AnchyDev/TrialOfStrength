@@ -18,7 +18,7 @@ public:
         enum CombatantEvents
         {
             TOS_EVENT_COMBATANT_START_PUNCHING = 1,
-            TOS_EVENT_COMBATANT_AURA_ANGRY = 68335, /* Enrage */
+            TOS_EVENT_COMBATANT_AURA_ANGRY = 23128, /* Enrage */
             TOS_EVENT_COMBATANT_SPELL_PUNCH = 29581,
         };
 
