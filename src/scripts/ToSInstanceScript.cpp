@@ -735,6 +735,8 @@ void ToSInstanceScript::PopulateRewardChest()
             LootItem lootItem(*lootStoreItem);
             lootItem.itemIndex = rewardChest->loot.items.size();
             lootItem.itemid = rewardTemplate->itemEntry;
+            lootItem.follow_loot_rules = true;
+            lootItem.freeforall = false;
 
             uint32 itemCount = urand(rewardTemplate->countMin, rewardTemplate->countMax);
             if (rewardTemplate->curseScalar)
@@ -765,7 +767,7 @@ void ToSInstanceScript::PopulateRewardChest()
         rewardChest->loot.generateMoneyLoot(minMoney, maxMoney);
 
         rewardChest->SetLootGenerationTime();
-        rewardChest->SetLootState(GO_ACTIVATED);
+        rewardChest->SetLootState(GO_READY);
     }
 
     rewardBeam = instance->SummonGameObject(TOS_GOB_REWARD_BEAM, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true);
