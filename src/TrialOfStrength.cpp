@@ -1,11 +1,11 @@
 #include "TrialOfStrength.h"
 #include "ToSMapMgr.h"
 
-#include "scripts/ToSEnemyCombatantScript.h"
-#include "scripts/ToSEnemyCombatantBossScript.h"
+#include "scripts/ai/ToSEnemyCombatantScript.h"
+#include "scripts/ai/ToSEnemyCombatantBossScript.h"
 
 #include "scripts/ToSArenaMasterScript.h"
-#include "scripts/ToSArenaSpectatorScript.h"
+#include "scripts/ai/ToSArenaSpectatorScript.h"
 
 #include "scripts/ToSInstanceScript.h"
 #include "scripts/ToSInstanceMapScript.h"
