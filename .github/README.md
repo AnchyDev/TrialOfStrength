@@ -10,7 +10,7 @@ Trial of Strength (ToS) is an AzerothCore module that adds a test of strength ar
 ## Setup
 1. Clone the module into your AzerothCore modules directory.
 2. Setup the `creature_template` table with creatures you would like to use in the arena.
-3. Pick one of the CombatAI types for each of the creatures you create.
+3. Pick one of the [CombatAI types](https://gist.github.com/AnchyDev/7d8847fd696e42c94efcfdc5baf88e7f) for each of the creatures you create.
 4. Setup the `tos_wave_groups` table with your created creatures.
 5. Setup the `tos_reward_template` with your rewards for each wave.
 6. Create wave entries in `tos_wave_template` which links to your `tos_wave_groups` and `tos_reward_template` entries.
