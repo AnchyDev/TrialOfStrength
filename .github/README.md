@@ -1,4 +1,4 @@
-# Trial of Strength
+![banner](https://cdn.discordapp.com/attachments/740999436876120127/1168057693907460136/banner2.png?ex=6550617f&is=653dec7f&hm=94411fcc08408464d7c1276c97f7246c965550efa86291ccef073e796d8691f6&)
 Trial of Strength (ToS) is an AzerothCore module that adds a test of strength arena to test players skills in combat.
 
 ## Features
