@@ -7,6 +7,8 @@ Trial of Strength (ToS) is an AzerothCore module that adds a test of strength ar
 - Curses to add difficulty and increase rewards.
 - Supports group play.
 
+![Preview Video](https://youtu.be/ZE_VsCWJNCw)
+
 ## Setup
 1. Clone the module into your AzerothCore modules directory.
 2. Setup the `creature_template` table with creatures you would like to use in the arena.
