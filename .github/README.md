@@ -17,5 +17,8 @@ Trial of Strength (ToS) is an AzerothCore module that adds a test of strength ar
 7. Enable the module.
 8. Spawn the arena entry (entry: 441250) NPC anywhere you want.
 
+## Note
+This module is a work in progress, so expect bugs and crashes as the module is not heavily tested.
+
 ## Contact
 If you have any issues setting up the module, you can [contact me on my community Discord](https://discord.gg/xdVPGcpJ8C).
