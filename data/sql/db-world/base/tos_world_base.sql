@@ -93,23 +93,20 @@ CREATE TABLE IF NOT EXISTS `tos_wave_groups` (
   `note` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Wave 1
+DELETE FROM `tos_wave_groups` WHERE `id`=1 AND `group`=1 AND `sub_group`=1 AND `creature`=441501 AND `note`='Wave 1/1 - Runt';
+INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 1, 441501, 'Wave 1/1 - Runt');
+DELETE FROM `tos_wave_groups` WHERE `id`=2 AND `group`=1 AND `sub_group`=1 AND `creature`=441500 AND `note`='Wave 1/1 - Outrunner';
+INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 1, 441500, 'Wave 1/1 - Outrunner');
+DELETE FROM `tos_wave_groups` WHERE `id`=3 AND `group`=1 AND `sub_group`=2 AND `creature`=441501 AND `note`='Wave 1/2 - Runt';
+INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 2, 441501, 'Wave 1/2 - Runt');
+DELETE FROM `tos_wave_groups` WHERE `id`=4 AND `group`=1 AND `sub_group`=2 AND `creature`=441500 AND `note`='Wave 1/2 - Outrunner';
+INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (4, 1, 2, 441500, 'Wave 1/2 - Outrunner');
+DELETE FROM `tos_wave_groups` WHERE `id`=6 AND `group`=1 AND `sub_group`=2 AND `creature`=441500 AND `note`='Wave 1/2 - Outrunner';
+INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (6, 1, 2, 441500, 'Wave 1/2 - Outrunner');
+DELETE FROM `tos_wave_groups` WHERE `id`=5 AND `group`=1 AND `sub_group`=3 AND `creature`=441502 AND `note`='Wave 1/3 - Hogger';
+INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (5, 1, 3, 441502, 'Wave 1/3 - Hogger');
 
-DELETE FROM `tos_wave_groups` WHERE `id`=1 AND `group`=1 AND `sub_group`=1 AND `creature`=441251 AND `note`='Wave 1/1 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 1, 441251, 'Wave 1/1 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=8 AND `group`=2 AND `sub_group`=1 AND `creature`=441252 AND `note`='Wave 1/1 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (8, 2, 1, 441252, 'Wave 1/1 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=2 AND `group`=1 AND `sub_group`=2 AND `creature`=441251 AND `note`='Wave 1/2 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 2, 441251, 'Wave 1/2 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=3 AND `group`=1 AND `sub_group`=2 AND `creature`=441251 AND `note`='Wave 1/2 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 2, 441251, 'Wave 1/2 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=4 AND `group`=1 AND `sub_group`=3 AND `creature`=441251 AND `note`='Wave 1/3 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (4, 1, 3, 441251, 'Wave 1/3 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=5 AND `group`=1 AND `sub_group`=3 AND `creature`=441251 AND `note`='Wave 1/3 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (5, 1, 3, 441251, 'Wave 1/3 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=6 AND `group`=1 AND `sub_group`=3 AND `creature`=441251 AND `note`='Wave 1/3 - Melee';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (6, 1, 3, 441251, 'Wave 1/3 - Melee');
-DELETE FROM `tos_wave_groups` WHERE `id`=7 AND `group`=1 AND `sub_group`=4 AND `creature`=441252 AND `note`='Wave 1/4 - Boss';
-INSERT INTO `tos_wave_groups` (`id`, `group`, `sub_group`, `creature`, `note`) VALUES (7, 1, 4, 441252, 'Wave 1/4 - Boss');
 
 
 CREATE TABLE IF NOT EXISTS `tos_wave_template` (
@@ -119,24 +116,19 @@ CREATE TABLE IF NOT EXISTS `tos_wave_template` (
   `reward_template` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DELETE FROM `tos_wave_template` WHERE `wave`=1 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (1, 2, 1, 1);
+
+-- Wave 1
+DELETE FROM `tos_wave_template` WHERE `wave`=1 AND `enemy_group`=1 AND `has_reward`=1 AND `reward_template`=1;
+INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (1, 1, 1, 1);
+DELETE FROM `tos_wave_template` WHERE `wave`=5 AND `enemy_group`=5 AND `has_reward`=1 AND `reward_template`=1;
+INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (5, 5, 1, 1);
 DELETE FROM `tos_wave_template` WHERE `wave`=2 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (2, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=3 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (3, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=4 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (4, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=5 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (5, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=6 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (6, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=7 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (7, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=8 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (8, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=9 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (9, 2, 1, 1);
+DELETE FROM `tos_wave_template` WHERE `wave`=3 AND `enemy_group`=3 AND `has_reward`=1 AND `reward_template`=1;
+INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (3, 3, 1, 1);
+DELETE FROM `tos_wave_template` WHERE `wave`=4 AND `enemy_group`=4 AND `has_reward`=1 AND `reward_template`=1;
+INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (4, 4, 1, 1);
+
 
 
 CREATE TABLE IF NOT EXISTS `tos_curse_template` (
@@ -150,16 +142,16 @@ CREATE TABLE IF NOT EXISTS `tos_curse_template` (
 
 DELETE FROM `tos_curse_template` WHERE `id`=1 AND `type`=0 AND `difficulty`=50 AND `aura`=68335 AND `name`='Enrage' AND `description`='Combatants are enraged, increasing their damage by 50%.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (1, 0, 50, 68335, 'Enrage', 'Combatants are enraged, increasing their damage by 50%.');
-DELETE FROM `tos_curse_template` WHERE `id`=16 AND `type`=0 AND `difficulty`=50 AND `aura`=25820 AND `name`='Fearful' AND `description`='Combatants have a 10% chance when taking damage to fear players.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (16, 0, 50, 25820, 'Fearful', 'Combatants have a 10% chance when taking damage to fear players.');
+DELETE FROM `tos_curse_template` WHERE `id`=2 AND `type`=0 AND `difficulty`=100 AND `aura`=29476 AND `name`='Astral Armor' AND `description`='Combatants are protected, decreasing the damage they receive by 90%.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (2, 0, 100, 29476, 'Astral Armor', 'Combatants are protected, decreasing the damage they receive by 90%.');
+DELETE FROM `tos_curse_template` WHERE `id`=3 AND `type`=1 AND `difficulty`=60 AND `aura`=34102 AND `name`='Curse of the Violet Tower' AND `description`='Players are weakened, dealing 50% less damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (3, 1, 60, 34102, 'Curse of the Violet Tower', 'Players are weakened, dealing 50% less damage.');
+DELETE FROM `tos_curse_template` WHERE `id`=4 AND `type`=0 AND `difficulty`=75 AND `aura`=34337 AND `name`='Armored Skin' AND `description`='Combatants skin have been strengthened, taking 75% less physical damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (4, 0, 75, 34337, 'Armored Skin', 'Combatants skin have been strengthened, taking 75% less physical damage.');
 DELETE FROM `tos_curse_template` WHERE `id`=5 AND `type`=0 AND `difficulty`=0 AND `aura`=45673 AND `name`='Bigger!' AND `description`='Combatants are 15-25 percent larger!';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (5, 0, 0, 45673, 'Bigger!', 'Combatants are 15-25 percent larger!');
 DELETE FROM `tos_curse_template` WHERE `id`=6 AND `type`=0 AND `difficulty`=20 AND `aura`=45444 AND `name`='Hot Hands' AND `description`='Combatants have bonfire\'s blessing, infusing their attacks with flame.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (6, 0, 20, 45444, 'Hot Hands', 'Combatants have bonfire\'s blessing, infusing their attacks with flame.');
-DELETE FROM `tos_curse_template` WHERE `id`=18 AND `type`=1 AND `difficulty`=60 AND `aura`=35500 AND `name`='Dampened' AND `description`='Players have 50% reduced maximum health and 50% increased mana cost of spells.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (18, 1, 60, 35500, 'Dampened', 'Players have 50% reduced maximum health and 50% increased mana cost of spells.');
-DELETE FROM `tos_curse_template` WHERE `id`=19 AND `type`=0 AND `difficulty`=60 AND `aura`=31317 AND `name`='Vampiric' AND `description`='Combatants melee attacks heal for 300% of the damage.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (19, 0, 60, 31317, 'Vampiric', 'Combatants melee attacks heal for 300% of the damage.');
 DELETE FROM `tos_curse_template` WHERE `id`=7 AND `type`=1 AND `difficulty`=50 AND `aura`=69127 AND `name`='Chill of the Throne' AND `description`='Players have a 20% reduced chance to dodge.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (7, 1, 50, 69127, 'Chill of the Throne', 'Players have a 20% reduced chance to dodge.');
 DELETE FROM `tos_curse_template` WHERE `id`=8 AND `type`=1 AND `difficulty`=10 AND `aura`=41631 AND `name`='Cold Feet' AND `description`='Players have a 20% reduced movement speed.';
@@ -172,22 +164,23 @@ DELETE FROM `tos_curse_template` WHERE `id`=11 AND `type`=1 AND `difficulty`=0 A
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (11, 1, 0, 45672, 'Shorter!', 'Players are 45-75 percent smaller!');
 DELETE FROM `tos_curse_template` WHERE `id`=12 AND `type`=0 AND `difficulty`=20 AND `aura`=33795 AND `name`='Strength of Halaa' AND `description`='Combatants have 5% increased damage.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (12, 0, 20, 33795, 'Strength of Halaa', 'Combatants have 5% increased damage.');
-DELETE FROM `tos_curse_template` WHERE `id`=17 AND `type`=0 AND `difficulty`=30 AND `aura`=39444 AND `name`='Vengeance' AND `description`='Combatants have a 10% chance when taking damage to deal holy damage to the player.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (17, 0, 30, 39444, 'Vengeance', 'Combatants have a 10% chance when taking damage to deal holy damage to the player.');
 DELETE FROM `tos_curse_template` WHERE `id`=13 AND `type`=0 AND `difficulty`=100 AND `aura`=58361 AND `name`='Might of Mograine' AND `description`='Combatants have 500% increased damage, 15000% increased health and 25% of health is regenerated every 2 seconds.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (13, 0, 100, 58361, 'Might of Mograine', 'Combatants have 500% increased damage, 15000% increased health and 25% of health is regenerated every 2 seconds.');
 DELETE FROM `tos_curse_template` WHERE `id`=14 AND `type`=0 AND `difficulty`=20 AND `aura`=33779 AND `name`='Twin Spire Blessing' AND `description`='Combatants have 5% increased damage.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (14, 0, 20, 33779, 'Twin Spire Blessing', 'Combatants have 5% increased damage.');
-DELETE FROM `tos_curse_template` WHERE `id`=2 AND `type`=0 AND `difficulty`=100 AND `aura`=29476 AND `name`='Astral Armor' AND `description`='Combatants are protected, decreasing the damage they receive by 90%.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (2, 0, 100, 29476, 'Astral Armor', 'Combatants are protected, decreasing the damage they receive by 90%.');
-DELETE FROM `tos_curse_template` WHERE `id`=3 AND `type`=1 AND `difficulty`=60 AND `aura`=34102 AND `name`='Curse of the Violet Tower' AND `description`='Players are weakened, dealing 50% less damage.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (3, 1, 60, 34102, 'Curse of the Violet Tower', 'Players are weakened, dealing 50% less damage.');
-DELETE FROM `tos_curse_template` WHERE `id`=4 AND `type`=0 AND `difficulty`=75 AND `aura`=34337 AND `name`='Armored Skin' AND `description`='Combatants skin have been strengthened, taking 75% less physical damage.';
-INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (4, 0, 75, 34337, 'Armored Skin', 'Combatants skin have been strengthened, taking 75% less physical damage.');
 DELETE FROM `tos_curse_template` WHERE `id`=15 AND `type`=0 AND `difficulty`=100 AND `aura`=69491 AND `name`='Aura of Darkness' AND `description`='Combatants are consumed by darkness, radiating very high shadow damage every 2 seconds.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (15, 0, 100, 69491, 'Aura of Darkness', 'Combatants are consumed by darkness, radiating very high shadow damage every 2 seconds.');
+DELETE FROM `tos_curse_template` WHERE `id`=16 AND `type`=0 AND `difficulty`=50 AND `aura`=25820 AND `name`='Fearful' AND `description`='Combatants have a 10% chance when taking damage to fear players.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (16, 0, 50, 25820, 'Fearful', 'Combatants have a 10% chance when taking damage to fear players.');
+DELETE FROM `tos_curse_template` WHERE `id`=17 AND `type`=0 AND `difficulty`=30 AND `aura`=39444 AND `name`='Vengeance' AND `description`='Combatants have a 10% chance when taking damage to deal holy damage to the player.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (17, 0, 30, 39444, 'Vengeance', 'Combatants have a 10% chance when taking damage to deal holy damage to the player.');
+DELETE FROM `tos_curse_template` WHERE `id`=18 AND `type`=1 AND `difficulty`=60 AND `aura`=35500 AND `name`='Dampened' AND `description`='Players have 50% reduced maximum health and 50% increased mana cost of spells.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (18, 1, 60, 35500, 'Dampened', 'Players have 50% reduced maximum health and 50% increased mana cost of spells.');
+DELETE FROM `tos_curse_template` WHERE `id`=19 AND `type`=0 AND `difficulty`=60 AND `aura`=31317 AND `name`='Vampiric' AND `description`='Combatants melee attacks heal for 300% of the damage.';
+INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (19, 0, 60, 31317, 'Vampiric', 'Combatants melee attacks heal for 300% of the damage.');
 DELETE FROM `tos_curse_template` WHERE `id`=20 AND `type`=0 AND `difficulty`=20 AND `aura`=39007 AND `name`='Lesser Immolation' AND `description`='Combatants are engulfed in flame, emitting low amounts of fire damage every 2 seconds.';
 INSERT INTO `tos_curse_template` (`id`, `type`, `difficulty`, `aura`, `name`, `description`) VALUES (20, 0, 20, 39007, 'Lesser Immolation', 'Combatants are engulfed in flame, emitting low amounts of fire damage every 2 seconds.');
+
 
 
 DELETE FROM `gameobject` WHERE map = 44;
@@ -265,3 +258,11 @@ INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMa
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (441253, 0, 0, 44, 0, 0, 1, 1, 0, 240.308, -92.1951, 23.7742, 5.77433, 300, 0, 0, 5342, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (441250, 0, 0, 44, 0, 0, 1, 1, 0, 249.918, -100.064, 18.6794, 0.0307553, 300, 0, 0, 5342, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (24780, 0, 0, 44, 0, 0, 1, 1, 0, 185.805, -131.234, 18.043, 3.68755, 300, 0, 0, 12150, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
+
+-- Wave 1
+DELETE FROM `creature_template` WHERE `entry`=441502;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441502, 0, 0, 0, 0, 0, 384, 0, 0, 0, 'Hogger', NULL, NULL, 0, 80, 80, 0, 20, 0, 1.2, 1.14286, 1, 1, 20, 1, 1, 0, 1.7, 2000, 2000, 1, 1, 1, 64, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 3, 1, 1, 1, 0, 0, 1, 0, 0, 0, '', -1);
+DELETE FROM `creature_template` WHERE `entry`=441501;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441501, 0, 0, 0, 0, 0, 10791, 0, 0, 0, 'Riverpaw Runt', NULL, NULL, 0, 80, 80, 0, 20, 0, 1, 0.85714, 1, 1, 18, 1, 0, 0, 1, 2000, 2000, 1, 1, 1, 0, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 1, 1, 1, 1, 0, 100, 1, 0, 0, 0, '', -1);
+DELETE FROM `creature_template` WHERE `entry`=441500;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441500, 0, 0, 0, 0, 0, 512, 0, 0, 0, 'Riverpaw Outrunner', NULL, NULL, 0, 80, 80, 0, 20, 0, 1.2, 0.85714, 1, 1, 18, 1, 0, 0, 1, 2000, 2000, 1, 1, 1, 0, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 1, 1, 1, 1, 0, 100, 1, 0, 0, 0, '', -1);
