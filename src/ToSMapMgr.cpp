@@ -192,4 +192,6 @@ bool ToSMapManager::CanPlayerEnter(Player* player)
     {
         return false;
     }
+
+    return true;
 }
