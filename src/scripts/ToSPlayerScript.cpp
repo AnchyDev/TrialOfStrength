@@ -3,6 +3,8 @@
 #include "TrialOfStrength.h"
 #include "ToSMapMgr.h"
 
+#include "Chat.h"
+
 bool ToSPlayerScript::CanRepopAtGraveyard(Player* player)
 {
     if (!player)
@@ -35,6 +37,12 @@ bool ToSPlayerScript::OnBeforeTeleport(Player* player, uint32 mapId, float /*x*/
     if (!player)
     {
         return true;
+    }
+
+    if (!sToSMapMgr->CanPlayerEnter(player) && mapId == TOS_MAP_ID)
+    {
+        ChatHandler(player->GetSession()).SendSysMessage("|cffFF0000You do not meet the requirements to enter the Trial of Strength.|r");
+        return false;
     }
 
     auto oldMapId = player->GetMapId();
