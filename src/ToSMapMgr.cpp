@@ -180,3 +180,16 @@ void ToSMapManager::ResetCooldowns(Player* player)
 
     player->RemoveAllSpellCooldown();
 }
+
+bool ToSMapManager::CanPlayerEnter(Player* player)
+{
+    if (!player)
+    {
+        return false;
+    }
+
+    if (player->GetLevel() < 80)
+    {
+        return false;
+    }
+}

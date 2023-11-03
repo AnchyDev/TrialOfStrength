@@ -12,6 +12,7 @@ public:
         TOS_ARENA_MASTER_TEXT_WAVE_NOT_FINISHED = 441252,
         TOS_ARENA_MASTER_TEXT_WAVE_NEXT = 441253,
         TOS_ARENA_MASTER_TEXT_CONGRATULATE = 441254,
+        TOS_ARENA_MASTER_TEXT_DENY_ENTRY = 441255,
 
         TOS_GOSSIP_TELEPORT_TO = 1,
         TOS_GOSSIP_TELEPORT_FROM = 2,
@@ -28,6 +29,13 @@ public:
         }
 
         ClearGossipMenuFor(player);
+
+        if (!sToSMapMgr->CanPlayerEnter(player))
+        {
+            SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_DENY_ENTRY, creature);
+
+            return true;
+        }
 
         auto map = creature->GetMap();
         if (map && map->GetId() != TOS_MAP_ID)
