@@ -622,6 +622,7 @@ void ToSInstanceScript::CheckWaveCompletion()
     {
         NotifyPlayers();
         PopulateRewardChest();
+        CleanupCreatures();
 
         if (sConfigMgr->GetOption<bool>("TrialOfStrength.ResetCooldowns", true))
         {
@@ -877,7 +878,9 @@ void ToSInstanceScript::CleanupCreatures()
     {
         auto creature = *it;
 
-        if (!creature || !creature->IsInWorld())
+        if (!creature ||
+            !creature->IsInWorld() ||
+            creature->GetMapId() != TOS_MAP_ID)
         {
             continue;
         }
