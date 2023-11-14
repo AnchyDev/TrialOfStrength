@@ -2,7 +2,7 @@
 #include "ToSMapMgr.h"
 
 #include "scripts/AI/ToSEnemyCombatantMeleeAlphaScript.h"
-#include "scripts/AI/ToSEnemyCombatantSpellAlphaScript.h"
+#include "scripts/AI/ToSAISpellElemental.h"
 
 #include "scripts/AI/ToSEnemyCombatantBossScript.h"
 
@@ -182,7 +182,7 @@ void SC_AddTrialOfStrengthScripts()
     new ToSArenaSpectatorScript();
 
     new ToSEnemyCombatantMeleeAlphaScript();
-    new ToSEnemyCombatantSpellAlphaScript();
+    new ToSAISpellElemental();
 
     new ToSEnemyCombatantBossScript();
 
