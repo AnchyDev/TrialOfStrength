@@ -1,5 +1,5 @@
-#ifndef MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_SPELL_ALPHA_H
-#define MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_SPELL_ALPHA_H
+#ifndef MODULE_TRIAL_OF_STRENGTH_AI_SPELL_ELEMENTAL_H
+#define MODULE_TRIAL_OF_STRENGTH_AI_SPELL_ELEMENTAL_H
 
 #include "ScriptMgr.h"
 
@@ -8,12 +8,12 @@ class ToSAISpellElemental : public CreatureScript
 public:
     ToSAISpellElemental() : CreatureScript("ToSAISpellElemental") { }
 
-    virtual CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* creature) const override
     {
-        return new ToSEnemyCombatantSpellAlphaAI(creature);
+        return new ToSAISpellElementalAI(creature);
     }
 
-    struct ToSEnemyCombatantSpellAlphaAI : public CombatAI
+    struct ToSAISpellElementalAI : public CombatAI
     {
         enum CombatantEvents
         {
@@ -35,7 +35,7 @@ public:
 
         uint32 currentSpell;
 
-        ToSEnemyCombatantSpellAlphaAI(Creature* creature) : CombatAI(creature)
+        ToSAISpellElementalAI(Creature* creature) : CombatAI(creature)
         {
             Reset();
         }
@@ -104,4 +104,4 @@ public:
     };
 };
 
-#endif // MODULE_TRIAL_OF_STRENGTH_ENEMY_COMBATANT_SPELL_ALPHA_H
+#endif // MODULE_TRIAL_OF_STRENGTH_AI_SPELL_ELEMENTAL_H

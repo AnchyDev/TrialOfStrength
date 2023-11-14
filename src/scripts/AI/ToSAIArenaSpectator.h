@@ -1,29 +1,30 @@
-#ifndef MODULE_TRIAL_OF_STRENGTH_ARENA_SPECTATOR_H
-#define MODULE_TRIAL_OF_STRENGTH_ARENA_SPECTATOR_H
+#ifndef MODULE_TRIAL_OF_STRENGTH_AI_ARENA_SPECTATOR_H
+#define MODULE_TRIAL_OF_STRENGTH_AI_ARENA_SPECTATOR_H
 
+#include "ScriptMgr.h"
+#include "ScriptedCreature.h"
 #include "ToSInstanceScript.h"
 
-#include "ScriptedCreature.h"
-
-class ToSArenaSpectatorScript : public CreatureScript
+class ToSAIArenaSpectator : public CreatureScript
 {
 public:
-    ToSArenaSpectatorScript() : CreatureScript("ToSArenaSpectatorScript") { }
+    ToSAIArenaSpectator() : CreatureScript("ToSAIArenaSpectator") { }
 
     CreatureAI* GetAI(Creature* creature) const override
     {
-        return new ToSArenaSpectatorAIScript(creature);
+        return new ToSAIArenaSpectatorAI(creature);
     }
 
-    class ToSArenaSpectatorAIScript : public ScriptedAI
+    struct ToSAIArenaSpectatorAI : public ScriptedAI
     {
         enum ToSSpectatorConstants
         {
             TOS_ARENA_SPEC_DO_EMOTE = 1
         };
 
-    public:
-        ToSArenaSpectatorAIScript(Creature* creature) : ScriptedAI(creature)
+        EventMap events;
+
+        ToSAIArenaSpectatorAI(Creature* creature) : ScriptedAI(creature)
         {
             events.Reset();
             events.ScheduleEvent(TOS_ARENA_SPEC_DO_EMOTE, randtime(3s, 10s));
@@ -73,13 +74,7 @@ public:
                 break;
             }
         }
-
-    private:
-        EventMap events;
     };
-
-private:
-    EventMap events;
 };
 
-#endif // MODULE_TRIAL_OF_STRENGTH_ARENA_SPECTATOR_H
+#endif // MODULE_TRIAL_OF_STRENGTH_AI_ARENA_SPECTATOR_H
