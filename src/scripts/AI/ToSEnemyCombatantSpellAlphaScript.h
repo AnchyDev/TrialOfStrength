@@ -3,10 +3,10 @@
 
 #include "ScriptMgr.h"
 
-class ToSEnemyCombatantSpellAlphaScript : public CreatureScript
+class ToSAISpellElemental : public CreatureScript
 {
 public:
-    ToSEnemyCombatantSpellAlphaScript() : CreatureScript("ToSEnemyCombatantSpellAlphaScript") { }
+    ToSAISpellElemental() : CreatureScript("ToSAISpellElemental") { }
 
     virtual CreatureAI* GetAI(Creature* creature) const
     {
@@ -80,30 +80,22 @@ public:
             case TOS_EVENT_COMBATANT_SPELL_ID_FROST:
                 currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_FIRE;
                 me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_FIRE_SHIELD, me);
-
-                me->Yell("Fire!", LANG_UNIVERSAL);
                 break;
 
             case TOS_EVENT_COMBATANT_SPELL_ID_FIRE:
                 currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING;
                 me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING_SHIELD, me);
-                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_MANA_REGEN, me); // Allows the caster to complete a cycle.
-
-                me->Yell("Storm!", LANG_UNIVERSAL);
+                me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_MANA_REGEN, me); // Allows the caster to regen mana to complete a cycle.
                 break;
 
             case TOS_EVENT_COMBATANT_SPELL_ID_LIGHTNING:
                 currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_EARTH;
                 me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_EARTH_SHIELD, me);
-
-                me->Yell("Earth!", LANG_UNIVERSAL);
                 break;
 
             case TOS_EVENT_COMBATANT_SPELL_ID_EARTH:
                 currentSpell = TOS_EVENT_COMBATANT_SPELL_ID_FROST;
                 me->AddAura(TOS_EVENT_COMBATANT_SPELL_ID_FROST_SHIELD, me);
-
-                me->Yell("Frost!", LANG_UNIVERSAL);
                 break;
             }
 
