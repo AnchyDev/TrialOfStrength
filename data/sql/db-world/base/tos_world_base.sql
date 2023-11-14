@@ -93,30 +93,44 @@ CREATE TABLE IF NOT EXISTS `tos_wave_groups` (
   `note` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DELETE FROM `tos_wave_groups` WHERE `id`=1;
-INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 441501, 'Wave 1/1 - Runt');
-DELETE FROM `tos_wave_groups` WHERE `id`=2;
+DELETE FROM `tos_wave_groups` WHERE `id`=28;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 441500, 'Wave 1/1 - Outrunner');
-DELETE FROM `tos_wave_groups` WHERE `id`=3;
+DELETE FROM `tos_wave_groups` WHERE `id`=27;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 441501, 'Wave 1/1 - Runt');
+DELETE FROM `tos_wave_groups` WHERE `id`=30;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441500, 'Wave 1/2 - Outrunner');
+DELETE FROM `tos_wave_groups` WHERE `id`=32;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441500, 'Wave 1/2 - Outrunner');
+DELETE FROM `tos_wave_groups` WHERE `id`=29;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441501, 'Wave 1/2 - Runt');
-DELETE FROM `tos_wave_groups` WHERE `id`=4;
-INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441500, 'Wave 1/2 - Outrunner');
-DELETE FROM `tos_wave_groups` WHERE `id`=5;
+DELETE FROM `tos_wave_groups` WHERE `id`=31;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 3, 441502, 'Wave 1/3 - Hogger');
-DELETE FROM `tos_wave_groups` WHERE `id`=6;
-INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441500, 'Wave 1/2 - Outrunner');
-DELETE FROM `tos_wave_groups` WHERE `id`=7;
-INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 441503, 'Wave 2/1 - Trapper');
-DELETE FROM `tos_wave_groups` WHERE `id`=8;
+DELETE FROM `tos_wave_groups` WHERE `id`=34;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 441504, 'Wave 2/1 - Smuggler');
-DELETE FROM `tos_wave_groups` WHERE `id`=9;
+DELETE FROM `tos_wave_groups` WHERE `id`=33;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 441503, 'Wave 2/1 - Trapper');
+DELETE FROM `tos_wave_groups` WHERE `id`=35;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 2, 441505, 'Wave 2/2 - Pillager');
-DELETE FROM `tos_wave_groups` WHERE `id`=10;
+DELETE FROM `tos_wave_groups` WHERE `id`=36;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 2, 441505, 'Wave 2/2 - Pillager');
-DELETE FROM `tos_wave_groups` WHERE `id`=11;
+DELETE FROM `tos_wave_groups` WHERE `id`=37;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 2, 441503, 'Wave 2/2 - Trapper');
-DELETE FROM `tos_wave_groups` WHERE `id`=12;
+DELETE FROM `tos_wave_groups` WHERE `id`=38;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 3, 441506, 'Wave 2/3 - Edwin Vancleef');
+DELETE FROM `tos_wave_groups` WHERE `id`=14;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 441508, 'Wave 3/1 - Hungering Dead');
+DELETE FROM `tos_wave_groups` WHERE `id`=15;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 441509, 'Wave 3/1 - Ravaged Corpse');
+DELETE FROM `tos_wave_groups` WHERE `id`=13;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 441507, 'Wave 3/1 - Rotting Dead');
+DELETE FROM `tos_wave_groups` WHERE `id`=40;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441508, 'Wave 3/2 - Hungering Dead');
+DELETE FROM `tos_wave_groups` WHERE `id`=41;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441509, 'Wave 3/2 - Ravaged Corpse');
+DELETE FROM `tos_wave_groups` WHERE `id`=39;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441507, 'Wave 3/2 - Rotting Dead');
+DELETE FROM `tos_wave_groups` WHERE `id`=42;
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 3, 441510, 'Wave 3/3 - Leprithus');
 
 
 
@@ -128,18 +142,12 @@ CREATE TABLE IF NOT EXISTS `tos_wave_template` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- Wave 1
-DELETE FROM `tos_wave_template` WHERE `wave`=1 AND `enemy_group`=1 AND `has_reward`=1 AND `reward_template`=1;
+DELETE FROM `tos_wave_template` WHERE `wave`=1;
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (1, 1, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=5 AND `enemy_group`=5 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (5, 5, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=2 AND `enemy_group`=2 AND `has_reward`=1 AND `reward_template`=1;
+DELETE FROM `tos_wave_template` WHERE `wave`=2;
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (2, 2, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=3 AND `enemy_group`=3 AND `has_reward`=1 AND `reward_template`=1;
+DELETE FROM `tos_wave_template` WHERE `wave`=3;
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (3, 3, 1, 1);
-DELETE FROM `tos_wave_template` WHERE `wave`=4 AND `enemy_group`=4 AND `has_reward`=1 AND `reward_template`=1;
-INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (4, 4, 1, 1);
-
 
 
 CREATE TABLE IF NOT EXISTS `tos_curse_template` (
@@ -271,6 +279,17 @@ INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMa
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (24780, 0, 0, 44, 0, 0, 1, 1, 0, 185.805, -131.234, 18.043, 3.68755, 300, 0, 0, 12150, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
 
 
+-- Wave 3
+DELETE FROM `creature_template` WHERE `entry`=441510;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441510, 0, 0, 0, 0, 0, 1065, 0, 0, 0, 'Leprithus', NULL, NULL, 0, 80, 80, 0, 21, 0, 0.777776, 1.14286, 1, 1, 20, 1, 1, 0, 3, 1500, 2000, 1, 1, 2, 0, 2048, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 4, 1, 1, 0, 0, 0, 1, 8388624, 0, 0, '', -1);
+DELETE FROM `creature_template` WHERE `entry`=441509;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441509, 0, 0, 0, 0, 0, 1202, 0, 0, 0, 'Hungering Dead', NULL, NULL, 0, 80, 80, 0, 21, 0, 1, 0.85714, 1, 1, 18, 1, 0, 0, 1.5, 1500, 2000, 1, 1, 1, 0, 2048, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 1.5, 1, 1, 0, 0, 100, 1, 8388624, 0, 0, '', -1);
+DELETE FROM `creature_template` WHERE `entry`=441508;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441508, 0, 0, 0, 0, 0, 1201, 0, 0, 0, 'Ravaged Corpse', NULL, NULL, 0, 80, 80, 0, 21, 0, 1, 0.85714, 1, 1, 18, 1, 0, 0, 1.5, 1500, 2000, 1, 1, 1, 0, 2048, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 1.5, 1, 1, 0, 0, 100, 1, 8388624, 0, 0, '', -1);
+DELETE FROM `creature_template` WHERE `entry`=441507;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441507, 0, 0, 0, 0, 0, 1200, 0, 0, 0, 'Rotting Dead', NULL, NULL, 0, 80, 80, 0, 21, 0, 1, 0.85714, 1, 1, 18, 1, 0, 0, 1.5, 1500, 2000, 1, 1, 1, 0, 2048, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 1.5, 1, 1, 0, 0, 100, 1, 8388624, 0, 0, '', -1);
+
+-- Wave 2
 DELETE FROM `creature_template` WHERE `entry`=441506;
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441506, 0, 0, 0, 0, 0, 2029, 0, 0, 0, 'Edwin VanCleef', 'Defias Kingpin', NULL, 0, 80, 80, 0, 17, 0, 1, 1.14286, 1, 1, 20, 1, 1, 0, 2, 2000, 2000, 1, 1, 1, 64, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 1, 3, 1, 1, 2, 0, 0, 1, 0, 0, 0, '', -1);
 DELETE FROM `creature_template` WHERE `entry`=441505;
@@ -279,6 +298,8 @@ DELETE FROM `creature_template` WHERE `entry`=441504;
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441504, 0, 0, 0, 0, 0, 4418, 4419, 0, 0, 'Defias Smuggler', '', NULL, 0, 80, 80, 0, 17, 0, 1, 1.14286, 1, 1, 18, 1, 0, 0, 1, 2000, 2000, 1, 1, 1, 32768, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, '', -1);
 DELETE FROM `creature_template` WHERE `entry`=441503;
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441503, 0, 0, 0, 0, 0, 2331, 2332, 0, 0, 'Defias Trapper', '', NULL, 0, 80, 80, 0, 17, 0, 1, 1.14286, 1, 1, 18, 1, 0, 0, 1, 2000, 2000, 1, 1, 1, 32768, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, '', -1);
+
+-- Wave 1
 DELETE FROM `creature_template` WHERE `entry`=441502;
 INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441502, 0, 0, 0, 0, 0, 384, 0, 0, 0, 'Hogger', NULL, NULL, 0, 80, 80, 0, 20, 0, 1.2, 1.14286, 1, 1, 20, 1, 1, 0, 2, 2000, 2000, 1, 1, 1, 64, 2048, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 1, 1, 3, 1, 1, 1, 0, 0, 1, 0, 0, 0, '', -1);
 DELETE FROM `creature_template` WHERE `entry`=441501;
