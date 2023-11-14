@@ -4,8 +4,7 @@
 #include "scripts/AI/ToSAIArenaSpectator.h"
 #include "scripts/AI/ToSAIMeleeAngry.h"
 #include "scripts/AI/ToSAISpellElemental.h"
-
-#include "scripts/AI/ToSEnemyCombatantBossScript.h"
+#include "scripts/AI/ToSAIMeleeNecrotic.h"
 
 #include "scripts/ToSArenaMasterScript.h"
 
@@ -185,9 +184,8 @@ void SC_AddTrialOfStrengthScripts()
         new ToSAIArenaSpectator();
         new ToSAIMeleeAngry();
         new ToSAISpellElemental();
+        new ToSAIMeleeNecrotic();
     }
-
-    new ToSEnemyCombatantBossScript();
 
     new ToSInstanceMapScript();
 
