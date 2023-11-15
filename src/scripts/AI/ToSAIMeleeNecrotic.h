@@ -18,6 +18,7 @@ public:
         enum CombatantEvents
         {
             TOS_EVENT_COMBATANT_SPELL_ID_STRIKE = 69933, // Baleful Strike
+            TOS_EVENT_COMBATANT_SPELL_ID_STRIKE_2 = 71924, // Plague Strike
 
             TOS_EVENT_COMBATANT_SPELL_RANDOM = 1,
         };
@@ -65,6 +66,10 @@ public:
             {
             case 0:
                 me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_ID_STRIKE);
+                break;
+
+            case 1:
+                me->CastSpell(creature, 1);
                 break;
             }
             events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 3s);
