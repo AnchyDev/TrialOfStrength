@@ -86,50 +86,34 @@ INSERT INTO `tos_reward_template` (`id`, `item_entry`, `count_min`, `count_max`,
 
 
 CREATE TABLE IF NOT EXISTS `tos_wave_groups` (
-  `id` int DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `group` int DEFAULT NULL,
   `sub_group` int DEFAULT NULL,
   `creature` int DEFAULT NULL,
-  `note` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `note` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DELETE FROM `tos_wave_groups` WHERE `id`=28;
+
+DELETE FROM `tos_wave_groups`;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 441500, 'Wave 1/1 - Outrunner');
-DELETE FROM `tos_wave_groups` WHERE `id`=27;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 1, 441501, 'Wave 1/1 - Runt');
-DELETE FROM `tos_wave_groups` WHERE `id`=30;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441500, 'Wave 1/2 - Outrunner');
-DELETE FROM `tos_wave_groups` WHERE `id`=32;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441500, 'Wave 1/2 - Outrunner');
-DELETE FROM `tos_wave_groups` WHERE `id`=29;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 2, 441501, 'Wave 1/2 - Runt');
-DELETE FROM `tos_wave_groups` WHERE `id`=31;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (1, 3, 441502, 'Wave 1/3 - Hogger');
-DELETE FROM `tos_wave_groups` WHERE `id`=34;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 441504, 'Wave 2/1 - Smuggler');
-DELETE FROM `tos_wave_groups` WHERE `id`=33;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 1, 441503, 'Wave 2/1 - Trapper');
-DELETE FROM `tos_wave_groups` WHERE `id`=35;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 2, 441505, 'Wave 2/2 - Pillager');
-DELETE FROM `tos_wave_groups` WHERE `id`=36;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 2, 441505, 'Wave 2/2 - Pillager');
-DELETE FROM `tos_wave_groups` WHERE `id`=37;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 2, 441503, 'Wave 2/2 - Trapper');
-DELETE FROM `tos_wave_groups` WHERE `id`=38;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (2, 3, 441506, 'Wave 2/3 - Edwin Vancleef');
-DELETE FROM `tos_wave_groups` WHERE `id`=14;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 441508, 'Wave 3/1 - Hungering Dead');
-DELETE FROM `tos_wave_groups` WHERE `id`=15;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 441509, 'Wave 3/1 - Ravaged Corpse');
-DELETE FROM `tos_wave_groups` WHERE `id`=13;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 1, 441507, 'Wave 3/1 - Rotting Dead');
-DELETE FROM `tos_wave_groups` WHERE `id`=40;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441508, 'Wave 3/2 - Hungering Dead');
-DELETE FROM `tos_wave_groups` WHERE `id`=41;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441509, 'Wave 3/2 - Ravaged Corpse');
-DELETE FROM `tos_wave_groups` WHERE `id`=39;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441507, 'Wave 3/2 - Rotting Dead');
-DELETE FROM `tos_wave_groups` WHERE `id`=42;
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 3, 441510, 'Wave 3/3 - Leprithus');
 
 
