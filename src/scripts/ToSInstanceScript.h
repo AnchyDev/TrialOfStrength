@@ -84,6 +84,7 @@ public:
 
     void CheckWaveCompletion();
     void PopulateRewardChest();
+    bool IsRewardChestEmpty();
     void AnnounceCompletion();
 
     void PlayCrowd();

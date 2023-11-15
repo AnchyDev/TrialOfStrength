@@ -781,6 +781,16 @@ void ToSInstanceScript::PopulateRewardChest()
     rewardBeam = instance->SummonGameObject(TOS_GOB_REWARD_BEAM, *tempPos, 0.0, 0.0, 0.0, 0.0, 0, true);
 }
 
+bool ToSInstanceScript::IsRewardChestEmpty()
+{
+    if (!rewardChest || !rewardChest->IsInWorld())
+    {
+        return true;
+    }
+
+    return rewardChest->loot.unlootedCount < 1;
+}
+
 void ToSInstanceScript::SetData(uint32 dataId, uint32 value)
 {
     switch (dataId)

@@ -46,7 +46,7 @@ public:
             return true;
         }
 
-        auto iScript = creature->GetInstanceScript();
+        auto iScript = (ToSInstanceScript*)creature->GetInstanceScript();
         if (!iScript)
         {
             CloseGossipMenuFor(player);
@@ -83,8 +83,16 @@ public:
 
         if (iScript->IsEncounterInProgress() && waveCleared && hasMoreWaves)
         {
-            AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Yes, I would like to proceed to the next wave. ({})", currentWave + 1), GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_NEXT_WAVE);
-            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to stop here.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET);
+            if (iScript->IsRewardChestEmpty())
+            {
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Yes, I would like to proceed to the next wave. ({})", currentWave + 1), GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_NEXT_WAVE);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to stop here.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET);
+            }
+            else
+            {
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, Acore::StringFormatFmt("Yes, I would like to proceed to the next wave. ({})", currentWave + 1), GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_NEXT_WAVE, "You have unlooted items in the reward chest, are you sure you want to continue?", 0, false);
+                AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to stop here.", GOSSIP_SENDER_MAIN, TOS_GOSSIP_ENCOUNTER_RESET, "You have unlooted items in the reward chest, are you sure you want to continue?", 0, false);
+            }
 
             SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_WAVE_NEXT, creature);
 
