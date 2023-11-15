@@ -1,31 +1,30 @@
-#ifndef MODULE_TRIAL_OF_STRENGTH_AI_MELEE_NECROTIC_H
-#define MODULE_TRIAL_OF_STRENGTH_AI_MELEE_NECROTIC_H
+#ifndef MODULE_TRIAL_OF_STRENGTH_AI_MELEE_TRAPPER_H
+#define MODULE_TRIAL_OF_STRENGTH_AI_MELEE_TRAPPER_H
 
 #include "ScriptMgr.h"
 
-class ToSAIMeleeNecrotic : public CreatureScript
+class ToSAIMeleeTrapper : public CreatureScript
 {
 public:
-    ToSAIMeleeNecrotic() : CreatureScript("ToSAIMeleeNecrotic") { }
+    ToSAIMeleeTrapper() : CreatureScript("ToSAIMeleeTrapper") { }
 
     CreatureAI* GetAI(Creature* creature) const override
     {
-        return new ToSAIMeleeNecroticAI(creature);
+        return new ToSAIMeleeTrapperAI(creature);
     }
 
-    struct ToSAIMeleeNecroticAI : public CombatAI
+    struct ToSAIMeleeTrapperAI : public CombatAI
     {
         enum CombatantEvents
         {
-            TOS_EVENT_COMBATANT_SPELL_ID_STRIKE = 69933, // Baleful Strike
-            TOS_EVENT_COMBATANT_SPELL_ID_STRIKE_2 = 71924, // Plague Strike
+            TOS_EVENT_COMBATANT_SPELL_ID_NET = 50762, // Net
 
             TOS_EVENT_COMBATANT_SPELL_RANDOM = 1,
         };
 
         EventMap events;
 
-        ToSAIMeleeNecroticAI(Creature* creature) : CombatAI(creature)
+        ToSAIMeleeTrapperAI(Creature* creature) : CombatAI(creature)
         {
             Reset();
         }
@@ -62,19 +61,11 @@ public:
                 return;
             }
 
-            switch (urand(0, 1))
-            {
-            case 0:
-                me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_ID_STRIKE);
-                break;
+            me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_ID_NET);
 
-            case 1:
-                me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_ID_STRIKE_2);
-                break;
-            }
-            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 3s);
+            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 15s);
         }
     };
 };
 
-#endif // MODULE_TRIAL_OF_STRENGTH_AI_MELEE_NECROTIC_H
+#endif // MODULE_TRIAL_OF_STRENGTH_AI_MELEE_TRAPPER_H

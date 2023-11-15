@@ -5,6 +5,7 @@
 #include "scripts/AI/ToSAIMeleeAngry.h"
 #include "scripts/AI/ToSAISpellElemental.h"
 #include "scripts/AI/ToSAIMeleeNecrotic.h"
+#include "scripts/AI/ToSAIMeleeTrapper.h"
 
 #include "scripts/ToSArenaMasterScript.h"
 
@@ -185,6 +186,7 @@ void SC_AddTrialOfStrengthScripts()
         new ToSAIMeleeAngry();
         new ToSAISpellElemental();
         new ToSAIMeleeNecrotic();
+        new ToSAIMeleeTrapper();
     }
 
     new ToSInstanceMapScript();
