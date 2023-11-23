@@ -19,7 +19,7 @@ public:
         {
             TOS_EVENT_COMBATANT_SPELL_ID_NET = 50762, // Net
 
-            TOS_EVENT_COMBATANT_SPELL_RANDOM = 1,
+            TOS_EVENT_COMBATANT_SPELL_NET = 1,
         };
 
         EventMap events;
@@ -33,7 +33,7 @@ public:
         {
             events.Reset();
 
-            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 3s);
+            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_NET, 3s);
         }
 
         void UpdateAI(uint32 diff) override
@@ -45,15 +45,15 @@ public:
 
             switch (events.ExecuteEvent())
             {
-            case TOS_EVENT_COMBATANT_SPELL_RANDOM:
-                RandomAttack();
+            case TOS_EVENT_COMBATANT_SPELL_NET:
+                TrapTarget();
                 break;
             }
 
             DoMeleeAttackIfReady();
         }
 
-        void RandomAttack()
+        void TrapTarget()
         {
             auto creature = me->GetVictim();
             if (!creature)
@@ -63,7 +63,7 @@ public:
 
             me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_ID_NET);
 
-            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 15s);
+            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_NET, 15s);
         }
     };
 };

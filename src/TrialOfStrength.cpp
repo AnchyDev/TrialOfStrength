@@ -168,6 +168,11 @@ void ToSWorldScript::OnAfterConfigLoad(bool reload)
         sToSMapMgr->CurseTemplates.clear();
     }
 
+    if (!sConfigMgr->GetOption<bool>("TrialOfStrength.Enable", false))
+    {
+        return;
+    }
+
     LoadWaveTemplates();
     LoadEnemyGroups();
     LoadRewardTemplates();
