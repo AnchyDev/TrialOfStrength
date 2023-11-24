@@ -20,6 +20,7 @@ public:
             TOS_EVENT_COMBATANT_ATTACK = 1,
             TOS_EVENT_COMBATANT_SPELL_ID_RIP = 40199, // damage over time
             TOS_EVENT_COMBATANT_SPELL_ID_TENDON_RIP = 44622, // 75% movespeed reduction
+            TOS_EVENT_COMBATANT_SPELL_ID_GRIEVOUS_BITE = 48920 // damage over time until healed
         };
 
         EventMap events;
@@ -62,7 +63,7 @@ public:
             }
 
             uint32 spell = 0;
-            switch (urand(0, 2))
+            switch (urand(0, 3))
             {
             case 0:
                 // Do nothing
@@ -73,6 +74,10 @@ public:
 
             case 2:
                 spell = TOS_EVENT_COMBATANT_SPELL_ID_TENDON_RIP;
+                break;
+
+            case 3:
+                spell = TOS_EVENT_COMBATANT_SPELL_ID_GRIEVOUS_BITE;
                 break;
             }
 
