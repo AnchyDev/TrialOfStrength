@@ -89,6 +89,9 @@ INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES 
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441509, 'Wave 3/2 - Ravaged Corpse');
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 2, 441507, 'Wave 3/2 - Rotting Dead');
 INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (3, 3, 441510, 'Wave 3/3 - Leprithus');
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (4, 1, 441511, 'Wave 4/1 - Radioactive Bot');
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (4, 1, 441511, 'Wave 4/1 - Radioactive Bot');
+INSERT INTO `tos_wave_groups` (`group`, `sub_group`, `creature`, `note`) VALUES (4, 1, 441511, 'Wave 4/1 - Radioactive Bot');
 
 
 
@@ -104,6 +107,7 @@ DELETE FROM `tos_wave_template`;
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (1, 1, 1, 1);
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (2, 2, 1, 1);
 INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (3, 3, 1, 1);
+INSERT INTO `tos_wave_template` (`wave`, `enemy_group`, `has_reward`, `reward_template`) VALUES (4, 4, 1, 1);
 
 
 CREATE TABLE IF NOT EXISTS `tos_curse_template` (
@@ -214,6 +218,11 @@ INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMa
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (441253, 0, 0, 44, 0, 0, 1, 1, 0, 240.308, -92.1951, 23.7742, 5.77433, 300, 0, 0, 5342, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (441250, 0, 0, 44, 0, 0, 1, 1, 0, 249.918, -100.064, 18.6794, 0.0307553, 300, 0, 0, 5342, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
 INSERT INTO `creature` (`id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES (24780, 0, 0, 44, 0, 0, 1, 1, 0, 185.805, -131.234, 18.043, 3.68755, 300, 0, 0, 12150, 0, 0, 0, 0, 0, '', NULL, 0, NULL);
+
+
+-- Wave 4
+DELETE FROM `creature_template` WHERE `entry`=441511;
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `speed_swim`, `speed_flight`, `detection_range`, `scale`, `rank`, `dmgschool`, `DamageModifier`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `PetSpellDataId`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES (441511, 0, 0, 0, 0, 0, 6977, 0, 0, 0, 'Radioactive Bot', '', '', 0, 80, 80, 0, 14, 0, 1, 0.35, 1, 1, 20, 1, 1, 0, 1, 2000, 2000, 1, 1, 1, 0, 2048, 0, 0, 0, 0, 0, 0, 9, 8, 0, 0, 0, 0, 0, 0, 0, 'SmartAI', 0, 1, 2.5, 1, 1, 1, 0, 144, 1, 617284383, 0, 0, 'ToSAISpellRadioactive', -1);
 
 
 -- Wave 3
