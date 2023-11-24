@@ -34,7 +34,7 @@ public:
         {
             events.Reset();
 
-            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 3s);
+            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 5s);
         }
 
         void UpdateAI(uint32 diff) override
@@ -72,7 +72,7 @@ public:
                 me->CastSpell(creature, TOS_EVENT_COMBATANT_SPELL_ID_STRIKE_2);
                 break;
             }
-            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 3s);
+            events.ScheduleEvent(TOS_EVENT_COMBATANT_SPELL_RANDOM, 5s);
         }
     };
 };
