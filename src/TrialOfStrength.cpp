@@ -7,6 +7,7 @@
 #include "scripts/AI/ToSAIMeleeNecrotic.h"
 #include "scripts/AI/ToSAIMeleeTrapper.h"
 #include "scripts/AI/ToSAISpellRadioactive.h"
+#include "scripts/AI/ToSAIMeleeCritter.h"
 
 #include "scripts/ToSArenaMasterScript.h"
 
@@ -194,6 +195,7 @@ void SC_AddTrialOfStrengthScripts()
         new ToSAIMeleeNecrotic();
         new ToSAIMeleeTrapper();
         new ToSAISpellRadioactive();
+        new ToSAIMeleeCritter();
     }
 
     new ToSInstanceMapScript();
