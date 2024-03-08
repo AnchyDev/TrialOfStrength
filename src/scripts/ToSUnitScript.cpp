@@ -19,6 +19,14 @@ void ToSUnitScript::OnUnitDeath(Unit* unit, Unit* /*killer*/)
     }
 
     unit->RemoveDynamicFlag(UNIT_DYNFLAG_LOOTABLE);
+
+    auto iScript = unit->GetInstanceScript();
+    if (!iScript)
+    {
+        return;
+    }
+
+    iScript->SetData(TOS_DATA_ENCOUNTER_UPDATE_INVADERS, 1);
 }
 
 void ToSUnitScript::ModifyMeleeDamage(Unit* /*target*/, Unit* attacker, uint32& damage)

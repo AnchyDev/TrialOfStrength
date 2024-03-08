@@ -28,6 +28,7 @@ public:
     ToSWaveTemplate* GetWaveTemplateForWave(uint32 wave);
     uint32 GetTotalWaves();
     std::vector<ToSEnemyGroup*> GetEnemiesFromGroup(uint32 groupId, uint32 subGroup);
+    uint32 GetEnemyCountForGroup(uint32 groupId);
     std::vector<ToSRewardTemplate>* GetRewardTemplates(uint32 rewardId);
     std::vector<uint32> GetSubGroups(uint32 groupId);
     Creature* SpawnNPC(uint32 entry, Map* map, Position* position);

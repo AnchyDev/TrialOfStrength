@@ -86,6 +86,9 @@ public:
     void PopulateRewardChest();
     bool IsRewardChestEmpty();
     void AnnounceCompletion();
+    void SendInvadersWorldState(bool state, uint32 invaders = 0);
+    void UpdateInvadersWorldState(uint32 invaders);
+    uint32 GetCurrentWaveTotal();
 
     void PlayCrowd();
 
@@ -108,6 +111,7 @@ private:
     uint32 totalWaves;
     uint32 currentSubGroup;
     uint32 totalSubGroups;
+    uint32 totalInvaders;
 
     bool waveCleared;
     bool trialCompleted;

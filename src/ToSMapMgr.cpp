@@ -113,6 +113,21 @@ std::vector<ToSEnemyGroup*> ToSMapManager::GetEnemiesFromGroup(uint32 groupId, u
     return groups;
 }
 
+uint32 ToSMapManager::GetEnemyCountForGroup(uint32 groupId)
+{
+    uint32 count = 0;
+
+    for (auto it = EnemyGroups.begin(); it != EnemyGroups.end(); ++it)
+    {
+        if (it->second.group == groupId)
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
+
 std::vector<uint32> ToSMapManager::GetSubGroups(uint32 groupId)
 {
     std::vector<uint32> subgroups;

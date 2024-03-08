@@ -609,6 +609,9 @@ void ToSInstanceScript::SetupEncounter()
     CleanupGameObjects();
     DespawnCurseCrystals();
 
+    totalInvaders = GetCurrentWaveTotal();
+    SendInvadersWorldState(true, totalInvaders);
+
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_START_NEXT_WAVE, 3s);
     events.ScheduleEvent(TOS_DATA_ENCOUNTER_CROWD, 1s);
 }
@@ -633,6 +636,7 @@ void ToSInstanceScript::CheckWaveCompletion()
         NotifyPlayers();
         PopulateRewardChest();
         CleanupCreatures();
+        SendInvadersWorldState(false);
 
         if (sConfigMgr->GetOption<bool>("TrialOfStrength.ResetCooldowns", true))
         {
@@ -815,6 +819,11 @@ void ToSInstanceScript::SetData(uint32 dataId, uint32 value)
 
     case TOS_DATA_ENCOUNTER_RESET:
         ResetEncounter();
+        break;
+
+    case TOS_DATA_ENCOUNTER_UPDATE_INVADERS:
+        totalInvaders -= 1;
+        UpdateInvadersWorldState(totalInvaders);
         break;
     }
 }
@@ -1004,4 +1013,69 @@ void ToSInstanceScript::AnnounceCompletion()
     }
 
     sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str());
+}
+
+void ToSInstanceScript::SendInvadersWorldState(bool state, uint32 invaders)
+{
+    Map::PlayerList const& players = instance->GetPlayers();
+
+    if (players.IsEmpty())
+    {
+        return;
+    }
+
+    for (const auto& it : players)
+    {
+        Player* player = it.GetSource();
+
+        if (!player)
+        {
+            continue;
+        }
+
+        WorldPacket packet(SMSG_INIT_WORLD_STATES);
+
+        packet << uint32(534); // map
+        packet << uint32(3606); // zone
+        packet << uint32(0); // ukn1
+        packet << uint16(1); // ukn2
+        packet << uint32(2453); // stateId
+        packet << uint32(state ? 1 : 0); // stateValue
+
+        player->SendDirectMessage(&packet);
+        player->SendUpdateWorldState(2454, invaders);
+    }
+}
+
+void ToSInstanceScript::UpdateInvadersWorldState(uint32 invaders)
+{
+    Map::PlayerList const& players = instance->GetPlayers();
+
+    if (players.IsEmpty())
+    {
+        return;
+    }
+
+    for (const auto& it : players)
+    {
+        Player* player = it.GetSource();
+
+        if (!player)
+        {
+            continue;
+        }
+
+        player->SendUpdateWorldState(2454, invaders);
+    }
+}
+
+uint32 ToSInstanceScript::GetCurrentWaveTotal()
+{
+    auto waveTemplate = sToSMapMgr->GetWaveTemplateForWave(currentWave);
+    if (!waveTemplate)
+    {
+        return 0;
+    }
+
+    return sToSMapMgr->GetEnemyCountForGroup(waveTemplate->enemyGroup);
 }
