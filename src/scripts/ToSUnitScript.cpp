@@ -66,8 +66,8 @@ void ToSUnitScript::ModifyMeleeDamage(Unit* /*target*/, Unit* attacker, uint32& 
 
     uint32 currentWave = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE);
 
-    uint32 baseDamage = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.Physical", 500);
-    uint32 damageDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.PhysicalDivider", 15);;
+    uint32 baseDamage = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseDamage.Physical", 500);
+    uint32 damageDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseDamage.PhysicalDivider", 15);;
 
     uint32 newDamage = baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
 
@@ -111,8 +111,8 @@ void ToSUnitScript::ModifySpellDamageTaken(Unit* /*target*/, Unit* attacker, int
 
     uint32 currentWave = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE);
 
-    uint32 baseDamage = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.Spell", 2000);
-    uint32 damageDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.SpellDivider", 15);;
+    uint32 baseDamage = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseDamage.Spell", 2000);
+    uint32 damageDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseDamage.SpellDivider", 15);;
 
     uint32 newDamage = baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
 
