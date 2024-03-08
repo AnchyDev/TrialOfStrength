@@ -13,12 +13,13 @@ public:
         TOS_ARENA_MASTER_TEXT_WAVE_NEXT = 441253,
         TOS_ARENA_MASTER_TEXT_CONGRATULATE = 441254,
         TOS_ARENA_MASTER_TEXT_DENY_ENTRY = 441255,
+        TOS_ARENA_MASTER_TEXT_DENY_ENTRY_NO_TICKET = 441256,
 
         TOS_GOSSIP_TELEPORT_TO = 1,
         TOS_GOSSIP_TELEPORT_FROM = 2,
         TOS_GOSSIP_ENCOUNTER_START = 3,
         TOS_GOSSIP_ENCOUNTER_NEXT_WAVE = 4,
-        TOS_GOSSIP_ENCOUNTER_RESET = 5,
+        TOS_GOSSIP_ENCOUNTER_RESET = 5
     };
 
     virtual bool OnGossipHello(Player* player, Creature* creature) override
@@ -140,6 +141,18 @@ public:
 
         if (action == TOS_GOSSIP_ENCOUNTER_START)
         {
+            ClearGossipMenuFor(player);
+
+            auto ticketCount = player->GetItemCount(TOS_ENTRY_TICKET_ID);
+
+            if (!ticketCount)
+            {
+                SendGossipMenuFor(player, TOS_ARENA_MASTER_TEXT_DENY_ENTRY_NO_TICKET, creature);
+                return true;
+            }
+
+            player->DestroyItemCount(TOS_ENTRY_TICKET_ID, 1, true);
+
             CloseGossipMenuFor(player);
 
             if (InstanceScript* pInstance = creature->GetInstanceScript())
