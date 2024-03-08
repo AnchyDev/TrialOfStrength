@@ -85,6 +85,16 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
 
         auto summon = sToSMapMgr->SpawnNPC(enemy->creatureEntry, instance, &tempPos);
 
+        // Scale the mobs to 80
+        summon->SetLevel(80, true);
+
+        uint32 baseHP = 8000;
+        uint32 hpDivider = 15;
+        float hpMultiplier = (1.0f + (float(currentWave) / float(hpDivider)));
+        uint32 health = baseHP * hpMultiplier;
+        summon->SetMaxHealth(health);
+        summon->SetHealth(health);
+
         ApplyCurses(summon);
 
         waveCreatures.push_back(summon);

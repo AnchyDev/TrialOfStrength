@@ -2,12 +2,6 @@
 #include "ToSMapMgr.h"
 
 #include "scripts/AI/ToSAIArenaSpectator.h"
-#include "scripts/AI/ToSAIMeleeAngry.h"
-#include "scripts/AI/ToSAISpellElemental.h"
-#include "scripts/AI/ToSAIMeleeNecrotic.h"
-#include "scripts/AI/ToSAIMeleeTrapper.h"
-#include "scripts/AI/ToSAISpellRadioactive.h"
-#include "scripts/AI/ToSAIMeleeCritter.h"
 
 #include "scripts/ToSArenaMasterScript.h"
 
@@ -16,6 +10,8 @@
 
 #include "scripts/ToSPlayerScript.h"
 #include "scripts/ToSCurseCrystalScript.h"
+
+#include "scripts/ToSUnitScript.h"
 
 void LoadWaveTemplates()
 {
@@ -186,20 +182,12 @@ void SC_AddTrialOfStrengthScripts()
     new ToSWorldScript();
 
     new ToSArenaMasterScript();
-
-    // AI Scripts
-    {
-        new ToSAIArenaSpectator();
-        new ToSAIMeleeAngry();
-        new ToSAISpellElemental();
-        new ToSAIMeleeNecrotic();
-        new ToSAIMeleeTrapper();
-        new ToSAISpellRadioactive();
-        new ToSAIMeleeCritter();
-    }
+    new ToSAIArenaSpectator();
 
     new ToSInstanceMapScript();
 
     new ToSPlayerScript();
     new ToSCurseCrystalScript();
+
+    new ToSUnitScript();
 }
