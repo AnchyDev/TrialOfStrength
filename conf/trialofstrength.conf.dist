@@ -69,3 +69,43 @@ TrialOfStrength.Scaling.RewardMoneyScalar = 50
 #
 
 TrialOfStrength.Scaling.RewardMoney = 1
+
+#
+#    TrialOfStrength.Scaling.BaseDamage.Physical
+#        Description: Controls the base damage of creatures physical damage in the Trial of Strength waves.
+#        Note: The formula for the damage is: baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
+#			   The damage range is calculated as: damage = urand(newDamage / 2, newDamage);
+#        Default:     500
+#
+
+TrialOfStrength.Scaling.BaseDamage.Physical = 500
+
+#
+#    TrialOfStrength.Scaling.BaseDamage.PhysicalDivider
+#        Description: Controls the base damage divider of creatures physical damage in the Trial of Strength waves.
+#        Note: The formula for the damage is: baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
+#			   Increasing/decreasing the value of this setting will change the difficulty between waves.
+#        Default:     15
+#
+
+TrialOfStrength.Scaling.BaseDamage.PhysicalDivider = 15
+
+#
+#    TrialOfStrength.Scaling.BaseDamage.Spell
+#        Description: Controls the base damage of creatures spell damage in the Trial of Strength waves.
+#        Note: The formula for the damage is: baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
+#			   The damage range is calculated as: damage = urand(newDamage / 2, newDamage);
+#        Default:     1000
+#
+
+TrialOfStrength.Scaling.BaseDamage.Spell = 1000
+
+#
+#    TrialOfStrength.Scaling.BaseDamage.SpellDivider
+#        Description: Controls the base damage divider of creatures spell damage in the Trial of Strength waves.
+#        Note: The formula for the damage is: baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
+#			   Increasing/decreasing the value of this setting will change the difficulty between waves.
+#        Default:     15
+#
+
+TrialOfStrength.Scaling.BaseDamage.SpellDivider = 15
