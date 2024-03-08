@@ -103,7 +103,7 @@ void ToSUnitScript::ModifySpellDamageTaken(Unit* /*target*/, Unit* attacker, int
 
     uint32 currentWave = iScript->GetData(TOS_DATA_ENCOUNTER_CURRENT_WAVE);
 
-    uint32 baseDamage = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.Spell", 1000);
+    uint32 baseDamage = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.Spell", 2000);
     uint32 damageDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.Scaling.BaseDamage.SpellDivider", 15);;
 
     uint32 newDamage = baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));

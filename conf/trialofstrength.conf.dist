@@ -95,10 +95,10 @@ TrialOfStrength.Scaling.BaseDamage.PhysicalDivider = 15
 #        Description: Controls the base damage of creatures spell damage in the Trial of Strength waves.
 #        Note: The formula for the damage is: baseDamage * (1.0f + (float(currentWave) / float(damageDivider)));
 #			   The damage range is calculated as: damage = urand(newDamage / 2, newDamage);
-#        Default:     1000
+#        Default:     2000
 #
 
-TrialOfStrength.Scaling.BaseDamage.Spell = 1000
+TrialOfStrength.Scaling.BaseDamage.Spell = 2000
 
 #
 #    TrialOfStrength.Scaling.BaseDamage.SpellDivider
