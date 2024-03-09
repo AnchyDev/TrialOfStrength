@@ -55,6 +55,7 @@ public:
     void AddCurse(uint32 curseId);
     void ApplyCurses(Unit* unit);
     void ApplyCursesToPlayers();
+    void ApplyAutoScaling(Creature* creature);
     void ClearCursesFromPlayers();
     void SpawnCurseCrystals();
     void DespawnCurseCrystals();

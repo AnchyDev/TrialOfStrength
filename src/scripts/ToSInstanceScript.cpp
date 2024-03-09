@@ -87,14 +87,7 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
 
         if(sConfigMgr->GetOption<bool>("TrialOfStrength.AutoScaling", true))
         {
-            summon->SetLevel(80, true);
-
-            uint32 baseHP = 8000;
-            uint32 hpDivider = 15;
-            float hpMultiplier = (1.0f + (float(currentWave) / float(hpDivider)));
-            uint32 health = baseHP * hpMultiplier;
-            summon->SetMaxHealth(health);
-            summon->SetHealth(health);
+            ApplyAutoScaling(summon);
         }
 
         ApplyCurses(summon);
@@ -102,7 +95,9 @@ void ToSInstanceScript::SpawnNextWave(ToSWaveTemplate* waveTemplate = nullptr)
         waveCreatures.push_back(summon);
 
         if (currentSubGroup == 1)
+        {
             summon->SetFaction(FACTION_FRIENDLY);
+        }
 
         summon->CastSpell(summon, TOS_SPELL_TELEPORT_VISUAL);
         MakeEntrance(summon, diff);
@@ -163,6 +158,52 @@ void ToSInstanceScript::ApplyCursesToPlayers()
 
         ApplyCurses(player);
     }
+}
+
+void ToSInstanceScript::ApplyAutoScaling(Creature* creature)
+{
+    if (!creature)
+    {
+        return;
+    }
+
+    creature->SetLevel(80, true);
+
+    uint32 baseHP = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseHealth", 8000);
+    uint32 hpDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.HealthDivider", 15);
+
+    float hpMultiplier = (1.0f + (float(currentWave) / float(hpDivider)));
+    uint32 health = (baseHP * hpMultiplier) *
+                    frand(1.01, 1.02); // Add a tiny bit of variation to the health
+
+    creature->SetModifierValue(UNIT_MOD_HEALTH, BASE_VALUE, health);
+    creature->UpdateMaxHealth();
+    creature->SetHealth(creature->GetMaxHealth());
+
+    uint32 basePhys = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseDamage.Physical", 500);
+
+    // Reduce physical damage for mages.
+    if (creature->getClass() == CLASS_MAGE)
+    {
+        basePhys = basePhys / 5;
+    }
+
+    uint32 physDivider = sConfigMgr->GetOption<uint32>("TrialOfStrength.AutoScaling.BaseDamage.PhysicalDivider", 15);
+
+    uint32 newPhysDmg = basePhys * (1.0f + (float(currentWave) / float(physDivider)));
+
+    LOG_INFO("module", "Base mainhand: {}, Pct mainhand: {}, AttackPower: {}", creature->GetModifierValue(UNIT_MOD_DAMAGE_MAINHAND, BASE_VALUE), creature->GetModifierValue(UNIT_MOD_DAMAGE_MAINHAND, TOTAL_PCT), creature->GetModifierValue(UNIT_MOD_ATTACK_POWER, BASE_VALUE));
+
+    // Remove all attack power
+    creature->HandleStatModifier(UNIT_MOD_ATTACK_POWER, BASE_VALUE, creature->GetModifierValue(UNIT_MOD_ATTACK_POWER, BASE_VALUE), false);
+
+    creature->HandleStatModifier(UNIT_MOD_DAMAGE_MAINHAND, BASE_VALUE, creature->GetModifierValue(UNIT_MOD_DAMAGE_MAINHAND, BASE_VALUE), false);
+    creature->HandleStatModifier(UNIT_MOD_DAMAGE_MAINHAND, BASE_VALUE, newPhysDmg, true);
+
+    creature->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, BASE_VALUE, creature->GetModifierValue(UNIT_MOD_DAMAGE_OFFHAND, BASE_VALUE), false);
+    creature->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, BASE_VALUE, newPhysDmg, true);
+
+    LOG_INFO("module", "Base mainhand: {}, Pct mainhand: {}, AttackPower: {}", creature->GetModifierValue(UNIT_MOD_DAMAGE_MAINHAND, BASE_VALUE), creature->GetModifierValue(UNIT_MOD_DAMAGE_MAINHAND, TOTAL_PCT), creature->GetModifierValue(UNIT_MOD_ATTACK_POWER, BASE_VALUE));
 }
 
 void ToSInstanceScript::ClearCursesFromPlayers()
@@ -351,10 +392,18 @@ void ToSInstanceScript::SetCombatantsHostile()
         creature->SetFaction(FACTION_MONSTER);
         creature->SetInCombatWithZone();
 
+        if (auto minion = creature->GetFirstMinion())
+        {
+            minion->SetFaction(FACTION_MONSTER);
+            creature->SetInCombatWithZone();
+        }
+
         if (auto player = creature->SelectNearestPlayer(100.0f))
         {
             if (creature->Attack(player, true))
+            {
                 creature->GetMotionMaster()->MoveChase(player);
+            }
         }
     }
 }
