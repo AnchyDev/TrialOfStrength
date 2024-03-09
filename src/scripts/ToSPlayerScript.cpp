@@ -58,6 +58,20 @@ bool ToSPlayerScript::OnBeforeTeleport(Player* player, uint32 mapId, float /*x*/
 
     sToSMapMgr->ClearCurses(player);
 
+    // Disable the invaders worldstate.
+    {
+        WorldPacket packet(SMSG_INIT_WORLD_STATES);
+
+        packet << uint32(534); // map
+        packet << uint32(3606); // zone
+        packet << uint32(0); // ukn1
+        packet << uint16(1); // ukn2
+        packet << uint32(2453); // stateId
+        packet << uint32(0); // stateValue
+
+        player->SendDirectMessage(&packet);
+    }
+
     return true;
 }
 
