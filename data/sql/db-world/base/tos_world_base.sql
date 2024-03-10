@@ -65,13 +65,13 @@ INSERT INTO `tos_reward_template` (`id`, `item_entry`, `count_min`, `count_max`,
 
 
 CREATE TABLE IF NOT EXISTS `tos_wave_groups` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `group` int DEFAULT NULL,
   `sub_group` int DEFAULT NULL,
   `creature` int DEFAULT NULL,
   `note` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `tos_wave_template` (
